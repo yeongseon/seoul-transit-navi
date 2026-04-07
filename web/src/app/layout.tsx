@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ソウル交通ナビ",
   description: "地下鉄もバスも、日本語でわかりやすく。",
+  openGraph: {
+    title: "ソウル交通ナビ",
+    description: "日本語で探せるソウルの地下鉄ナビゲーション",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
