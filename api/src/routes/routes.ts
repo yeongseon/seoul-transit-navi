@@ -1,9 +1,11 @@
 import type { Context } from "hono";
 import { Hono } from "hono";
 
+import { LINES } from "../../../shared/constants/index";
 import type { RouteResult } from "../../../shared/types/index";
 import type { Bindings } from "../index";
 import { ODsayApiError } from "../lib/odsay";
+import { generateRouteExplanation } from "../lib/route-explainer";
 import { ODsayRouteProvider } from "../lib/route-provider";
 
 type SearchBody = {
@@ -114,14 +116,17 @@ routes.post("/api/routes/search", async (c) => {
   try {
     const provider = new ODsayRouteProvider(c.env.ODSAY_API_KEY);
     const routeResults = await provider.search(fromStation, toStation);
+    const lineMap = new Map(Object.entries(LINES));
     const data = await Promise.all(
       routeResults.map(async (route) => {
+        const explanations = generateRouteExplanation(route.steps, lineMap);
         const routeId = createRouteId(route, fromStationId, toStationId);
         const sharedRoute: RouteResult = {
           ...route,
           id: routeId,
           startRef: { type: "station", id: fromStationId },
           destinationRef: { type: "station", id: toStationId },
+          summaryJa: explanations.length > 0 ? explanations.join(" → ") : route.summaryJa,
         };
 
         await c.env.STATION_CACHE.put(`route:${routeId}`, JSON.stringify(sharedRoute), {

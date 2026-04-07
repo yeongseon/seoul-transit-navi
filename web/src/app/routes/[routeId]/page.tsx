@@ -97,6 +97,12 @@ export default function RouteDetailPage({
     );
   }
 
+  const transfers = route.steps.filter((s) => s.mode === "transfer");
+  const lastStep = route.steps[route.steps.length - 1];
+  const exitSteps = route.steps.filter(
+    (s) => s.mode === "walk" && s.instructionJa.includes("出口")
+  );
+
   return (
     <main className="pb-safe min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
       <div className="mx-auto flex max-w-2xl flex-col gap-8">
@@ -178,6 +184,64 @@ export default function RouteDetailPage({
                 isLast={index === route.steps.length - 1}
               />
             ))}
+          </div>
+        </section>
+
+        {transfers.length > 0 && (
+          <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+            <h2 className="mb-6 text-xl font-bold tracking-tight text-slate-900">
+              🔄 乗換案内
+            </h2>
+            <div className="flex flex-col gap-4">
+              {transfers.map((transfer) => (
+                <div key={`transfer-${transfer.order}`} className="rounded-2xl bg-slate-50 p-4 ring-1 ring-inset ring-slate-200">
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-slate-900">{transfer.lineNameJa}に乗換</span>
+                    {transfer.durationMin && (
+                      <span className="text-sm text-slate-500">徒歩約{transfer.durationMin}分</span>
+                    )}
+                  </div>
+                  {transfer.notesJa.length > 0 && (
+                    <div className="mt-2 space-y-1">
+                      {transfer.notesJa.map((note, ni) => (
+                        <p key={`tn-${transfer.order}-${ni}`} className="text-sm text-amber-700">⚠️ {note}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+          <h2 className="mb-6 text-xl font-bold tracking-tight text-slate-900">
+            🚪 出口案内
+          </h2>
+          <div className="flex flex-col gap-3">
+            {exitSteps.length > 0 ? (
+              exitSteps.map((step) => (
+                <div key={`exit-${step.order}`} className="rounded-2xl bg-emerald-50 p-4 ring-1 ring-inset ring-emerald-200">
+                  <p className="font-bold text-emerald-900">{step.instructionJa}</p>
+                  {step.durationMin && (
+                    <p className="mt-1 text-sm text-emerald-700">徒歩約{step.durationMin}分</p>
+                  )}
+                  {step.notesJa.length > 0 && (
+                    <div className="mt-2 space-y-1">
+                      {step.notesJa.map((note, i) => (
+                        <p key={`en-${step.order}-${i}`} className="text-sm text-slate-600">💡 {note}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="rounded-2xl bg-emerald-50 p-4 ring-1 ring-inset ring-emerald-200">
+                <p className="font-bold text-emerald-900">
+                  {lastStep?.instructionJa ?? "到着駅で下車してください"}
+                </p>
+              </div>
+            )}
           </div>
         </section>
       </div>

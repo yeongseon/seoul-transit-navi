@@ -24,11 +24,18 @@ const POPULAR_PLACES = [
   { id: "station_seoul-station", label: "ソウル駅" },
 ];
 
+const AIRPORT_SHORTCUTS = [
+  { id: "station_seoul-station", label: "仁川空港→ソウル駅", airport: "ICN" },
+  { id: "station_hongik-univ", label: "仁川空港→弘大入口", airport: "ICN" },
+  { id: "station_gangnam", label: "金浦空港→江南", airport: "GMP" },
+];
+
 export default function Home() {
   const router = useRouter();
   const [from, setFrom] = useState<Location | null>(null);
   const [to, setTo] = useState<Location | null>(null);
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
+  const [locationLoading, setLocationLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -58,6 +65,19 @@ export default function Home() {
     setTo(from);
   };
 
+  const handleCurrentLocation = () => {
+    if (!navigator.geolocation) return;
+    setLocationLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setFrom({ id: `coord_${pos.coords.latitude}_${pos.coords.longitude}`, name: "現在地" });
+        setLocationLoading(false);
+      },
+      () => setLocationLoading(false),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!from || !to) return;
@@ -72,6 +92,20 @@ export default function Home() {
       saveRecentSearch(from, destination);
       router.push(`/routes?from=${from.id}&to=${placeId}&fromName=${encodeURIComponent(from.name)}&toName=${encodeURIComponent(placeName)}`);
     }
+  };
+
+  const handleAirportClick = (placeId: string, label: string, airportCode: string) => {
+    const fromName = airportCode === "ICN" ? "仁川空港" : "金浦空港";
+    const fromId = airportCode === "ICN" ? "station_incheon-int-l-airport-t1" : "station_gimpo-int-l-airport";
+    const destName = label.split("→")[1] || label;
+    
+    const origin = { id: fromId, name: fromName };
+    const destination = { id: placeId, name: destName };
+    
+    setFrom(origin);
+    setTo(destination);
+    saveRecentSearch(origin, destination);
+    router.push(`/routes?from=${origin.id}&to=${destination.id}&fromName=${encodeURIComponent(origin.name)}&toName=${encodeURIComponent(destination.name)}`);
   };
 
   const handleRecentClick = (search: RecentSearch) => {
@@ -109,6 +143,18 @@ export default function Home() {
                 value={from}
                 onChange={setFrom}
               />
+              <button
+                type="button"
+                onClick={handleCurrentLocation}
+                disabled={locationLoading}
+                className="mt-1 flex w-fit items-center gap-1.5 text-xs font-medium text-sky-600 transition hover:text-sky-700 disabled:text-slate-400"
+              >
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                {locationLoading ? "取得中..." : "現在地を使用"}
+              </button>
             </div>
 
             <div className="relative flex items-center justify-center my-1">
@@ -165,6 +211,23 @@ export default function Home() {
                 className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
               >
                 {place.label}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-sm font-bold text-slate-700">空港アクセス</h2>
+          <div className="flex flex-wrap gap-2">
+            {AIRPORT_SHORTCUTS.map((shortcut) => (
+              <button
+                key={`${shortcut.airport}-${shortcut.id}`}
+                type="button"
+                onClick={() => handleAirportClick(shortcut.id, shortcut.label, shortcut.airport)}
+                className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
+              >
+                <span>✈️</span>
+                {shortcut.label}
               </button>
             ))}
           </div>
