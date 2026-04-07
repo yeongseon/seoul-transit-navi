@@ -25,9 +25,9 @@ const POPULAR_PLACES = [
 ];
 
 const AIRPORT_SHORTCUTS = [
-  { id: "station_seoul-station", label: "仁川空港→ソウル駅", airport: "ICN" },
-  { id: "station_hongik-univ", label: "仁川空港→弘大入口", airport: "ICN" },
-  { id: "station_gangnam", label: "金浦空港→江南", airport: "GMP" },
+  { destinationId: "station_seoul-station", label: "仁川空港→ソウル駅", airportName: "仁川空港", airportLat: 37.4602, airportLng: 126.4407 },
+  { destinationId: "station_hongik-univ", label: "仁川空港→弘大入口", airportName: "仁川空港", airportLat: 37.4602, airportLng: 126.4407 },
+  { destinationId: "station_gangnam", label: "金浦空港→江南", airportName: "金浦空港", airportLat: 37.5585, airportLng: 126.7945 },
 ];
 
 export default function Home() {
@@ -94,14 +94,11 @@ export default function Home() {
     }
   };
 
-  const handleAirportClick = (placeId: string, label: string, airportCode: string) => {
-    const fromName = airportCode === "ICN" ? "仁川空港" : "金浦空港";
-    const fromId = airportCode === "ICN" ? "station_incheon-int-l-airport-t1" : "station_gimpo-int-l-airport";
-    const destName = label.split("→")[1] || label;
-    
-    const origin = { id: fromId, name: fromName };
-    const destination = { id: placeId, name: destName };
-    
+  const handleAirportClick = (shortcut: typeof AIRPORT_SHORTCUTS[number]) => {
+    const origin = { id: `coord_${shortcut.airportLat}_${shortcut.airportLng}`, name: shortcut.airportName };
+    const destName = shortcut.label.split("→")[1] || shortcut.label;
+    const destination = { id: shortcut.destinationId, name: destName };
+
     setFrom(origin);
     setTo(destination);
     saveRecentSearch(origin, destination);
@@ -221,9 +218,9 @@ export default function Home() {
           <div className="flex flex-wrap gap-2">
             {AIRPORT_SHORTCUTS.map((shortcut) => (
               <button
-                key={`${shortcut.airport}-${shortcut.id}`}
+                key={`${shortcut.airportName}-${shortcut.destinationId}`}
                 type="button"
-                onClick={() => handleAirportClick(shortcut.id, shortcut.label, shortcut.airport)}
+                onClick={() => handleAirportClick(shortcut)}
                 className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
               >
                 <span>✈️</span>

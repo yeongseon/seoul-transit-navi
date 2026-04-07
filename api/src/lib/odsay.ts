@@ -171,7 +171,50 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
   const steps = subPaths
     .map((subPath, stepIndex) => createRouteStep(subPath, stepIndex + 1))
     .filter((step): step is RouteStep => step !== null);
-  const subwaySteps = steps.filter((step) => step.mode === "subway");
+  const stepsWithTransfers: RouteStep[] = [];
+  let orderCounter = 1;
+
+  for (let i = 0; i < steps.length; i++) {
+    const step = steps[i];
+    const prevStep = stepsWithTransfers[stepsWithTransfers.length - 1];
+
+    if (
+      step.mode === "subway" &&
+      prevStep?.mode === "subway" &&
+      step.lineId !== prevStep.lineId
+    ) {
+      stepsWithTransfers.push({
+        order: orderCounter++,
+        mode: "transfer",
+        instructionJa: `${step.lineNameJa ?? "次の路線"}に乗り換え`,
+        lineId: step.lineId,
+        lineNameJa: step.lineNameJa,
+        lineColor: step.lineColor,
+        durationMin: 3,
+        notesJa: [],
+      });
+    }
+
+    stepsWithTransfers.push({ ...step, order: orderCounter++ });
+  }
+
+  const firstStep = stepsWithTransfers[0];
+
+  if (firstStep && firstStep.mode === "walk") {
+    firstStep.instructionJa = `最寄り駅まで徒歩約${firstStep.durationMin ?? 0}分`;
+  }
+
+  const lastStep = stepsWithTransfers[stepsWithTransfers.length - 1];
+
+  if (lastStep && lastStep.mode === "walk") {
+    const prevSubway = [...stepsWithTransfers].reverse().find((step) => step.mode === "subway");
+
+    if (prevSubway?.toRef) {
+      lastStep.instructionJa = `下車後、出口へ向かいます（徒歩約${lastStep.durationMin ?? 0}分）`;
+    }
+  }
+
+  const subwaySteps = stepsWithTransfers.filter((step) => step.mode === "subway");
 
   if (subwaySteps.length === 0) {
     return null;
@@ -189,11 +232,11 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
     fareKrw: path.payment ?? 0,
     transferCount,
     routeType,
-    transportModes: collectTransportModes(steps),
+    transportModes: collectTransportModes(stepsWithTransfers),
     summaryJa: `${durationMin}分・乗換${transferCount}回`,
     labelJa: ROUTE_TYPE_LABELS[routeType],
     recommended: routeType === "tourist_friendly",
-    steps,
+    steps: stepsWithTransfers,
     notesJa: [],
   };
 }

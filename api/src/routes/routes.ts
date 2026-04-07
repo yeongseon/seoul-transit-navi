@@ -84,6 +84,24 @@ async function findStationById(db: D1Database, stationId: string): Promise<Stati
   return station ?? null;
 }
 
+async function resolveStation(db: D1Database, stationId: string): Promise<StationRecord | null> {
+  if (stationId.startsWith("coord_")) {
+    const [, lat, lng] = stationId.split("_").map(Number);
+
+    if (Number.isNaN(lat) || Number.isNaN(lng)) {
+      return null;
+    }
+
+    return {
+      id: stationId,
+      lat,
+      lng,
+    };
+  }
+
+  return findStationById(db, stationId);
+}
+
 routes.post("/api/routes/search", async (c) => {
   let body: SearchBody;
 
@@ -101,8 +119,8 @@ routes.post("/api/routes/search", async (c) => {
   }
 
   const [fromStation, toStation] = await Promise.all([
-    findStationById(c.env.DB, fromStationId),
-    findStationById(c.env.DB, toStationId),
+    resolveStation(c.env.DB, fromStationId),
+    resolveStation(c.env.DB, toStationId),
   ]);
 
   if (!fromStation || !toStation) {
