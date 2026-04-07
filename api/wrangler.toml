@@ -1,0 +1,12 @@
+name = "seoul-transit-navi-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "seoul-transit"
+database_id = "placeholder-id"
+
+[[kv_namespaces]]
+binding = "STATION_CACHE"
+id = "placeholder-id"
