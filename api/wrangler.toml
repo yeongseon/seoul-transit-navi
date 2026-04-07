@@ -6,7 +6,10 @@ compatibility_date = "2024-12-01"
 binding = "DB"
 database_name = "seoul-transit"
 database_id = "placeholder-id"
+preview_database_id = "placeholder-id"
+migrations_dir = "drizzle"
 
 [[kv_namespaces]]
 binding = "STATION_CACHE"
 id = "placeholder-id"
+preview_id = "placeholder-id"
