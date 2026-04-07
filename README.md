@@ -78,7 +78,7 @@ pnpm test
 
 ## MVP Scope
 
-- Seoul subway only (~300 stations, 9+ lines)
+- Seoul subway only (~111 stations, lines 1-9)
 - Japanese-first UI (no multi-locale in MVP)
 - Route search, comparison, and step-by-step guidance
 - Transfer and exit information

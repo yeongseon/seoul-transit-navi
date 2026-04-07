@@ -5,17 +5,49 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { RouteResult } from "../../../../shared/types";
 import { RouteCard } from "../../components/route-card";
 
+async function resolveStationName(stationId: string): Promise<string> {
+  try {
+    const slug = stationId.replace("station_", "").replace(/-/g, " ");
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+    const res = await fetch(`${apiUrl}/api/search/suggest?q=${encodeURIComponent(slug)}&lang=ja`);
+    if (!res.ok) return stationId;
+    const { data } = await res.json();
+    const match = data?.find((s: { id: string }) => s.id === stationId);
+    return match?.nameJa ?? stationId;
+  } catch {
+    return stationId;
+  }
+}
+
 function RoutesSearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const from = searchParams.get("from");
   const to = searchParams.get("to");
-  const fromName = searchParams.get("fromName") || from;
-  const toName = searchParams.get("toName") || to;
+  const fromNameParam = searchParams.get("fromName");
+  const toNameParam = searchParams.get("toName");
 
   const [routes, setRoutes] = useState<RouteResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [fromName, setFromName] = useState(fromNameParam || "");
+  const [toName, setToName] = useState(toNameParam || "");
+
+  useEffect(() => {
+    if (fromNameParam) {
+      setFromName(fromNameParam);
+    } else if (from) {
+      resolveStationName(from).then(setFromName);
+    }
+  }, [from, fromNameParam]);
+
+  useEffect(() => {
+    if (toNameParam) {
+      setToName(toNameParam);
+    } else if (to) {
+      resolveStationName(to).then(setToName);
+    }
+  }, [to, toNameParam]);
 
   const fetchRoutes = useCallback(async () => {
     if (!from || !to) {

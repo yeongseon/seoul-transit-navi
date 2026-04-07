@@ -173,7 +173,7 @@ export default async function PlaceDetailPage({
                 {quickOrigins.map((origin) => (
                   <Link
                     key={origin.id}
-                    href={`/routes?from=${origin.id}&to=${place.nearestStationId}`}
+                    href={`/routes?from=${origin.id}&to=${place.nearestStationId}&fromName=${encodeURIComponent(origin.name)}&toName=${encodeURIComponent(place.nearestStation?.nameJa ?? place.nameJa)}`}
                     className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50"
                   >
                     <span>{origin.name}から</span>
