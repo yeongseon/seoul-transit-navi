@@ -4,6 +4,9 @@ import { fileURLToPath } from "node:url";
 
 import * as sharedConstants from "../shared/constants/index.ts";
 import type { LineId } from "../shared/constants/index.ts";
+import coordinateFixtures from "../data/fixtures/coordinates.ts";
+
+const { STATION_COORDINATES } = coordinateFixtures;
 
 const { LINES } = sharedConstants;
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -185,8 +188,8 @@ export function parseStationsCSV(csvPath: string): ParsedData {
       nameEn: first.nameEn,
       nameCn: first.nameCn,
       nameHanja: first.nameHanja,
-      lat: 0,
-      lng: 0,
+      lat: STATION_COORDINATES[stationId]?.lat ?? 0,
+      lng: STATION_COORDINATES[stationId]?.lng ?? 0,
       complexityLevel,
     });
 

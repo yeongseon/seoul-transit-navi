@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 
 import placesRoutes from "./routes/places";
 import searchRoutes from "./routes/search";
@@ -11,6 +12,8 @@ export type Bindings = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+app.use("/api/*", cors());
 
 app.get("/api/health", (c) => {
   return c.json({ status: "ok" });

@@ -71,8 +71,6 @@ export default function Home() {
     if (from) {
       saveRecentSearch(from, destination);
       router.push(`/routes?from=${from.id}&to=${placeId}`);
-    } else {
-      router.push(`/routes?to=${placeId}`);
     }
   };
 

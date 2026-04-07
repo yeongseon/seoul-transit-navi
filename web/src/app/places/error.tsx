@@ -4,15 +4,15 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function PlacesError({
-  error,
+  error: pageError,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
-  }, [error]);
+    console.error(pageError);
+  }, [pageError]);
 
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center p-4 text-center">
@@ -28,6 +28,7 @@ export default function PlacesError({
         </div>
         <div className="flex w-full flex-col gap-3">
           <button
+            type="button"
             onClick={() => reset()}
             className="w-full rounded-2xl bg-sky-600 px-6 py-3.5 text-base font-bold text-white transition hover:bg-sky-700 active:bg-sky-800"
           >

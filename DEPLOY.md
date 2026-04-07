@@ -2,8 +2,9 @@
 
 ## Prerequisites
 - Cloudflare account with access to Workers, Pages, D1, and KV
-- Wrangler CLI authenticated locally
-- ODsay API key
+- Wrangler CLI authenticated locally (`wrangler login`)
+- ODsay API key (https://lab.odsay.com/)
+- Node.js >= 20, pnpm >= 9
 
 ## Step 1: Create D1 database
 ```sh
@@ -36,14 +37,23 @@ pnpm --filter api db:seed
 ```sh
 pnpm deploy:api
 ```
+Note the deployed API URL (e.g., `https://seoul-transit-navi-api.<your-subdomain>.workers.dev`).
 
-## Step 7: Deploy web
+## Step 7: Set API URL and deploy web
+
+`NEXT_PUBLIC_API_URL` is inlined at build time by Next.js. Set it **before** building:
+
 ```sh
-pnpm deploy:web
+NEXT_PUBLIC_API_URL=https://seoul-transit-navi-api.<your-subdomain>.workers.dev pnpm deploy:web
 ```
 
-## Step 8: Set `NEXT_PUBLIC_API_URL`
-Set `NEXT_PUBLIC_API_URL` in the Cloudflare Pages dashboard to the deployed API base URL.
+Alternatively, create `web/.env.production`:
+```
+NEXT_PUBLIC_API_URL=https://seoul-transit-navi-api.<your-subdomain>.workers.dev
+```
+Then run `pnpm deploy:web`.
 
 ## Notes
-- The placeholder D1 and KV IDs in `api/wrangler.toml` must be replaced before deploying.
+- The placeholder D1 and KV IDs in `api/wrangler.toml` **must** be replaced before deploying.
+- `NEXT_PUBLIC_API_URL` is embedded at build time — changing it requires a rebuild.
+- The `deploy:web` script runs `opennextjs-cloudflare build && wrangler deploy` automatically.

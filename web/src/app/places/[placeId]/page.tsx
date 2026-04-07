@@ -83,7 +83,7 @@ export default async function PlaceDetailPage({
   const { data: place } = (await res.json()) as PlaceDetailResponse;
   
   const quickOrigins = [
-    { id: "station_seoul", name: "ソウル駅" },
+    { id: "station_seoul-station", name: "ソウル駅" },
     { id: "station_hongik-univ", name: "弘大入口" },
     { id: "station_gangnam", name: "江南" },
   ];

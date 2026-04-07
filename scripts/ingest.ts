@@ -100,7 +100,7 @@ function buildSeedSql(): {
   const stationStatements = data.stations
     .map(
       (station) =>
-        `INSERT OR IGNORE INTO stations (id, station_code, name_ko, name_ja, name_en, name_cn, name_hanja, lat, lng, complexity_level) VALUES (${escapeSqlString(station.id)}, ${escapeSqlString(station.stationCode)}, ${escapeSqlString(station.nameKo)}, ${escapeSqlString(station.nameJa)}, ${escapeSqlString(station.nameEn)}, ${escapeSqlString(station.nameCn)}, ${escapeSqlString(station.nameHanja)}, ${station.lat.toFixed(1)}, ${station.lng.toFixed(1)}, ${station.complexityLevel});`,
+        `INSERT OR IGNORE INTO stations (id, station_code, name_ko, name_ja, name_en, name_cn, name_hanja, lat, lng, complexity_level) VALUES (${escapeSqlString(station.id)}, ${escapeSqlString(station.stationCode)}, ${escapeSqlString(station.nameKo)}, ${escapeSqlString(station.nameJa)}, ${escapeSqlString(station.nameEn)}, ${escapeSqlString(station.nameCn)}, ${escapeSqlString(station.nameHanja)}, ${station.lat.toFixed(7)}, ${station.lng.toFixed(7)}, ${station.complexityLevel});`,
     )
     .join("\n");
 
