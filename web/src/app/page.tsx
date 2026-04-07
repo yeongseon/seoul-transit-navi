@@ -62,7 +62,7 @@ export default function Home() {
     e.preventDefault();
     if (!from || !to) return;
     saveRecentSearch(from, to);
-    router.push(`/routes?from=${from.id}&to=${to.id}`);
+    router.push(`/routes?from=${from.id}&to=${to.id}&fromName=${encodeURIComponent(from.name)}&toName=${encodeURIComponent(to.name)}`);
   };
 
   const handlePopularClick = (placeId: string, placeName: string) => {
@@ -70,7 +70,7 @@ export default function Home() {
     setTo(destination);
     if (from) {
       saveRecentSearch(from, destination);
-      router.push(`/routes?from=${from.id}&to=${placeId}`);
+      router.push(`/routes?from=${from.id}&to=${placeId}&fromName=${encodeURIComponent(from.name)}&toName=${encodeURIComponent(placeName)}`);
     }
   };
 
@@ -78,7 +78,7 @@ export default function Home() {
     setFrom(search.from);
     setTo(search.to);
     saveRecentSearch(search.from, search.to);
-    router.push(`/routes?from=${search.from.id}&to=${search.to.id}`);
+    router.push(`/routes?from=${search.from.id}&to=${search.to.id}&fromName=${encodeURIComponent(search.from.name)}&toName=${encodeURIComponent(search.to.name)}`);
   };
 
   return (
@@ -92,7 +92,7 @@ export default function Home() {
             ソウル交通ナビ
           </h1>
           <p className="text-sm text-slate-500 sm:text-base">
-            地下鉄もバスも、日本語でわかりやすく。
+            ソウルの地下鉄を、日本語でわかりやすく。
           </p>
         </section>
 

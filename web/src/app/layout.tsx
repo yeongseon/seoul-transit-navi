@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "ソウル交通ナビ",
-  description: "地下鉄もバスも、日本語でわかりやすく。",
+  description: "ソウルの地下鉄を、日本語でわかりやすく。",
   openGraph: {
     title: "ソウル交通ナビ",
     description: "日本語で探せるソウルの地下鉄ナビゲーション",

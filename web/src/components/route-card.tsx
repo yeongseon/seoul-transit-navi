@@ -56,7 +56,7 @@ export function RouteCard({ route }: RouteCardProps) {
           <span className="text-xl font-semibold text-slate-500">分</span>
         </span>
         <div className="flex flex-col text-sm font-medium text-slate-600">
-          <span>¥{route.fareKrw.toLocaleString()}</span>
+          <span>₩{route.fareKrw.toLocaleString()}</span>
           <span>乗換 {route.transferCount}回</span>
         </div>
       </div>

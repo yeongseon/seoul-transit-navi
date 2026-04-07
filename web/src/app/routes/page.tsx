@@ -10,6 +10,8 @@ function RoutesSearchContent() {
   const router = useRouter();
   const from = searchParams.get("from");
   const to = searchParams.get("to");
+  const fromName = searchParams.get("fromName") || from;
+  const toName = searchParams.get("toName") || to;
 
   const [routes, setRoutes] = useState<RouteResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,9 +68,9 @@ function RoutesSearchContent() {
         <h1 className="mt-4 text-3xl font-bold tracking-tight">
           ルート検索結果
         </h1>
-        {from && to && (
+        {fromName && toName && (
           <p className="mt-1 text-sm font-medium text-slate-600">
-            {from} <span className="mx-2 text-slate-400">→</span> {to}
+            {fromName} <span className="mx-2 text-slate-400">→</span> {toName}
           </p>
         )}
       </header>

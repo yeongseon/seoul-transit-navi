@@ -145,7 +145,7 @@ export default function RouteDetailPage({
           
           <div className="flex items-center gap-4 text-base font-semibold text-slate-600">
             <span className="flex items-center gap-1.5">
-              <span>¥</span>
+              <span>₩</span>
               {route.fareKrw.toLocaleString()}
             </span>
             <span className="h-1 w-1 rounded-full bg-slate-300" />
