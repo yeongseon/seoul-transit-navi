@@ -71,6 +71,10 @@ export function generateRouteExplanation(steps: RouteStep[], lines: Map<string, 
         return `${getStationName(step, "from")}駅で下車し、${getExitNumber(step)}番出口へ向かいます`;
       }
 
+      if (/出口/.test(step.instructionJa)) {
+        return step.instructionJa;
+      }
+
       return `${getDestination(step)}まで徒歩約${durationMin}分です`;
     }
 

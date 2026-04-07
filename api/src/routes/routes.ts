@@ -142,8 +142,12 @@ routes.post("/api/routes/search", async (c) => {
         const sharedRoute: RouteResult = {
           ...route,
           id: routeId,
-          startRef: { type: "station", id: fromStationId },
-          destinationRef: { type: "station", id: toStationId },
+          startRef: fromStationId.startsWith("coord_")
+            ? { type: "coord", id: fromStationId, coord: { lat: fromStation.lat, lng: fromStation.lng } }
+            : { type: "station", id: fromStationId },
+          destinationRef: toStationId.startsWith("coord_")
+            ? { type: "coord", id: toStationId, coord: { lat: toStation.lat, lng: toStation.lng } }
+            : { type: "station", id: toStationId },
           summaryJa: explanations.length > 0 ? explanations.join(" → ") : route.summaryJa,
         };
 

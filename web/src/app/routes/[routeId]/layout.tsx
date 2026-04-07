@@ -9,9 +9,11 @@ interface StationResponse {
 interface RouteMetadataResponse {
   data?: {
     startRef?: {
+      type?: string;
       id?: string;
     };
     destinationRef?: {
+      type?: string;
       id?: string;
     };
     durationMin?: number;
@@ -77,10 +79,16 @@ export async function generateMetadata({
   }
 
   const [fromName, toName] = await Promise.all([
-    route.startRef?.id ? fetchStationName(route.startRef.id) : Promise.resolve("出発地"),
-    route.destinationRef?.id
-      ? fetchStationName(route.destinationRef.id)
-      : Promise.resolve("到着地"),
+    route.startRef?.type === "coord"
+      ? Promise.resolve("現在地")
+      : route.startRef?.id
+        ? fetchStationName(route.startRef.id)
+        : Promise.resolve("出発地"),
+    route.destinationRef?.type === "coord"
+      ? Promise.resolve("目的地")
+      : route.destinationRef?.id
+        ? fetchStationName(route.destinationRef.id)
+        : Promise.resolve("到着地"),
   ]);
 
   const title = `${fromName} → ${toName} | ソウル交通ナビ`;

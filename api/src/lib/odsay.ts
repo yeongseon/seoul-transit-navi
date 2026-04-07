@@ -174,14 +174,15 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
   const stepsWithTransfers: RouteStep[] = [];
   let orderCounter = 1;
 
+  let lastSubwayLineId: string | undefined;
+
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
-    const prevStep = stepsWithTransfers[stepsWithTransfers.length - 1];
 
     if (
       step.mode === "subway" &&
-      prevStep?.mode === "subway" &&
-      step.lineId !== prevStep.lineId
+      lastSubwayLineId !== undefined &&
+      step.lineId !== lastSubwayLineId
     ) {
       stepsWithTransfers.push({
         order: orderCounter++,
@@ -196,6 +197,10 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
     }
 
     stepsWithTransfers.push({ ...step, order: orderCounter++ });
+
+    if (step.mode === "subway") {
+      lastSubwayLineId = step.lineId;
+    }
   }
 
   const firstStep = stepsWithTransfers[0];
