@@ -1,0 +1,20 @@
+{
+  "name": "seoul-transit-navi",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ソウル交通ナビ - Japanese-friendly Seoul transit navigation service",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build:web": "pnpm --filter web build",
+    "build:api": "pnpm --filter api build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "ingest": "tsx scripts/ingest.ts"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
