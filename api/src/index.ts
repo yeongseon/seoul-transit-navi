@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 
 import placesRoutes from "./routes/places";
 import searchRoutes from "./routes/search";
+import stationRoutes from "./routes/stations";
 import routes from "./routes/routes";
 
 export type Bindings = {
@@ -21,6 +22,7 @@ app.get("/api/health", (c) => {
 
 app.route("/api/places", placesRoutes);
 app.route("/api/search", searchRoutes);
+app.route("/api/stations", stationRoutes);
 app.route("/", routes);
 
 export default app;

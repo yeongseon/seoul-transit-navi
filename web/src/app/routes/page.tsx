@@ -7,13 +7,11 @@ import { RouteCard } from "../../components/route-card";
 
 async function resolveStationName(stationId: string): Promise<string> {
   try {
-    const slug = stationId.replace("station_", "").replace(/-/g, " ");
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-    const res = await fetch(`${apiUrl}/api/search/suggest?q=${encodeURIComponent(slug)}&lang=ja`);
+    const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(stationId)}`);
     if (!res.ok) return stationId;
     const { data } = await res.json();
-    const match = data?.find((s: { id: string }) => s.id === stationId);
-    return match?.nameJa ?? stationId;
+    return data?.nameJa ?? stationId;
   } catch {
     return stationId;
   }
