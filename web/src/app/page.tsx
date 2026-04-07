@@ -84,7 +84,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-12 text-slate-900 sm:px-6 sm:py-16">
+    <main className="pb-safe min-h-screen bg-slate-50 px-4 py-12 text-slate-900 sm:px-6 sm:py-16">
       <div className="mx-auto flex max-w-lg flex-col gap-8">
         <section className="flex flex-col items-center text-center space-y-3">
           <span className="inline-flex rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold tracking-wide text-sky-700">

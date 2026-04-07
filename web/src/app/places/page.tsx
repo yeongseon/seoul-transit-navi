@@ -43,7 +43,7 @@ export default async function PlacesPage({
   const { data: places } = (await res.json()) as PlaceListResponse;
 
   return (
-    <main className="min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">
+    <main className="pb-safe min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">
       <div className="mx-auto max-w-2xl">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-neutral-900">目的地から探す</h1>
@@ -52,7 +52,7 @@ export default async function PlacesPage({
         <div className="mb-6 flex flex-wrap gap-2">
           <Link
             href="/places"
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-3 text-sm font-medium transition-colors ${
               !currentCategory
                 ? "bg-neutral-900 text-white"
                 : "bg-white text-neutral-600 shadow-sm hover:bg-neutral-100"
@@ -64,7 +64,7 @@ export default async function PlacesPage({
             <Link
               key={key}
               href={`/places?category=${key}`}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-3 text-sm font-medium transition-colors ${
                 currentCategory === key
                   ? "bg-neutral-900 text-white"
                   : "bg-white text-neutral-600 shadow-sm hover:bg-neutral-100"

@@ -88,8 +88,26 @@ export default async function PlaceDetailPage({
     { id: "station_gangnam", name: "江南" },
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": place.nameJa,
+    "description": place.descriptionJa,
+    "image": place.imageUrl,
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": place.lat,
+      "longitude": place.lng
+    },
+    "url": `https://seoul-transit-navi.pages.dev/places/${place.id}`
+  };
+
   return (
-    <main className="min-h-screen bg-neutral-50 pb-20 sm:pb-8">
+    <main className="pb-safe min-h-screen bg-neutral-50 pb-20 sm:pb-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mx-auto max-w-2xl bg-white shadow-sm sm:mt-8 sm:rounded-2xl sm:overflow-hidden">
         <div className="p-6 pb-0">
           <Link
@@ -156,7 +174,7 @@ export default async function PlaceDetailPage({
                   <Link
                     key={origin.id}
                     href={`/routes?from=${origin.id}&to=${place.nearestStationId}`}
-                    className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50"
+                    className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50"
                   >
                     <span>{origin.name}から</span>
                     <svg

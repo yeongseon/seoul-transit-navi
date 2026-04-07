@@ -4,6 +4,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply seoul-transit --remote",
+    "db:seed": "wrangler d1 execute seoul-transit --remote --file=../data/seed.sql",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"

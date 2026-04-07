@@ -67,7 +67,7 @@ export default function RouteDetailPage({
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
+      <main className="pb-safe min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
         <div className="mx-auto flex max-w-2xl flex-col gap-6">
           <div className="h-8 w-24 animate-pulse rounded-lg bg-slate-200/50" />
           <div className="h-48 animate-pulse rounded-3xl bg-slate-200/50" />
@@ -79,7 +79,7 @@ export default function RouteDetailPage({
 
   if (error || !route) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
+      <main className="pb-safe min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
         <div className="mx-auto flex max-w-2xl flex-col items-center justify-center rounded-3xl bg-white p-12 shadow-sm ring-1 ring-slate-200">
           <span className="text-4xl mb-4">⚠️</span>
           <p className="text-lg font-bold text-slate-800">
@@ -88,7 +88,7 @@ export default function RouteDetailPage({
           <button
             type="button"
             onClick={() => router.back()}
-            className="mt-6 rounded-2xl bg-slate-100 px-6 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
+            className="mt-6 rounded-2xl bg-slate-100 px-6 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
           >
             戻る
           </button>
@@ -98,7 +98,7 @@ export default function RouteDetailPage({
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
+    <main className="pb-safe min-h-screen bg-slate-50 px-6 py-10 sm:py-16 text-slate-900">
       <div className="mx-auto flex max-w-2xl flex-col gap-8">
         <header className="flex items-center justify-between">
           <button
@@ -113,7 +113,7 @@ export default function RouteDetailPage({
           <button
             type="button"
             onClick={handleShare}
-            className="relative flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50"
+            className="relative flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50"
           >
             <span>🔗</span>
             共有
