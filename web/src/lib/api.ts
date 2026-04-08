@@ -11,8 +11,12 @@ export async function searchSuggest(query: string, lang = "ja"): Promise<SearchS
 }
 
 export async function searchRoutes(fromStationId: string, toStationId: string): Promise<RouteResult[]> {
-  const res = await fetch(`${API_BASE}/api/routes?from=${encodeURIComponent(fromStationId)}&to=${encodeURIComponent(toStationId)}`);
+  const res = await fetch(`${API_BASE}/api/routes/search`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fromStationId, toStationId }),
+  });
   if (!res.ok) throw new Error("Failed to fetch routes");
   const json = await res.json();
-  return json.routes || [];
+  return json.data || [];
 }

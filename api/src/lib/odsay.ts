@@ -214,8 +214,10 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
   if (lastStep && lastStep.mode === "walk") {
     const prevSubway = [...stepsWithTransfers].reverse().find((step) => step.mode === "subway");
 
-    if (prevSubway?.toRef) {
-      lastStep.instructionJa = `下車後、出口へ向かいます（徒歩約${lastStep.durationMin ?? 0}分）`;
+    if (prevSubway) {
+      const arrivalMatch = prevSubway.instructionJa.match(/から(.+?)まで/);
+      const arrivalName = arrivalMatch?.[1] ?? "到着駅";
+      lastStep.instructionJa = `${arrivalName}で下車後、出口へ向かいます（徒歩約${lastStep.durationMin ?? 0}分）`;
     }
   }
 
