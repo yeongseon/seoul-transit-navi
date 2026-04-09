@@ -18,8 +18,8 @@ export interface Exit {
   id: string;
   stationId: string;
   exitNumber: string;
-  labelJa: string;
-  descriptionJa: string;
+  label: string;
+  description: string;
   walkingTimeMin?: number;
   landmarkRefs: string[];
 }
@@ -69,12 +69,12 @@ export interface RouteResult {
   transferCount: number;
   routeType: RouteType;
   transportModes: TransportMode[];
-  summaryJa: string;
-  labelJa: string;
+  summary: string;
+  label: string;
   recommended: boolean;
   recommendedExitId?: string;
   steps: RouteStep[];
-  notesJa: string[];
+  notes: string[];
 }
 
 export type RouteType = "easy" | "fastest" | "few_transfers" | "tourist_friendly";
@@ -89,22 +89,22 @@ export interface LocationRef {
 export interface RouteStep {
   order: number;
   mode: TransportMode | "transfer";
-  instructionJa: string;
+  instruction: string;
   fromRef?: LocationRef;
   toRef?: LocationRef;
   lineId?: string;
-  lineNameJa?: string;
+  lineName?: string;
   lineColor?: string;
   stationCount?: number;
   durationMin?: number;
-  notesJa: string[];
+  notes: string[];
 }
 
 export interface SearchSuggestion {
   id: string;
   type: "station" | "place";
-  nameJa: string;
-  subtitleJa: string;
+  name: string;
+  subtitle: string;
 }
 
 export interface RouteSearchRequest {
@@ -122,6 +122,6 @@ export interface RouteSearchResponse {
 export interface ApiError {
   error: {
     code: string;
-    messageJa: string;
+    message: string;
   };
 }

@@ -118,6 +118,17 @@ export const ROUTE_TYPE_LABELS = {
   tourist_friendly: "おすすめルート",
 } as const;
 
+const ROUTE_TYPE_LABELS_KO = {
+  easy: "알기 쉬운 경로",
+  fastest: "최단 경로",
+  few_transfers: "환승이 적은 경로",
+  tourist_friendly: "추천 경로",
+} as const;
+
+export function getRouteTypeLabels(locale: "ja" | "ko"): Record<string, string> {
+  return locale === "ko" ? { ...ROUTE_TYPE_LABELS_KO } : { ...ROUTE_TYPE_LABELS };
+}
+
 export const PLACE_CATEGORY_LABELS = {
   shopping: "ショッピング",
   culture: "文化・歴史",
@@ -128,3 +139,18 @@ export const PLACE_CATEGORY_LABELS = {
   nature: "自然",
   other: "その他",
 } as const;
+
+const PLACE_CATEGORY_LABELS_KO = {
+  shopping: "쇼핑",
+  culture: "문화·역사",
+  food: "맛집",
+  landmark: "랜드마크",
+  entertainment: "엔터테인먼트",
+  transport: "교통",
+  nature: "자연",
+  other: "기타",
+} as const;
+
+export function getPlaceCategoryLabels(locale: "ja" | "ko"): Record<string, string> {
+  return locale === "ko" ? { ...PLACE_CATEGORY_LABELS_KO } : { ...PLACE_CATEGORY_LABELS };
+}
