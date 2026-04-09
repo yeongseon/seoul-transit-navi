@@ -14,7 +14,7 @@ function extractStationMatches(value: string): string[] {
 }
 
 function getStationName(step: RouteStep, target: "from" | "to"): string {
-  const matches = extractStationMatches(step.instructionJa);
+  const matches = extractStationMatches(step.instruction);
 
   if (target === "from" && matches.length > 0) {
     return matches[0];
@@ -34,14 +34,14 @@ function getStationName(step: RouteStep, target: "from" | "to"): string {
 }
 
 function getExitNumber(step: RouteStep): string {
-  const text = [step.instructionJa, ...step.notesJa].join(" ");
+  const text = [step.instruction, ...step.notes].join(" ");
   const match = text.match(/([0-9０-９]+)番出口/);
 
   return match?.[1] ?? "案内された";
 }
 
 function getDestination(step: RouteStep): string {
-  const text = [step.instructionJa, ...step.notesJa].join(" ");
+  const text = [step.instruction, ...step.notes].join(" ");
   const match = text.match(/(.+?)まで徒歩/);
 
   if (match) {
@@ -58,7 +58,7 @@ function getDestination(step: RouteStep): string {
 export function generateRouteExplanation(steps: RouteStep[], lines: Map<string, Line>): string[] {
   return steps.map((step) => {
     const line = getLine(step, lines);
-    const lineName = step.lineNameJa ?? line?.nameJa ?? "路線";
+    const lineName = step.lineName ?? line?.nameJa ?? "路線";
     const lineColor = step.lineColor ?? line?.color ?? "#000000";
     const durationMin = step.durationMin ?? 0;
 
@@ -67,12 +67,12 @@ export function generateRouteExplanation(steps: RouteStep[], lines: Map<string, 
     }
 
     if (step.mode === "walk") {
-      if (/番出口/.test(step.instructionJa) || step.notesJa.some((note) => /番出口/.test(note))) {
+      if (/番出口/.test(step.instruction) || step.notes.some((note) => /番出口/.test(note))) {
         return `${getStationName(step, "from")}駅で下車し、${getExitNumber(step)}番出口へ向かいます`;
       }
 
-      if (/出口/.test(step.instructionJa)) {
-        return step.instructionJa;
+      if (/出口/.test(step.instruction)) {
+        return step.instruction;
       }
 
       return `${getDestination(step)}まで徒歩約${durationMin}分です`;
@@ -86,6 +86,6 @@ export function generateRouteExplanation(steps: RouteStep[], lines: Map<string, 
       return `${getStationName(step, "from")}駅から${lineName}（${lineColor}）に乗ります`;
     }
 
-    return step.instructionJa;
+    return step.instruction;
   });
 }
