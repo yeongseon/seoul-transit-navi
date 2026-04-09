@@ -4,8 +4,10 @@ import { Hono } from "hono";
 import { LINES } from "../../../shared/constants/index";
 import type { RouteResult } from "../../../shared/types/index";
 import type { Bindings } from "../index";
+import { GraphRouteProvider } from "../lib/graph-route-provider";
 import { ODsayApiError } from "../lib/odsay";
 import { generateRouteExplanation } from "../lib/route-explainer";
+import type { RouteProvider } from "../lib/route-provider";
 import { ODsayRouteProvider } from "../lib/route-provider";
 
 type SearchBody = {
@@ -23,12 +25,12 @@ type ErrorStatus = 400 | 404 | 502 | 503;
 
 const routes = new Hono<{ Bindings: Bindings }>();
 
-function errorResponse(c: Context<{ Bindings: Bindings }>, code: string, messageJa: string, status: ErrorStatus) {
+function errorResponse(c: Context<{ Bindings: Bindings }>, code: string, message: string, status: ErrorStatus) {
   return c.json(
     {
       error: {
         code,
-        messageJa,
+        message,
       },
     },
     { status },
@@ -127,12 +129,10 @@ routes.post("/api/routes/search", async (c) => {
     return errorResponse(c, "STATION_NOT_FOUND", "駅情報が見つかりません", 404);
   }
 
-  if (!c.env.ODSAY_API_KEY) {
-    return errorResponse(c, "ODSAY_API_KEY_MISSING", "経路検索サービスが未設定です", 503);
-  }
-
   try {
-    const provider = new ODsayRouteProvider(c.env.ODSAY_API_KEY);
+    const provider: RouteProvider = c.env.ODSAY_API_KEY
+      ? new ODsayRouteProvider(c.env.ODSAY_API_KEY)
+      : new GraphRouteProvider(c.env.DB);
     const routeResults = await provider.search(fromStation, toStation);
     const lineMap = new Map(Object.entries(LINES));
     const data = await Promise.all(
@@ -148,7 +148,7 @@ routes.post("/api/routes/search", async (c) => {
           destinationRef: toStationId.startsWith("coord_")
             ? { type: "coord", id: toStationId, coord: { lat: toStation.lat, lng: toStation.lng } }
             : { type: "station", id: toStationId },
-          summaryJa: explanations.length > 0 ? explanations.join(" → ") : route.summaryJa,
+          summary: explanations.length > 0 ? explanations.join(" → ") : route.summary,
         };
 
         await c.env.STATION_CACHE.put(`route:${routeId}`, JSON.stringify(sharedRoute), {

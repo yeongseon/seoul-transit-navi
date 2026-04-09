@@ -53,7 +53,7 @@ placesRoutes.get("/", async (c) => {
       {
         error: {
           code: "INVALID_CATEGORY",
-          messageJa: "無効なカテゴリです。",
+          message: "無効なカテゴリです。",
         },
       },
       400,
@@ -75,7 +75,7 @@ placesRoutes.get("/:placeId", async (c) => {
       {
         error: {
           code: "PLACE_NOT_FOUND",
-          messageJa: "目的地が見つかりません。",
+          message: "目的地が見つかりません。",
         },
       },
       404,

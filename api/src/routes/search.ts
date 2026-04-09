@@ -33,7 +33,7 @@ searchRoutes.get("/suggest", async (c) => {
   const rows = await db
     .select({
       id: stations.id,
-      nameJa: stations.nameJa,
+      name: stations.nameJa,
       matchedAlias: matchedAlias.as("matchedAlias"),
       exactRank: exactRank.as("exactRank"),
       lineIds: lineIds.as("lineIds"),
@@ -47,7 +47,7 @@ searchRoutes.get("/suggest", async (c) => {
     .limit(10);
 
   const data: SearchSuggestion[] = rows.map((row) => {
-    const subtitleJa = Array.from(new Set(row.lineIds.split(",").filter(isLineId)))
+    const subtitle = Array.from(new Set(row.lineIds.split(",").filter(isLineId)))
       .sort((left, right) => {
         const lineNumberDiff = LINES[left].lineNumber - LINES[right].lineNumber;
         return lineNumberDiff !== 0 ? lineNumberDiff : LINES[left].nameJa.localeCompare(LINES[right].nameJa, "ja");
@@ -58,8 +58,8 @@ searchRoutes.get("/suggest", async (c) => {
     return {
       id: row.id,
       type: "station",
-      nameJa: row.nameJa,
-      subtitleJa,
+      name: row.name,
+      subtitle,
     };
   });
 

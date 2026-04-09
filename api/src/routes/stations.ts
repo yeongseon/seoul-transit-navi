@@ -23,7 +23,7 @@ stationRoutes.get("/:stationId", async (c) => {
     .limit(1);
 
   if (rows.length === 0) {
-    return c.json({ error: { code: "STATION_NOT_FOUND", messageJa: "駅が見つかりません。" } }, 404);
+    return c.json({ error: { code: "STATION_NOT_FOUND", message: "駅が見つかりません。" } }, 404);
   }
 
   return c.json({ data: rows[0] });
