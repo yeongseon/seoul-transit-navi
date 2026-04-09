@@ -75,7 +75,7 @@ function toLaneArray(lane: ODsayLane[] | ODsayLane | undefined): ODsayLane[] {
   return Array.isArray(lane) ? lane : [lane];
 }
 
-function resolveLineMetadata(rawLineName: string): { lineId?: keyof typeof LINES; lineNameJa: string; lineColor?: string } {
+function resolveLineMetadata(rawLineName: string): { lineId?: keyof typeof LINES; lineName: string; lineColor?: string } {
   const normalized = normalizeLineName(rawLineName);
 
   for (const matcher of LINE_MATCHERS) {
@@ -84,13 +84,13 @@ function resolveLineMetadata(rawLineName: string): { lineId?: keyof typeof LINES
 
       return {
         lineId: matcher.lineId,
-        lineNameJa: line.nameJa,
+        lineName: line.nameJa,
         lineColor: line.color,
       };
     }
   }
 
-  return { lineNameJa: rawLineName };
+  return { lineName: rawLineName };
 }
 
 function createRouteStep(subPath: ODsaySubPath, order: number): RouteStep | null {
@@ -100,9 +100,9 @@ function createRouteStep(subPath: ODsaySubPath, order: number): RouteStep | null
     return {
       order,
       mode: "walk",
-      instructionJa: durationMin > 0 ? `${durationMin}分歩きます` : "徒歩で移動します",
+      instruction: durationMin > 0 ? `${durationMin}分歩きます` : "徒歩で移動します",
       durationMin,
-      notesJa: [],
+      notes: [],
     };
   }
 
@@ -117,15 +117,15 @@ function createRouteStep(subPath: ODsaySubPath, order: number): RouteStep | null
   return {
     order,
     mode: "subway",
-    instructionJa: `${subPath.startName ?? "出発駅"}から${subPath.endName ?? "到着駅"}まで${lineMetadata.lineNameJa}に乗車します`,
+    instruction: `${subPath.startName ?? "出発駅"}から${subPath.endName ?? "到着駅"}まで${lineMetadata.lineName}に乗車します`,
     fromRef: { type: "station" },
     toRef: { type: "station" },
     lineId: lineMetadata.lineId,
-    lineNameJa: lineMetadata.lineNameJa,
+    lineName: lineMetadata.lineName,
     lineColor: lineMetadata.lineColor,
     stationCount: subPath.stationCount ?? 0,
     durationMin: subPath.sectionTime ?? 0,
-    notesJa: [],
+    notes: [],
   };
 }
 
@@ -187,12 +187,12 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
       stepsWithTransfers.push({
         order: orderCounter++,
         mode: "transfer",
-        instructionJa: `${step.lineNameJa ?? "次の路線"}に乗り換え`,
+        instruction: `${step.lineName ?? "次の路線"}に乗り換え`,
         lineId: step.lineId,
-        lineNameJa: step.lineNameJa,
+        lineName: step.lineName,
         lineColor: step.lineColor,
         durationMin: 3,
-        notesJa: [],
+        notes: [],
       });
     }
 
@@ -206,7 +206,7 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
   const firstStep = stepsWithTransfers[0];
 
   if (firstStep && firstStep.mode === "walk") {
-    firstStep.instructionJa = `最寄り駅まで徒歩約${firstStep.durationMin ?? 0}分`;
+    firstStep.instruction = `最寄り駅まで徒歩約${firstStep.durationMin ?? 0}分`;
   }
 
   const lastStep = stepsWithTransfers[stepsWithTransfers.length - 1];
@@ -215,9 +215,9 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
     const prevSubway = [...stepsWithTransfers].reverse().find((step) => step.mode === "subway");
 
     if (prevSubway) {
-      const arrivalMatch = prevSubway.instructionJa.match(/から(.+?)まで/);
+      const arrivalMatch = prevSubway.instruction.match(/から(.+?)まで/);
       const arrivalName = arrivalMatch?.[1] ?? "到着駅";
-      lastStep.instructionJa = `${arrivalName}で下車後、出口へ向かいます（徒歩約${lastStep.durationMin ?? 0}分）`;
+      lastStep.instruction = `${arrivalName}で下車後、出口へ向かいます（徒歩約${lastStep.durationMin ?? 0}分）`;
     }
   }
 
@@ -240,11 +240,11 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
     transferCount,
     routeType,
     transportModes: collectTransportModes(stepsWithTransfers),
-    summaryJa: `${durationMin}分・乗換${transferCount}回`,
-    labelJa: ROUTE_TYPE_LABELS[routeType],
+    summary: `${durationMin}分・乗換${transferCount}回`,
+    label: ROUTE_TYPE_LABELS[routeType],
     recommended: routeType === "tourist_friendly",
     steps: stepsWithTransfers,
-    notesJa: [],
+    notes: [],
   };
 }
 
