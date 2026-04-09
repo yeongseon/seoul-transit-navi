@@ -1,5 +1,8 @@
+"use client";
+
 import { RouteStep } from "../../../shared/types";
 import { LINES, LineId } from "../../../shared/constants";
+import { useTranslation } from "../i18n/client";
 
 interface RouteStepProps {
   step: RouteStep;
@@ -7,6 +10,18 @@ interface RouteStepProps {
 }
 
 export function RouteStepItem({ step, isLast }: RouteStepProps) {
+  const { t, locale } = useTranslation();
+
+  const getLineName = (lineId?: string, fallbackName?: string) => {
+    if (lineId) {
+      const line = LINES[lineId as LineId];
+      if (line) {
+        return locale === "ko" ? line.nameKo : line.nameJa;
+      }
+    }
+    return fallbackName || "";
+  };
+
   const getLineColor = (lineId?: string) => {
     if (!lineId) return "#cbd5e1";
     const line = LINES[lineId as LineId];
@@ -56,28 +71,28 @@ export function RouteStepItem({ step, isLast }: RouteStepProps) {
 
       <div className="flex w-full flex-col pt-1.5 pb-2">
         <p className="text-base font-bold text-slate-900 leading-snug">
-          {step.instructionJa}
+          {step.instruction}
         </p>
 
-        {(step.lineNameJa || step.durationMin || step.stationCount) && (
+        {(step.lineName || step.lineId || step.durationMin || step.stationCount) && (
           <div className="mt-2.5 flex flex-wrap items-center gap-3 text-sm font-medium text-slate-500">
-            {step.lineNameJa && (
+            {(step.lineId || step.lineName) && (
               <span className="inline-flex items-center rounded-lg bg-slate-100 px-2 py-1 text-slate-700 font-semibold ring-1 ring-inset ring-slate-200">
-                {step.lineNameJa}
+                {getLineName(step.lineId, step.lineName)}
               </span>
             )}
             {step.durationMin && (
-              <span className="text-slate-600">{step.durationMin}分</span>
+              <span className="text-slate-600">{step.durationMin}{t("components.minutes")}</span>
             )}
             {step.stationCount && (
-              <span className="text-slate-600">{step.stationCount}駅</span>
+              <span className="text-slate-600">{t("components.stationCount", { count: step.stationCount })}</span>
             )}
           </div>
         )}
 
-        {step.notesJa && step.notesJa.length > 0 && (
+        {step.notes && step.notes.length > 0 && (
           <div className="mt-3 space-y-1.5">
-            {step.notesJa.map((note, index) => (
+            {step.notes.map((note, index) => (
               <p
                 key={`note-${step.order}-${index}`}
                 className="text-sm text-slate-500 bg-amber-50 rounded-xl px-3 py-2 border border-amber-100"

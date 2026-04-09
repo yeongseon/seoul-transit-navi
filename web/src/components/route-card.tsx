@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { RouteResult, RouteType } from "../../../shared/types";
-import { ROUTE_TYPE_LABELS } from "../../../shared/constants";
+import { useTranslation } from "../i18n/client";
 
 interface RouteCardProps {
   route: RouteResult;
 }
 
 export function RouteCard({ route }: RouteCardProps) {
+  const { t } = useTranslation();
+
   const getBadgeStyle = (type: RouteType) => {
     switch (type) {
       case "tourist_friendly":
@@ -43,21 +47,21 @@ export function RouteCard({ route }: RouteCardProps) {
             route.routeType
           )}`}
         >
-          {ROUTE_TYPE_LABELS[route.routeType]}
+          {t(`routeTypes.${route.routeType}`)}
         </span>
         {route.recommended && (
-          <span className="text-xs font-bold text-sky-600">おすすめ ✨</span>
+          <span className="text-xs font-bold text-sky-600">{t("components.recommended")}</span>
         )}
       </div>
 
       <div className="mb-4 flex items-baseline gap-3">
         <span className="text-3xl font-extrabold tracking-tight text-slate-900">
           {route.durationMin}
-          <span className="text-xl font-semibold text-slate-500">分</span>
+          <span className="text-xl font-semibold text-slate-500">{t("components.minutes")}</span>
         </span>
         <div className="flex flex-col text-sm font-medium text-slate-600">
           <span>₩{route.fareKrw.toLocaleString()}</span>
-          <span>乗換 {route.transferCount}回</span>
+          <span>{t("components.transfers", { count: route.transferCount })}</span>
         </div>
       </div>
 
@@ -73,14 +77,14 @@ export function RouteCard({ route }: RouteCardProps) {
       </div>
 
       <p className="mb-6 line-clamp-2 text-sm text-slate-600">
-        {route.summaryJa}
+        {route.summary}
       </p>
 
       <Link
         href={`/routes/${route.id}`}
         className="mt-auto flex w-full items-center justify-center rounded-2xl bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 ring-1 ring-inset ring-slate-200 transition-colors group-hover:bg-slate-100 group-hover:text-slate-900"
       >
-        詳細を見る
+        {t("components.viewDetails")}
       </Link>
     </div>
   );

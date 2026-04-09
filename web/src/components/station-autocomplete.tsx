@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useDebounce } from "../hooks/use-debounce";
 import { searchSuggest } from "../lib/api";
 import type { SearchSuggestion } from "../../../shared/types";
+import { useTranslation } from "../i18n/client";
 
 interface StationAutocompleteProps {
   id: string;
@@ -16,10 +17,11 @@ interface StationAutocompleteProps {
 export function StationAutocomplete({
   id,
   name,
-  placeholder = "駅名を入力",
+  placeholder,
   value,
   onChange,
 }: StationAutocompleteProps) {
+  const { t, locale } = useTranslation();
   const [query, setQuery] = useState(value?.name || "");
   const [results, setResults] = useState<SearchSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,7 @@ export function StationAutocomplete({
   
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const selectCounterRef = useRef(0);
   
   const debouncedQuery = useDebounce(query, 300);
 
@@ -52,7 +55,7 @@ export function StationAutocomplete({
     const fetchSuggestions = async () => {
       setIsLoading(true);
       try {
-        const data = await searchSuggest(debouncedQuery);
+        const data = await searchSuggest(debouncedQuery, locale);
         if (isMounted) {
           setResults(data);
           setIsOpen(true);
@@ -74,7 +77,7 @@ export function StationAutocomplete({
     return () => {
       isMounted = false;
     };
-  }, [debouncedQuery, isComposing]);
+  }, [debouncedQuery, isComposing, locale]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,13 +97,29 @@ export function StationAutocomplete({
     };
   }, []);
 
-  const handleSelect = useCallback((suggestion: SearchSuggestion) => {
-    setQuery(suggestion.nameJa);
-    setIsOpen(false);
-    if (onChange) {
-      onChange({ id: suggestion.id, name: suggestion.nameJa });
+  const resolveLocaleName = useCallback(async (suggestion: SearchSuggestion): Promise<string> => {
+    if (locale === "ja") return suggestion.name;
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+      const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(suggestion.id)}`);
+      if (!res.ok) return suggestion.name;
+      const { data } = await res.json();
+      return data?.nameKo ?? suggestion.name;
+    } catch {
+      return suggestion.name;
     }
-  }, [onChange]);
+  }, [locale]);
+
+  const handleSelect = useCallback(async (suggestion: SearchSuggestion) => {
+    setIsOpen(false);
+    const thisSelection = ++selectCounterRef.current;
+    const displayName = await resolveLocaleName(suggestion);
+    if (selectCounterRef.current !== thisSelection) return;
+    setQuery(displayName);
+    if (onChange) {
+      onChange({ id: suggestion.id, name: displayName });
+    }
+  }, [onChange, resolveLocaleName]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isComposing) return;
@@ -137,6 +156,7 @@ export function StationAutocomplete({
           name={name}
           value={query}
           onChange={(e) => {
+            selectCounterRef.current++;
             setQuery(e.target.value);
             if (!isOpen && e.target.value.trim().length > 0) {
               setIsOpen(true);
@@ -151,7 +171,7 @@ export function StationAutocomplete({
           onCompositionStart={() => setIsComposing(true)}
           onCompositionEnd={() => setIsComposing(false)}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={placeholder || t("components.stationPlaceholder")}
           autoComplete="off"
           className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-base text-slate-900 outline-none transition focus:border-sky-400 focus:bg-white"
         />
@@ -180,10 +200,10 @@ export function StationAutocomplete({
                 >
                   <div className="flex flex-col">
                     <span className="text-sm font-medium text-slate-900">
-                      {suggestion.nameJa}
+                      {suggestion.name}
                     </span>
                     <span className="text-xs text-slate-500">
-                      {suggestion.subtitleJa}
+                      {suggestion.subtitle}
                     </span>
                   </div>
                 </button>
