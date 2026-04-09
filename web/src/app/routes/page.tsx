@@ -4,13 +4,18 @@ import { useEffect, useState, Suspense, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { RouteResult } from "../../../../shared/types";
 import { RouteCard } from "../../components/route-card";
+import { useTranslation } from "../../i18n/client";
+import { trackEvent } from "../../lib/analytics";
 
-async function resolveStationName(stationId: string): Promise<string> {
+async function resolveStationName(stationId: string, locale: string): Promise<string> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
     const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(stationId)}`);
     if (!res.ok) return stationId;
     const { data } = await res.json();
+    if (locale === "ko") {
+      return data?.nameKo ?? data?.nameJa ?? stationId;
+    }
     return data?.nameJa ?? stationId;
   } catch {
     return stationId;
@@ -20,6 +25,7 @@ async function resolveStationName(stationId: string): Promise<string> {
 function RoutesSearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { t, locale } = useTranslation();
   const from = searchParams.get("from");
   const to = searchParams.get("to");
   const fromNameParam = searchParams.get("fromName");
@@ -32,24 +38,24 @@ function RoutesSearchContent() {
   const [toName, setToName] = useState(toNameParam || "");
 
   useEffect(() => {
-    if (fromNameParam) {
+    if (from && !from.startsWith("coord_")) {
+      resolveStationName(from, locale).then(setFromName);
+    } else if (fromNameParam) {
       setFromName(fromNameParam);
-    } else if (from) {
-      resolveStationName(from).then(setFromName);
     }
-  }, [from, fromNameParam]);
+  }, [from, fromNameParam, locale]);
 
   useEffect(() => {
-    if (toNameParam) {
+    if (to && !to.startsWith("coord_")) {
+      resolveStationName(to, locale).then(setToName);
+    } else if (toNameParam) {
       setToName(toNameParam);
-    } else if (to) {
-      resolveStationName(to).then(setToName);
     }
-  }, [to, toNameParam]);
+  }, [to, toNameParam, locale]);
 
   const fetchRoutes = useCallback(async () => {
     if (!from || !to) {
-      setError("出発地と到着地を指定してください");
+      setError(t("routes.specifyStations"));
       setIsLoading(false);
       return;
     }
@@ -68,17 +74,18 @@ function RoutesSearchContent() {
       });
 
       if (!res.ok) {
-        throw new Error("検索に失敗しました");
+        throw new Error(t("routes.searchFailed"));
       }
 
-      const { data } = await res.json();
-      setRoutes(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "エラーが発生しました");
-    } finally {
+       const { data } = await res.json();
+       setRoutes(data);
+       trackEvent({ type: "route_search", from: from || "", to: to || "" });
+     } catch (err) {
+       setError(err instanceof Error ? err.message : t("routes.errorOccurred"));
+     } finally {
       setIsLoading(false);
     }
-  }, [from, to]);
+  }, [from, to, t]);
 
   useEffect(() => {
     fetchRoutes();
@@ -93,10 +100,10 @@ function RoutesSearchContent() {
           className="flex w-fit items-center gap-2 text-sm font-semibold text-sky-600 transition hover:text-sky-700"
         >
           <span className="text-lg">←</span>
-          戻る
+          {t("routes.back")}
         </button>
         <h1 className="mt-4 text-3xl font-bold tracking-tight">
-          ルート検索結果
+          {t("routes.searchResults")}
         </h1>
         {fromName && toName && (
           <p className="mt-1 text-sm font-medium text-slate-600">
@@ -104,6 +111,10 @@ function RoutesSearchContent() {
           </p>
         )}
       </header>
+
+      <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200">
+        {t("routes.coverageNote")}
+      </div>
 
       {isLoading ? (
         <div className="grid gap-6 sm:grid-cols-2">
@@ -118,29 +129,35 @@ function RoutesSearchContent() {
         <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 text-center shadow-sm ring-1 ring-slate-200">
           <span className="mb-4 text-4xl">⚠️</span>
           <p className="text-lg font-bold text-slate-800">{error}</p>
+          <p className="mt-2 max-w-sm text-sm text-slate-500">
+            {t("routes.errorSubtext")}
+          </p>
           <button
             type="button"
             onClick={() => fetchRoutes()}
             className="mt-6 rounded-2xl bg-slate-100 px-6 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
           >
-            再試行する
+            {t("routes.retry")}
           </button>
         </div>
       ) : routes.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 text-center shadow-sm ring-1 ring-slate-200">
           <span className="mb-4 text-4xl">🔍</span>
           <p className="text-lg font-bold text-slate-800">
-            経路が見つかりませんでした
+            {t("routes.noRoutesFound")}
           </p>
-          <p className="mt-2 text-sm text-slate-500">
-            条件を変更して再度お試しください。
+          <p className="mt-2 max-w-sm text-sm text-slate-500">
+            {t("routes.noRoutesSubtext")}
+          </p>
+          <p className="mt-3 max-w-sm text-xs text-slate-400">
+            {t("routes.searchTip")}
           </p>
           <button
             type="button"
             onClick={() => router.push("/")}
             className="mt-6 rounded-2xl bg-sky-600 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-sky-700"
           >
-            トップへ戻る
+            {t("routes.backToTop")}
           </button>
         </div>
       ) : (

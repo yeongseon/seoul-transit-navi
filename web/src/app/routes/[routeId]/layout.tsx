@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { getTranslation } from "../../../i18n/server";
 
 interface StationResponse {
   data?: {
     nameJa?: string;
+    nameKo?: string;
   };
 }
 
@@ -20,6 +22,7 @@ interface RouteMetadataResponse {
     fareKrw?: number;
     transferCount?: number;
     summaryJa?: string;
+    summary?: string;
   };
 }
 
@@ -27,7 +30,7 @@ function getApiUrl() {
   return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
 }
 
-async function fetchStationName(stationId: string): Promise<string> {
+async function fetchStationName(stationId: string, locale: string): Promise<string> {
   try {
     const res = await fetch(
       `${getApiUrl()}/api/stations/${encodeURIComponent(stationId)}`,
@@ -41,6 +44,9 @@ async function fetchStationName(stationId: string): Promise<string> {
     }
 
     const { data }: StationResponse = await res.json();
+    if (locale === "ko") {
+      return data?.nameKo ?? data?.nameJa ?? stationId;
+    }
     return data?.nameJa ?? stationId;
   } catch {
     return stationId;
@@ -69,34 +75,35 @@ export async function generateMetadata({
 }: {
   params: Promise<{ routeId: string }>;
 }): Promise<Metadata> {
+  const { t, locale } = await getTranslation();
   const { routeId } = await params;
   const route = await fetchRouteData(routeId);
 
   if (!route) {
     return {
-      title: "ルート詳細 | ソウル交通ナビ",
+      title: t("routeDetailMeta.title"),
     };
   }
 
   const [fromName, toName] = await Promise.all([
     route.startRef?.type === "coord"
-      ? Promise.resolve("現在地")
+      ? Promise.resolve(t("routeDetailMeta.currentLocation"))
       : route.startRef?.id
-        ? fetchStationName(route.startRef.id)
-        : Promise.resolve("出発地"),
+        ? fetchStationName(route.startRef.id, locale)
+        : Promise.resolve(t("routeDetailMeta.origin")),
     route.destinationRef?.type === "coord"
-      ? Promise.resolve("目的地")
+      ? Promise.resolve(t("routeDetailMeta.destination"))
       : route.destinationRef?.id
-        ? fetchStationName(route.destinationRef.id)
-        : Promise.resolve("到着地"),
+        ? fetchStationName(route.destinationRef.id, locale)
+        : Promise.resolve(t("routeDetailMeta.arrival")),
   ]);
 
-  const title = `${fromName} → ${toName} | ソウル交通ナビ`;
-  const duration = typeof route.durationMin === "number" ? `${route.durationMin}分` : null;
+  const title = `${fromName} → ${toName} | ${t("routeDetailMeta.siteSuffix")}`;
+  const duration = typeof route.durationMin === "number" ? t("routeDetailMeta.minutes", { count: route.durationMin }) : null;
   const fare = typeof route.fareKrw === "number" ? `₩${route.fareKrw.toLocaleString()}` : null;
   const transfers =
-    typeof route.transferCount === "number" ? `乗換${route.transferCount}回` : null;
-  const summary = route.summaryJa || "ソウル地下鉄ルート";
+    typeof route.transferCount === "number" ? t("routeDetailMeta.transfers", { count: route.transferCount }) : null;
+  const summary = route.summary || route.summaryJa || t("routeDetailMeta.defaultSummary");
   const description = [duration, fare, transfers, summary].filter(Boolean).join(" | ");
 
   return {
