@@ -1,0 +1,708 @@
+{
+  "meta": {
+    "title": "ソウル交通ナビ",
+    "description": "ソウルの地下鉄を、日本語でわかりやすく。",
+    "ogDescription": "日本語で探せるソウルの地下鉄ナビゲーション"
+  },
+  "home": {
+    "badge": "ソウル交通ナビゲーション",
+    "title": "ソウル交通ナビ",
+    "subtitle": "ソウルの地下鉄を、日本語でわかりやすく。",
+    "origin": "出発地",
+    "destination": "到着地",
+    "search": "検索する",
+    "useCurrentLocation": "現在地を使用",
+    "locating": "取得中...",
+    "currentLocation": "現在地",
+    "popularPlaces": "人気のスポットへ行く",
+    "airportAccess": "空港アクセス",
+    "subwayMap": "路線図を見る",
+    "airportGuide": "空港→ホテルガイド",
+    "transitTips": "旅行Tips",
+    "areaGuides": "エリアガイド",
+    "stationGuides": "駅ガイド",
+    "popularRoutes": "人気ルート",
+    "popularRoutesDescription": "ワンタップで検索",
+    "recentSearches": "最近の検索",
+    "originPlaceholder": "例: ソウル駅",
+    "destinationPlaceholder": "例: 景福宮",
+    "swapAriaLabel": "出発地と到着地を入れ替える",
+    "swapIconTitle": "入れ替えアイコン",
+    "clockIconTitle": "時計アイコン"
+  },
+  "routePresets": {
+    "title": "人気ルート",
+    "description": "日本人旅行者に人気のルートをワンタップで検索",
+    "myeongdongToHongdae": "明洞 → 弘大",
+    "myeongdongToGyeongbokgung": "明洞 → 景福宮",
+    "hongdaeToGangnam": "弘大 → 江南",
+    "hongdaeToSeongsu": "弘大 → 聖水",
+    "myeongdongToDongdaemun": "明洞 → 東大門",
+    "gangnamToJamsil": "江南 → 蚕室",
+    "myeongdongToGangnam": "明洞 → 江南"
+  },
+  "mapLinks": {
+    "openNaverMap": "Naver Mapで開く",
+    "openGoogleMap": "Google Mapで開く",
+    "mapSection": "🗺️ 地図で確認"
+  },
+  "areaGuides": {
+    "meta": {
+      "title": "エリアガイド | ソウル交通ナビ",
+      "description": "今ソウルで注目のエリアを、アクセス・見どころ・歩き方まで紹介します。"
+    },
+    "backToHome": "ホームに戻る",
+    "eyebrow": "トレンドエリア",
+    "title": "エリアガイド",
+    "description": "日本人旅行者に今人気のソウルのエリアを、地下鉄アクセスと歩き方を中心に紹介します。",
+    "stations": "最寄り駅",
+    "spots": "見どころ",
+    "exitTip": "出口ガイド",
+    "walkingTip": "歩き方",
+    "dayTrip": "おすすめコース",
+    "viewGuide": "ガイドを見る",
+    "seongsu": {
+      "name": "聖水（ソンス）",
+      "tagline": "カフェ＆ポップアップの聖地",
+      "description": "古い倉庫をリノベしたカフェやブランドのポップアップストアが集中するクリエイティブエリア。2号線で弘大や江南からすぐ。",
+      "station1": "聖水駅（2号線）",
+      "station2": "纛島駅（2号線）",
+      "station3": "ソウルの森駅（水仁盆唐線）",
+      "spot1": "ブランドポップアップストア",
+      "spot2": "カフェ通り",
+      "spot3": "大林倉庫",
+      "spot4": "聖水連邦",
+      "spot5": "ソウルの森",
+      "exitGuide": "聖水駅2番出口がカフェ通りへの近道。出口を出て右に進むとポップアップストアが並びます。",
+      "walkingTip": "聖水駅→カフェ通り→大林倉庫→ソウルの森の順で回るのがおすすめ。徒歩圏内で半日楽しめます。",
+      "dayTrip": "聖水 → ソウルの森 → 纛島漢江公園"
+    },
+    "jamsil": {
+      "name": "蚕室（チャムシル）",
+      "tagline": "ロッテタワー＆テーマパーク",
+      "description": "ロッテワールドタワー（555m）を中心に、ロッテワールド遊園地、石村湖、ショッピングモールが集まるエリア。",
+      "station1": "蚕室駅（2・8号線）",
+      "station2": "石村駅（8・9号線）",
+      "spot1": "ロッテワールドタワー / モール",
+      "spot2": "石村湖",
+      "spot3": "ロッテワールド",
+      "exitGuide": "蚕室駅10番出口がロッテワールドタワー直結。11番出口でロッテワールド遊園地方面。",
+      "walkingTip": "ロッテワールドタワー展望台（117F）→モールで食事→石村湖散策がおすすめルート。",
+      "dayTrip": "蚕室 → 石村湖 → ロッテワールドタワー"
+    },
+    "yeouido": {
+      "name": "汝矣島（ヨイド）",
+      "tagline": "THE現代＆漢江公園",
+      "description": "THE現代ソウル（大型デパート）と汝矣島漢江公園が徒歩圏内。63ビルディングからの眺望も人気。",
+      "station1": "汝矣島駅（5・9号線）",
+      "station2": "汝矣ナル駅（5号線）",
+      "spot1": "THE現代ソウル",
+      "spot2": "汝矣島漢江公園",
+      "spot3": "63ビルディング",
+      "exitGuide": "汝矣島駅3番出口でIFCモール方面、THE現代は連絡通路で直結。漢江公園は汝矣ナル駅1番出口が近い。",
+      "walkingTip": "THE現代で買い物→IFCモール→汝矣島漢江公園で夕日を見るのがおすすめ。",
+      "dayTrip": "汝矣島 → THE現代 → 漢江公園"
+    },
+    "hannam": {
+      "name": "漢南（ハンナム）",
+      "tagline": "カフェ＆アート＆梨泰院",
+      "description": "漢南洞のおしゃれカフェ通り、リウム美術館、ブルースクエアが集まるエリア。隣の梨泰院もすぐ。",
+      "station1": "漢江鎮駅（6号線）",
+      "station2": "梨泰院駅（6号線）",
+      "spot1": "漢南洞カフェ通り",
+      "spot2": "ブルースクエア",
+      "spot3": "リウム美術館",
+      "spot4": "梨泰院アンティーク家具通り",
+      "exitGuide": "漢江鎮駅1番出口がカフェ通り方面。梨泰院は梨泰院駅3番出口。",
+      "walkingTip": "漢江鎮駅→カフェ通り→リウム美術館→梨泰院駅方面に歩くのがおすすめ。上り坂あり。",
+      "dayTrip": "漢南 → 梨泰院 → 経理団ギル"
+    }
+  },
+  "stationGuides": {
+    "meta": {
+      "title": "駅ガイド | ソウル交通ナビ",
+      "description": "迷いやすい駅の乗り換え・出口・注意点をまとめました。"
+    },
+    "backToHome": "ホームに戻る",
+    "eyebrow": "迷いやすい駅",
+    "title": "駅ガイド",
+    "description": "ソウルで日本人旅行者が迷いやすい駅を、乗り換え・出口・注意点を中心にまとめました。",
+    "lines": "路線",
+    "confusionPoints": "迷いポイント",
+    "tips": "ポイント",
+    "viewGuide": "ガイドを見る",
+    "warningBadge": "⚠️ 注意",
+    "seoulStation": {
+      "name": "ソウル駅",
+      "lines": "1号線・4号線・空港鉄道・京義中央線",
+      "confusion1": "AREX（空港鉄道）↔地下鉄↔KTXの3つのシステムが別々の改札です。",
+      "confusion2": "AREX直通と各停は乗り場が分かれています。直通は青い改札、各停は一般の地下鉄改札から入ります。",
+      "confusion3": "地下鉄1号線と4号線の乗り換えは地下通路で約5分歩きます。",
+      "tip1": "空港から来た場合、出口の案内板で「地下鉄 1号線」「4号線」を探してください。",
+      "tip2": "KTXは別の建物（ソウル駅舎）なので、地下鉄から行く場合は1番出口方面です。"
+    },
+    "hongdae": {
+      "name": "弘大入口駅",
+      "lines": "2号線・空港鉄道・京義中央線",
+      "confusion1": "弘大の繁華街は9番出口方面。延南洞（ヨンナムドン）は3番出口方面で、真逆です。",
+      "confusion2": "AREX（空港鉄道）の乗り場は地下深くにあります。2号線からAREXへの乗り換えは通路を降りて約7分。",
+      "tip1": "弘大エリアで遊ぶなら9番出口、延南洞のカフェに行くなら3番出口と覚えてください。",
+      "tip2": "空港鉄道の乗り場は案内板「공항철도 AREX」を追ってください。"
+    },
+    "dongdaemunHistoryCulture": {
+      "name": "東大門歴史文化公園駅",
+      "lines": "2号線・4号線・5号線",
+      "confusion1": "DDP（デザインプラザ）は1・2番出口。ファッション市場（ミリオレ・ドゥータなど）は12〜14番出口で方向が違います。",
+      "confusion2": "3路線が交差する大型駅で、乗り換え通路が長めです。特に5号線との乗り換えは約8分かかります。",
+      "tip1": "DDPに行くなら「1番出口」、深夜ショッピングなら「14番出口」が便利です。",
+      "tip2": "「東大門」駅とは別の駅です！名前が似ていますが、東大門駅は1・4号線のみ。"
+    },
+    "jongno3ga": {
+      "name": "鍾路3街駅",
+      "lines": "1号線・3号線・5号線",
+      "confusion1": "益善洞（イクソンドン）は4・6番出口方面。仁寺洞（インサドン）は5番出口方面です。",
+      "confusion2": "3路線が交差し、特に1号線↔5号線の乗り換えは通路が複雑です。",
+      "tip1": "レトロ韓屋カフェの益善洞は4・6番出口で降りてすぐ。",
+      "tip2": "タプコル公園は1番出口が最寄りです。"
+    },
+    "expressBusTerminal": {
+      "name": "高速ターミナル駅",
+      "lines": "3号線・7号線・9号線",
+      "confusion1": "新世界百貨店（高速ターミナル）は3号線側改札。セントラルシティ（マリオット）は7・9号線側改札で、方向が違います。",
+      "confusion2": "3号線と7・9号線の乗り換えは地下ショッピングモールを通過するため、迷いやすいです。",
+      "tip1": "新世界に行くなら「3号線側」、セントラルシティ・マリオットなら「7号線側」です。",
+      "tip2": "地下通路が長いので、案内板の色（路線カラー）を追うのが一番確実です。"
+    },
+    "apgujeongWarning": {
+      "name": "狎鷗亭 vs 狎鷗亭ロデオ",
+      "isWarning": true,
+      "warning": "完全に別の駅です！狎鷗亭駅は3号線、狎鷗亭ロデオ駅は水仁盆唐線。タクシーで10分以上離れています。",
+      "detail": "狎鷗亭ロデオ（カロスキル寄り）に行きたいのに狎鷗亭駅で降りると、目的地まで徒歩30分以上になります。必ず駅名を最後まで確認してください。"
+    },
+    "euljiroWarning": {
+      "name": "乙支路入口 / 乙支路3街 / 乙支路4街",
+      "isWarning": true,
+      "warning": "名前が似ていますが位置が違います。乙支路入口は2号線（明洞の隣）、乙支路3街は2・3号線、乙支路4街は2・5号線です。",
+      "detail": "乙支路3街のヒップなカフェ通りに行くなら「乙支路3街駅」で降りてください。乙支路入口で降りると10分以上歩くことになります。"
+    }
+  },
+  "popularPlaces": {
+    "myeongdong": "明洞",
+    "hongdae": "弘大",
+    "seongsu": "聖水",
+    "gangnam": "江南",
+    "gyeongbokgung": "景福宮",
+    "seoulStation": "ソウル駅"
+  },
+  "airportShortcuts": {
+    "incheonToSeoul": "仁川空港→ソウル駅",
+    "incheonToHongdae": "仁川空港→弘大入口",
+    "gimpoToGangnam": "金浦空港→江南",
+    "incheonAirport": "仁川空港",
+    "gimpoAirport": "金浦空港"
+  },
+  "routes": {
+    "back": "戻る",
+    "searchResults": "ルート検索結果",
+    "specifyStations": "出発地と到着地を指定してください",
+    "searchFailed": "検索に失敗しました",
+    "errorOccurred": "エラーが発生しました",
+    "coverageNote": "※ 地下鉄のみ対応しています。バス路線は含まれていません。",
+    "noRoutesSubtext": "この区間は地下鉄だけでは移動できない可能性があります。バスやタクシーをご検討ください。",
+    "errorSubtext": "通信状況を確認して、もう一度お試しください。",
+    "searchTip": "💡 駅名で検索するとより正確な結果が得られます。",
+    "retry": "再試行する",
+    "noRoutesFound": "経路が見つかりませんでした",
+    "changeConditions": "条件を変更して再度お試しください。",
+    "backToTop": "トップへ戻る"
+  },
+  "routeDetail": {
+    "fetchFailed": "経路の取得に失敗しました",
+    "errorOccurred": "エラーが発生しました",
+    "notFound": "経路が見つかりませんでした",
+    "back": "戻る",
+    "backToResults": "検索結果に戻る",
+    "share": "共有",
+    "copied": "コピーしました",
+    "minutes": "分",
+    "transfers": "乗換 {{count}}回",
+    "routeDetails": "ルート詳細",
+    "transferGuide": "🔄 乗換案内",
+    "exitGuide": "🚪 出口案内",
+    "transferTo": "{{line}}に乗換",
+    "walkMinutes": "徒歩約{{count}}分",
+    "arriveAndExit": "到着駅で下車してください"
+  },
+  "routeConfidence": {
+    "sectionTitle": "💡 旅行者向けガイド",
+    "stationWarning": "⚠️ この駅は迷いやすいです",
+    "exitRecommendation": "🚪 おすすめの出口",
+    "copyKorean": "韓国語をコピー",
+    "copiedKorean": "コピーしました",
+    "koreanStationName": "韓国語の駅名",
+    "showOnMap": "地図で見る",
+    "arexCaution": "🚆 空港鉄道の注意点",
+    "arexExpressNote": "AREX直通は座席指定。T-moneyは使えません。乗車券は空港の青いカウンターで購入してください。",
+    "arexLocalNote": "AREX各停はT-moneyで乗車できます。弘大入口駅で2号線に乗り換え可能です。",
+    "viewStationGuide": "駅ガイドを見る →",
+    "confusingStation": "この駅は乗り換え・出口が複雑です。事前に確認しておくと安心です。"
+  },
+  "timeWarning": {
+    "sectionTitle": "🕐 運行時間の注意",
+    "lastTrainSoon": "⚠️ 終電が近い時間帯です。余裕を持って移動してください。",
+    "serviceEnded": "🚫 終電後の時間帯です。タクシーをご利用ください。",
+    "earlyMorning": "🌅 始発前の時間帯です。始発は5:30頃からです。",
+    "normal": "✅ 通常運行中です。",
+    "taxiFallback": "タクシーという選択肢",
+    "taxiFallbackDescription": "終電後や急ぎの場合はタクシーも安心です。目的地の韓国語を準備しておくと伝えやすいです。",
+    "currentTime": "現在の時刻",
+    "lastTrainApprox": "終電目安: 23:30〜0:00",
+    "firstTrainApprox": "始発目安: 5:30頃"
+  },
+  "routeDetailMeta": {
+    "title": "ルート詳細 | ソウル交通ナビ",
+    "currentLocation": "現在地",
+    "origin": "出発地",
+    "destination": "目的地",
+    "arrival": "到着地",
+    "minutes": "{{count}}分",
+    "transfers": "乗換{{count}}回",
+    "defaultSummary": "ソウル地下鉄ルート",
+    "siteSuffix": "ソウル交通ナビ"
+  },
+  "routesMeta": {
+    "title": "ルート検索結果 | ソウル交通ナビ",
+    "description": "ソウル地下鉄のルート検索結果"
+  },
+  "places": {
+    "title": "目的地から探す",
+    "all": "すべて",
+    "nearestStation": "最寄り駅",
+    "stationExit": "{{station}}駅 {{exit}}番出口",
+    "noStationInfo": "最寄り駅情報なし",
+    "noPlaces": "該当する目的地がありません。",
+    "svgTitle": "最寄り駅"
+  },
+  "placesMeta": {
+    "title": "目的地一覧 | ソウル交通ナビ",
+    "description": "ソウルの人気スポット・目的地一覧"
+  },
+  "placeDetail": {
+    "notFoundMeta": "目的地が見つかりません | ソウル交通ナビ",
+    "backIcon": "戻る",
+    "backToList": "目的地一覧に戻る",
+    "nearestStation": "最寄り駅",
+    "station": "{{name}}駅",
+    "exitNumber": "{{exit}}番出口",
+    "goHere": "ここへ行く",
+    "routeSearch": "ルート検索",
+    "fromOrigin": "{{origin}}から",
+    "siteSuffix": "ソウル交通ナビ",
+    "seoulStation": "ソウル駅",
+    "hongdae": "弘大入口",
+    "gangnam": "江南"
+  },
+  "placeNotFound": {
+    "title": "この目的地は見つかりませんでした",
+    "description": "目的地のURLが間違っているか、削除された可能性があります。",
+    "backToList": "目的地一覧に戻る"
+  },
+  "placesError": {
+    "title": "目的地の読み込みに失敗しました",
+    "description": "通信状況を確認して、もう一度お試しください。",
+    "retry": "再試行する",
+    "backToHome": "ホームに戻る"
+  },
+  "notFound": {
+    "title": "ページが見つかりませんでした",
+    "description": "お探しのページは削除されたか、URLが変更された可能性があります。",
+    "backToHome": "ホームに戻る"
+  },
+  "error": {
+    "title": "エラーが発生しました",
+    "description": "予期せぬエラーが発生しました。もう一度お試しください。",
+    "retry": "再試行する"
+  },
+  "components": {
+    "stationPlaceholder": "駅名を入力",
+    "recommended": "おすすめ ✨",
+    "minutes": "分",
+    "transfers": "乗換 {{count}}回",
+    "viewDetails": "詳細を見る",
+    "stationCount": "{{count}}駅"
+  },
+  "routeTypes": {
+    "easy": "わかりやすいルート",
+    "fastest": "最速ルート",
+    "few_transfers": "乗り換えが少ないルート",
+    "tourist_friendly": "おすすめルート"
+  },
+  "placeCategories": {
+    "shopping": "ショッピング",
+    "culture": "文化・歴史",
+    "food": "グルメ",
+    "landmark": "ランドマーク",
+    "entertainment": "エンタメ",
+    "transport": "交通",
+    "nature": "自然",
+    "other": "その他"
+  },
+  "localeSwitcher": {
+    "ja": "日本語",
+    "ko": "한국어",
+    "switchTo_ja": "日本語に切り替える",
+    "switchTo_ko": "韓国語に切り替える"
+  },
+  "tips": {
+    "meta": {
+      "title": "地下鉄利用のコツ | ソウル交通ナビ",
+      "description": "T-moneyカード、乗り換え、荷物移動まで、ソウル地下鉄を使う旅行者向けの実用ガイド。"
+    },
+    "backIcon": "戻る",
+    "backToHome": "ホームに戻る",
+    "eyebrow": "旅行前にチェック",
+    "title": "ソウル地下鉄 旅行者向けTips",
+    "description": "初めてのソウルでも迷いにくいように、交通カード、混雑時間、乗り換え、荷物移動、マナーをひとまとめにしました。",
+    "airportGuideDescription": "空港から市内への移動方法もあわせて確認したい方は、空港ガイドもどうぞ。",
+    "airportGuideLink": "空港ガイドを見る",
+    "tMoney": {
+      "title": "交通カード",
+      "description": "まずはT-moneyカードを1枚持っておくと、地下鉄・バス移動がかなり楽になります。",
+      "item1": "T-moneyはチャージ式の交通カードで、地下鉄・バス・タクシーで使えます。",
+      "item2": "カードは各駅のCU・GS25・7-Elevenなどのコンビニで購入できます。",
+      "item3": "チャージはコンビニ、または駅の券売機でできます。",
+      "item4": "カード本体は約₩2,500、基本運賃はT-moneyで₩1,500、1回券は₩1,600です。",
+      "item5": "コンビニでの少額決済にも使えるので、現金を減らしたい旅行者にも便利です。"
+    },
+    "riding": {
+      "title": "乗車のコツ",
+      "description": "時間帯を少し意識するだけで、移動のしやすさが大きく変わります。",
+      "item1": "平日の7:30〜9:00、18:00〜19:30はラッシュなので、できれば避けるのがおすすめです。",
+      "item2": "列車の間隔はラッシュ時で約2〜5分、通常時で約5〜10分です。",
+      "item3": "始発は多くの路線で5:30ごろ、終電は23:30〜0:00ごろです。",
+      "item4": "遅い時間の移動は、駅構内の『終電』表示を必ず確認すると安心です。",
+      "item5": "乗る方向が不安なときは、ホーム案内の終点駅名を見るとわかりやすいです。"
+    },
+    "transfer": {
+      "title": "乗り換え",
+      "description": "ソウルの乗り換えは案内が充実していますが、歩く距離が長い駅もあります。",
+      "item1": "バス↔地下鉄の乗り換えは30分以内なら無料扱いになることがあります。",
+      "item2": "蚕室・新道林・東大門歴史文化公園などは、乗り換え通路が長めです。",
+      "item3": "駅では黄色やオレンジ色の乗り換え案内サインを目印に進みましょう。",
+      "item4": "床のライン番号や路線カラーを追うと、迷いにくくなります。"
+    },
+    "luggage": {
+      "title": "キャリーケースでの移動",
+      "description": "大きな荷物がある日は、少しルートを工夫するとかなり快適です。",
+      "item1": "エレベーターは全駅にあるので、案内表示の『엘리베이터 / エレベーター』を探してください。",
+      "item2": "大きな荷物がある日は、7〜9時・18〜20時の混雑時間帯を避けるのが安心です。",
+      "item3": "空港から大きな荷物で移動するなら、AREX直通列車が特に便利です。",
+      "item4": "9号線の急行列車には荷物ラックがある編成もあります。"
+    },
+    "phrases": {
+      "title": "覚えておくと便利な韓国語",
+      "description": "駅員さんや周りの人に短く聞ける表現を覚えておくと便利です。",
+      "item1": {
+        "korean": "이 역은 어디예요?",
+        "meaning": "この駅はどこですか？"
+      },
+      "item2": {
+        "korean": "환승은 어디서 해요?",
+        "meaning": "乗り換えはどこでしますか？"
+      },
+      "item3": {
+        "korean": "출구가 어디예요?",
+        "meaning": "出口はどこですか？"
+      },
+      "item4": {
+        "korean": "이 열차는 홍대입구에 가요?",
+        "meaning": "この電車は弘大入口に行きますか？"
+      },
+      "item5": {
+        "korean": "충전은 어디서 해요?",
+        "meaning": "チャージはどこでできますか？"
+      },
+      "item6": {
+        "korean": "공항철도는 어디예요?",
+        "meaning": "空港鉄道はどこですか？"
+      }
+    },
+    "etiquette": {
+      "title": "マナー",
+      "description": "ちょっとしたルールを知っておくと、より気持ちよく利用できます。",
+      "item1": "優先席は高齢者・妊婦・障がい者向けなので、空いていても配慮しましょう。",
+      "item2": "車内での飲食は控えるのが基本です。",
+      "item3": "スマホはマナーモード・サイレントにしておくと安心です。",
+      "item4": "エスカレーターは右側に立ち、左側を歩く人のために空けるのが一般的です。",
+      "item5": "ドア付近で立ち止まらず、乗り降りの流れをふさがないようにしましょう。"
+    }
+  },
+  "subwayMap": {
+    "meta": {
+      "title": "路線図 | ソウル交通ナビ",
+      "description": "ソウル地下鉄の主要路線を、日本の路線図スタイルで見渡せる全体マップ。"
+    },
+    "backToHome": "ホームに戻る",
+    "title": "路線図",
+    "description": "2号線ループを中心に、主要路線のつながりをひと目で確認できるソウル地下鉄の全体図です。",
+    "tapStation": "駅をタップして詳細を見る",
+    "legend": "路線一覧",
+    "transfer": "乗換駅",
+    "stationCount": "{{count}}駅",
+    "selected": "選択中",
+    "availableLines": "利用できる路線",
+    "badge": "ソウル路線図"
+  },
+  "airport": {
+    "meta": {
+      "title": "空港→ホテル ガイド | ソウル交通ナビ",
+      "description": "仁川空港に到着してからホテルまで、ステップごとにわかりやすく案内します。"
+    },
+    "backToHome": "ホームに戻る",
+    "eyebrow": "空港→ホテル コンパニオン",
+    "title": "空港→ホテル ガイド",
+    "subtitle": "ターミナルと行き先エリアを選ぶと、到着からホテルまでの移動を一歩ずつ案内します。",
+    "actions": {
+      "reset": "やり直す",
+      "copy": "コピーする",
+      "copied": "コピーしました",
+      "yes": "大きい荷物あり",
+      "no": "荷物は少なめ"
+    },
+    "progress": {
+      "step1": "STEP 1",
+      "step1Title": "ターミナル選択",
+      "step2": "STEP 2",
+      "step2Title": "行き先エリア",
+      "step3": "STEP 3",
+      "step3Title": "到着時間・荷物",
+      "step4": "STEP 4",
+      "step4Title": "ガイド表示"
+    },
+    "selectors": {
+      "terminal": {
+        "title": "ターミナルを選んでください",
+        "description": "到着するターミナルを選ぶと、そのターミナルに合った案内が表示されます。"
+      },
+      "area": {
+        "title": "行き先エリアを選んでください",
+        "description": "ホテルがあるエリアを選ぶと、そのエリアへの最適ルートを案内します。"
+      },
+      "conditions": {
+        "title": "到着時間と荷物を教えてください",
+        "description": "時間帯と荷物量に応じて、最適な移動手段を提案します。",
+        "timeTitle": "到着する時間帯は？",
+        "luggageTitle": "大きいスーツケースはありますか？",
+        "luggageYes": "スーツケース2個以上、または大型キャリー",
+        "luggageNo": "バックパックや小型キャリーのみ"
+      },
+      "result": {
+        "eyebrow": "あなたのガイド",
+        "title": "ステップガイド",
+        "description": "選択に合わせた移動ガイドを表示します。",
+        "stepBadge": "{{step}}/4 完了",
+        "emptyTitle": "左の項目を選んでください",
+        "emptyDescription": "ターミナル・行き先・時間帯・荷物を選ぶと、ここにステップごとの案内が表示されます。"
+      }
+    },
+    "terminals": {
+      "t1": {
+        "label": "T1",
+        "name": "第1ターミナル",
+        "walkBadge": "交通センターまで約{{minutes}}分",
+        "description": "大韓航空・アシアナ航空・スターアライアンス系が発着するメインターミナル。到着後、B1の交通センターへ向かいます。"
+      },
+      "t2": {
+        "label": "T2",
+        "name": "第2ターミナル",
+        "walkBadge": "交通センターまで約{{minutes}}分",
+        "description": "大韓航空の一部国際線やスカイチームが発着。到着後、地下の交通センターまでやや距離があります。"
+      }
+    },
+    "areas": {
+      "myeongdong": {
+        "nameJa": "明洞",
+        "nameKo": "명동",
+        "summary": "ショッピングとグルメの中心地。日本語が通じる店舗も多く、初めてのソウル旅行に人気のエリアです。",
+        "station": "明洞駅 (4号線)",
+        "recommended": "AREX → ソウル駅で4号線に乗り換え、1駅で到着",
+        "exitGuide": "明洞駅4番出口を出ると、すぐにメインストリート。CU・ミョンドン聖堂が目印です。",
+        "transferGuide": "ソウル駅でAREX改札を出て、地下鉄4号線の乗り場へ。案内板の「4号線」を追いかけてください。徒歩約6分。",
+        "routeNotes": {
+          "arexExpress": "AREX直通でソウル駅→4号線で明洞駅（1駅）",
+          "arexLocal": "AREX各停でソウル駅→4号線で明洞駅（1駅）",
+          "taxi": "空港タクシーで明洞エリアまで直行"
+        }
+      },
+      "hongdae": {
+        "nameJa": "弘大",
+        "nameKo": "홍대",
+        "summary": "若者の街で、カフェ・ライブ・ストリートアートが充実。弘大入口駅はAREX各停で直接アクセスできます。",
+        "station": "弘大入口駅 (2号線/空港鉄道)",
+        "recommended": "AREX各停で弘大入口駅に直通。乗り換え不要で楽です。",
+        "exitGuide": "弘大入口駅9番出口が繁華街への近道。出口を出て左に進むとメインストリートです。",
+        "routeNotes": {
+          "arexExpress": "AREX直通でソウル駅→2号線で弘大入口（2駅）",
+          "arexLocal": "AREX各停で弘大入口駅まで直通（乗り換えなし）",
+          "taxi": "空港タクシーで弘大エリアまで直行"
+        }
+      },
+      "gangnam": {
+        "nameJa": "江南",
+        "nameKo": "강남",
+        "summary": "ビジネスとエンタメの中心地。COEX・カロスキルなど見どころ豊富。空港からやや距離があります。",
+        "station": "江南駅 (2号線)",
+        "recommended": "AREX直通 → ソウル駅で1号線 → 新道林で2号線に乗り換え",
+        "exitGuide": "江南駅10番出口を出るとカンナム大通り。地上に出ればすぐにホテル街です。",
+        "transferGuide": "ソウル駅で地下鉄1号線に乗り換え → 新道林駅で2号線（江南方面）へ。乗り換え通路は5〜8分。",
+        "routeNotes": {
+          "arexExpress": "AREX直通→ソウル駅→1号線→新道林→2号線→江南駅",
+          "arexLocal": "AREX各停→ソウル駅→1号線→新道林→2号線→江南駅",
+          "taxi": "空港タクシーで江南エリアまで直行（高速道路利用）"
+        }
+      },
+      "seoulStation": {
+        "nameJa": "ソウル駅",
+        "nameKo": "서울역",
+        "summary": "KTXや地下鉄の主要ハブ。ロッテマートが近く、翌日の移動にも便利な拠点です。",
+        "station": "ソウル駅 (1号線/4号線/空港鉄道)",
+        "recommended": "AREX直通で43分、最もシンプル。乗り換えなし。",
+        "exitGuide": "ソウル駅1番出口でロッテマート側、14番出口で南大門市場方面。ホテルの方向を確認してください。",
+        "routeNotes": {
+          "arexExpress": "AREX直通でソウル駅まで43分・₩9,500",
+          "arexLocal": "AREX各停でソウル駅まで56分・₩4,750",
+          "taxi": "空港タクシーでソウル駅エリアまで直行"
+        }
+      },
+      "dongdaemun": {
+        "nameJa": "東大門",
+        "nameKo": "동대문",
+        "summary": "ファッション卸売市場とDDPデザインプラザで有名。深夜ショッピングができるエリアです。",
+        "station": "東大門歴史文化公園駅 (2/4/5号線)",
+        "recommended": "AREX → ソウル駅で4号線に乗り換え、3駅で到着",
+        "exitGuide": "東大門歴史文化公園駅1番出口でDDP方面。ファッションビル群は14番出口が近いです。",
+        "transferGuide": "ソウル駅で4号線に乗り換え→東大門歴史文化公園駅まで3駅。案内板の「忠武路方面」に従ってください。",
+        "routeNotes": {
+          "arexExpress": "AREX直通→ソウル駅→4号線→東大門歴史文化公園駅（3駅）",
+          "arexLocal": "AREX各停→ソウル駅→4号線→東大門歴史文化公園駅（3駅）",
+          "taxi": "空港タクシーで東大門エリアまで直行"
+        }
+      }
+    },
+    "timeOfDay": {
+      "day": {
+        "label": "日中（6:00〜18:00）",
+        "description": "AREX・地下鉄が通常運行。すべての交通手段が利用できます。"
+      },
+      "evening": {
+        "label": "夕方〜夜（18:00〜23:30）",
+        "description": "AREX・地下鉄は運行中ですが、帰宅ラッシュと重なることがあります。"
+      },
+      "lateNight": {
+        "label": "深夜（23:30以降）",
+        "description": "終電後のためタクシーのみ。深夜割増（20%）が適用されます。"
+      }
+    },
+    "transportModes": {
+      "arexExpress": {
+        "label": "AREX直通列車"
+      },
+      "arexLocal": {
+        "label": "AREX各駅停車"
+      },
+      "taxi": {
+        "label": "タクシー"
+      }
+    },
+    "flowSegments": {
+      "stepLabel": "STEP {{count}}",
+      "arrival": {
+        "title": "空港に到着",
+        "description": "{{terminal}}に到着。入国審査へ向かいます。"
+      },
+      "immigration": {
+        "title": "入国審査・税関",
+        "description": "パスポートと入国カードを準備。自動ゲート対応の方はそちらが早いです。混雑時は30分以上かかることも。"
+      },
+      "baggage": {
+        "title": "荷物の受け取り",
+        "description": "ターンテーブルで荷物を受け取ります。番号は搭乗券に記載されています。カートは無料です。"
+      },
+      "tmoney": {
+        "title": "T-moneyカードを購入",
+        "description": "{{location}}でT-moneyカードを購入。₩2,500＋チャージ分。各停利用時に必要です。"
+      },
+      "ticket": {
+        "title": "直通列車のチケットを購入",
+        "description": "{{location}}でAREX直通列車の乗車券を購入。₩9,500（座席指定）。T-moneyは使えません。"
+      },
+      "platform": {
+        "title": "乗り場へ移動",
+        "description": "{{location}}の案内板に沿って進みます。エスカレーターで地下へ降りてください。"
+      },
+      "transport": {
+        "title": "移動",
+        "taxiTitle": "タクシーで移動",
+        "trainTitle": "電車で移動",
+        "taxiDescription": "{{stand}}からタクシーに乗車。料金目安: {{fare}}（トール代別途）。「{{route}}」",
+        "trainDescription": "{{mode}}に乗車。{{route}}"
+      },
+      "transfer": {
+        "title": "乗り換え",
+        "description": "{{guide}}",
+        "expressDescription": "ソウル駅に到着したら、地下鉄に乗り換えます。改札を出て地下鉄の券売機でT-moneyカードを購入するか、1回券（₩1,600）を買ってください。{{guide}}"
+      },
+      "exit": {
+        "title": "到着駅で出口へ",
+        "description": "{{guide}}"
+      }
+    },
+    "locations": {
+      "t1": {
+        "tmoney": "到着ゲートを出て左、CU前を通過 → エスカレーターでB1へ → 交通センターの券売機・チャージ機まわり（約2分）",
+        "ticketCounter": "B1交通センターのAREX直通列車カウンター（青い改札の手前、右側）",
+        "platform": "到着ロビーから『공항철도 AREX』表示を追ってB1へ → 交通センター中央通路をまっすぐ → 青いAREX改札（約8分）",
+        "taxiStand": "1F到着ロビー、5〜8番出口側のタクシー乗り場。国際タクシーは6〜7番出口寄り"
+      },
+      "t2": {
+        "tmoney": "到着ロビーからB1へ下り、長い通路を進んだ先の交通センター周辺。CU / GS25近くの券売機が使いやすいです（約3分）",
+        "ticketCounter": "B1交通センター連絡通路を進み、AREX直通列車カウンター（改札手前）",
+        "platform": "到着ロビー → B1交通センターへ下る → 長い連絡通路を直進 → 青いAREX改札へ（約12分）",
+        "taxiStand": "1F到着ロビー、3〜4番出口側のタクシー乗り場"
+      }
+    },
+    "taxi": {
+      "title": "タクシーという選択肢",
+      "description": "終電後や荷物が多い場合はタクシーも安心です。国際タクシー（多言語対応）もあります。",
+      "standLabel": "タクシー乗り場",
+      "fareLabel": "料金目安",
+      "lateNightLabel": "深夜割増",
+      "lateNightNote": "0:00〜4:00は20%増。高速道路料金₩8,000〜12,000が別途かかります。",
+      "paymentLabel": "支払い",
+      "paymentNote": "クレジットカード・T-money利用可。現金も可能です。",
+      "tollNote": "料金にはトール代が別途かかります"
+    },
+    "driver": {
+      "badge": "タクシー運転手に見せる",
+      "title": "運転手に見せてください",
+      "description": "目的地を韓国語で表示します。コピーして運転手に見せると伝わりやすいです。"
+    },
+    "summary": {
+      "recommendedMode": "おすすめ交通手段",
+      "totalTime": "目安の所要時間",
+      "totalTimeValue": "約{{minutes}}分",
+      "taxiFare": "タクシー料金目安",
+      "arrivalStation": "到着駅",
+      "selectionTitle": "あなたの条件",
+      "selectionDescription": "{{terminal}} → {{areaJa}}（{{areaKo}}）、{{time}}到着、{{luggage}}"
+    },
+    "recommendations": {
+      "lightRail": "荷物が少ないので電車が快適です。コスパも良好。",
+      "dayLuggage": "荷物が多い日中は、座席指定のAREX直通が安心です。",
+      "eveningRail": "夕方は混雑する可能性がありますが、電車で問題なく移動できます。",
+      "eveningLuggage": "夕方の混雑＋大荷物の場合、タクシーが楽な場合もあります。",
+      "lateNightTaxi": "終電後のためタクシーのみ。深夜割増20%が適用されます。",
+      "t2Luggage": "T2は乗り場が遠いので、大荷物の場合はAREX直通が確実です。"
+    }
+  }
+}

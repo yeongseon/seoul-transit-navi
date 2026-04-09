@@ -1,0 +1,708 @@
+{
+  "meta": {
+    "title": "서울 교통 내비",
+    "description": "서울 지하철을 쉽고 편리하게.",
+    "ogDescription": "서울 지하철 길찾기 내비게이션"
+  },
+  "home": {
+    "badge": "서울 교통 내비게이션",
+    "title": "서울 교통 내비",
+    "subtitle": "서울 지하철을 쉽고 편리하게.",
+    "origin": "출발역",
+    "destination": "도착역",
+    "search": "검색하기",
+    "useCurrentLocation": "현재 위치 사용",
+    "locating": "확인 중...",
+    "currentLocation": "현재 위치",
+    "popularPlaces": "인기 명소로 이동",
+    "airportAccess": "공항 접근",
+    "subwayMap": "노선도 보기",
+    "airportGuide": "공항→호텔 가이드",
+    "transitTips": "여행 팁",
+    "areaGuides": "에어리어 가이드",
+    "stationGuides": "역 가이드",
+    "popularRoutes": "인기 루트",
+    "popularRoutesDescription": "한 번에 검색",
+    "recentSearches": "최근 검색",
+    "originPlaceholder": "예: 서울역",
+    "destinationPlaceholder": "예: 경복궁",
+    "swapAriaLabel": "출발역과 도착역 바꾸기",
+    "swapIconTitle": "바꾸기 아이콘",
+    "clockIconTitle": "시계 아이콘"
+  },
+  "routePresets": {
+    "title": "인기 루트",
+    "description": "일본인 여행객에게 인기 있는 경로를 바로 검색",
+    "myeongdongToHongdae": "명동 → 홍대",
+    "myeongdongToGyeongbokgung": "명동 → 경복궁",
+    "hongdaeToGangnam": "홍대 → 강남",
+    "hongdaeToSeongsu": "홍대 → 성수",
+    "myeongdongToDongdaemun": "명동 → 동대문",
+    "gangnamToJamsil": "강남 → 잠실",
+    "myeongdongToGangnam": "명동 → 강남"
+  },
+  "mapLinks": {
+    "openNaverMap": "Naver Map에서 열기",
+    "openGoogleMap": "Google Map에서 열기",
+    "mapSection": "🗺️ 지도에서 확인"
+  },
+  "areaGuides": {
+    "meta": {
+      "title": "에어리어 가이드 | 서울 교통 내비",
+      "description": "지금 서울에서 핫한 에어리어를 교통·볼거리·걷는 법까지 소개합니다."
+    },
+    "backToHome": "홈으로 돌아가기",
+    "eyebrow": "트렌드 에어리어",
+    "title": "에어리어 가이드",
+    "description": "일본인 여행객에게 요즘 인기 있는 서울 에어리어를 지하철 접근법과 걷는 법 중심으로 소개합니다.",
+    "stations": "가까운 역",
+    "spots": "볼거리",
+    "exitTip": "출구 가이드",
+    "walkingTip": "걷는 법",
+    "dayTrip": "추천 코스",
+    "viewGuide": "가이드 보기",
+    "seongsu": {
+      "name": "성수",
+      "tagline": "카페 & 팝업스토어의 성지",
+      "description": "오래된 창고를 리모델링한 카페와 브랜드 팝업스토어가 밀집한 크리에이티브 에어리어. 2호선으로 홍대나 강남에서 바로.",
+      "station1": "성수역 (2호선)",
+      "station2": "뚝섬역 (2호선)",
+      "station3": "서울숲역 (수인분당선)",
+      "spot1": "브랜드 팝업스토어",
+      "spot2": "카페 거리",
+      "spot3": "대림창고",
+      "spot4": "성수연방",
+      "spot5": "서울숲",
+      "exitGuide": "성수역 2번 출구가 카페 거리 가는 지름길. 출구에서 오른쪽으로 가면 팝업스토어가 이어집니다.",
+      "walkingTip": "성수역→카페 거리→대림창고→서울숲 순서로 돌면 좋습니다. 도보권 내에서 반나절 즐길 수 있어요.",
+      "dayTrip": "성수 → 서울숲 → 뚝섬한강공원"
+    },
+    "jamsil": {
+      "name": "잠실",
+      "tagline": "롯데타워 & 테마파크",
+      "description": "롯데월드타워(555m)를 중심으로 롯데월드, 석촌호수, 쇼핑몰이 모여 있는 에어리어.",
+      "station1": "잠실역 (2·8호선)",
+      "station2": "석촌역 (8·9호선)",
+      "spot1": "롯데월드타워 / 몰",
+      "spot2": "석촌호수",
+      "spot3": "롯데월드",
+      "exitGuide": "잠실역 10번 출구가 롯데월드타워 직결. 11번 출구로 롯데월드 방면.",
+      "walkingTip": "롯데월드타워 전망대(117F)→몰에서 식사→석촌호수 산책이 추천 코스.",
+      "dayTrip": "잠실 → 석촌호수 → 롯데월드타워"
+    },
+    "yeouido": {
+      "name": "여의도",
+      "tagline": "더현대 & 한강공원",
+      "description": "더현대 서울(대형 백화점)과 여의도한강공원이 도보권. 63빌딩 전망도 인기.",
+      "station1": "여의도역 (5·9호선)",
+      "station2": "여의나루역 (5호선)",
+      "spot1": "더현대 서울",
+      "spot2": "여의도한강공원",
+      "spot3": "63빌딩",
+      "exitGuide": "여의도역 3번 출구로 IFC몰 방면, 더현대는 연결 통로로 직결. 한강공원은 여의나루역 1번 출구가 가깝습니다.",
+      "walkingTip": "더현대에서 쇼핑→IFC몰→여의도한강공원에서 석양 보기 추천.",
+      "dayTrip": "여의도 → 더현대 → 한강공원"
+    },
+    "hannam": {
+      "name": "한남",
+      "tagline": "카페 & 아트 & 이태원",
+      "description": "한남동 감성 카페 거리, 리움미술관, 블루스퀘어가 모인 에어리어. 옆 이태원도 바로.",
+      "station1": "한강진역 (6호선)",
+      "station2": "이태원역 (6호선)",
+      "spot1": "한남동 카페 거리",
+      "spot2": "블루스퀘어",
+      "spot3": "리움미술관",
+      "spot4": "이태원 앤틱가구거리",
+      "exitGuide": "한강진역 1번 출구가 카페 거리 방면. 이태원은 이태원역 3번 출구.",
+      "walkingTip": "한강진역→카페 거리→리움미술관→이태원역 방면으로 걸으면 좋습니다. 오르막이 있어요.",
+      "dayTrip": "한남 → 이태원 → 경리단길"
+    }
+  },
+  "stationGuides": {
+    "meta": {
+      "title": "역 가이드 | 서울 교통 내비",
+      "description": "헷갈리기 쉬운 역의 환승·출구·주의사항을 정리했습니다."
+    },
+    "backToHome": "홈으로 돌아가기",
+    "eyebrow": "헷갈리기 쉬운 역",
+    "title": "역 가이드",
+    "description": "서울에서 일본인 여행객이 헷갈리기 쉬운 역을 환승·출구·주의사항 중심으로 정리했습니다.",
+    "lines": "노선",
+    "confusionPoints": "헷갈리는 포인트",
+    "tips": "포인트",
+    "viewGuide": "가이드 보기",
+    "warningBadge": "⚠️ 주의",
+    "seoulStation": {
+      "name": "서울역",
+      "lines": "1호선·4호선·공항철도·경의중앙선",
+      "confusion1": "AREX(공항철도)↔지하철↔KTX가 각각 개찰구가 다릅니다.",
+      "confusion2": "AREX 직통과 일반열차는 승강장이 나뉩니다. 직통은 파란 개찰구, 일반열차는 일반 지하철 개찰구로 들어갑니다.",
+      "confusion3": "1호선과 4호선 환승은 지하 통로로 약 5분 걸어야 합니다.",
+      "tip1": "공항에서 온 경우, 출구 안내판에서 '지하철 1호선' '4호선'을 찾으세요.",
+      "tip2": "KTX는 별도 건물(서울역사)이므로 지하철에서 가려면 1번 출구 방면입니다."
+    },
+    "hongdae": {
+      "name": "홍대입구역",
+      "lines": "2호선·공항철도·경의중앙선",
+      "confusion1": "홍대 번화가는 9번 출구 방면. 연남동은 3번 출구 방면으로 정반대입니다.",
+      "confusion2": "AREX(공항철도) 승강장은 지하 깊은 곳에 있습니다. 2호선에서 AREX 환승은 통로를 내려가 약 7분.",
+      "tip1": "홍대에서 놀려면 9번 출구, 연남동 카페로 가려면 3번 출구로 기억하세요.",
+      "tip2": "공항철도 승강장은 안내판 '공항철도 AREX'를 따라가세요."
+    },
+    "dongdaemunHistoryCulture": {
+      "name": "동대문역사문화공원역",
+      "lines": "2호선·4호선·5호선",
+      "confusion1": "DDP(디자인플라자)는 1·2번 출구. 패션 시장(밀리오레·두타 등)은 12~14번 출구로 방향이 다릅니다.",
+      "confusion2": "3개 노선이 만나는 대형 역으로 환승 통로가 긴 편입니다. 특히 5호선 환승은 약 8분 걸립니다.",
+      "tip1": "DDP로 가려면 '1번 출구', 심야 쇼핑이면 '14번 출구'가 편합니다.",
+      "tip2": "'동대문역'과는 다른 역입니다! 이름이 비슷하지만 동대문역은 1·4호선만 있어요."
+    },
+    "jongno3ga": {
+      "name": "종로3가역",
+      "lines": "1호선·3호선·5호선",
+      "confusion1": "익선동은 4·6번 출구 방면. 인사동은 5번 출구 방면입니다.",
+      "confusion2": "3개 노선이 만나며, 특히 1호선↔5호선 환승은 통로가 복잡합니다.",
+      "tip1": "레트로 한옥 카페 익선동은 4·6번 출구로 나오면 바로.",
+      "tip2": "탑골공원은 1번 출구가 가장 가깝습니다."
+    },
+    "expressBusTerminal": {
+      "name": "고속터미널역",
+      "lines": "3호선·7호선·9호선",
+      "confusion1": "신세계백화점(고속터미널)은 3호선 쪽 개찰구. 센트럴시티(메리어트)는 7·9호선 쪽 개찰구로 방향이 다릅니다.",
+      "confusion2": "3호선과 7·9호선 환승은 지하 쇼핑몰을 지나야 해서 헷갈리기 쉽습니다.",
+      "tip1": "신세계로 가려면 '3호선 쪽', 센트럴시티·메리어트면 '7호선 쪽'입니다.",
+      "tip2": "지하 통로가 길어서 안내판 색(노선 컬러)을 따라가는 게 가장 확실합니다."
+    },
+    "apgujeongWarning": {
+      "name": "압구정 vs 압구정로데오",
+      "isWarning": true,
+      "warning": "완전히 다른 역입니다! 압구정역은 3호선, 압구정로데오역은 수인분당선. 택시로 10분 이상 떨어져 있습니다.",
+      "detail": "압구정로데오(가로수길 쪽)에 가고 싶은데 압구정역에서 내리면 목적지까지 도보 30분 이상 걸립니다. 반드시 역 이름을 끝까지 확인하세요."
+    },
+    "euljiroWarning": {
+      "name": "을지로입구 / 을지로3가 / 을지로4가",
+      "isWarning": true,
+      "warning": "이름이 비슷하지만 위치가 다릅니다. 을지로입구는 2호선(명동 옆), 을지로3가는 2·3호선, 을지로4가는 2·5호선입니다.",
+      "detail": "을지로3가의 힙한 카페 거리로 가려면 '을지로3가역'에서 내리세요. 을지로입구에서 내리면 10분 이상 걸어야 합니다."
+    }
+  },
+  "popularPlaces": {
+    "myeongdong": "명동",
+    "hongdae": "홍대",
+    "seongsu": "성수",
+    "gangnam": "강남",
+    "gyeongbokgung": "경복궁",
+    "seoulStation": "서울역"
+  },
+  "airportShortcuts": {
+    "incheonToSeoul": "인천공항→서울역",
+    "incheonToHongdae": "인천공항→홍대입구",
+    "gimpoToGangnam": "김포공항→강남",
+    "incheonAirport": "인천공항",
+    "gimpoAirport": "김포공항"
+  },
+  "routes": {
+    "back": "뒤로",
+    "searchResults": "경로 검색 결과",
+    "specifyStations": "출발역과 도착역을 지정해주세요",
+    "searchFailed": "검색에 실패했습니다",
+    "errorOccurred": "오류가 발생했습니다",
+    "coverageNote": "※ 지하철만 지원합니다. 버스 노선은 포함되어 있지 않습니다.",
+    "noRoutesSubtext": "이 구간은 지하철만으로는 이동할 수 없을 수 있습니다. 버스나 택시를 검토해 주세요.",
+    "errorSubtext": "네트워크 상태를 확인하고 다시 시도해주세요.",
+    "searchTip": "💡 역 이름으로 검색하면 더 정확한 결과를 얻을 수 있습니다.",
+    "retry": "다시 시도",
+    "noRoutesFound": "경로를 찾을 수 없습니다",
+    "changeConditions": "조건을 변경하여 다시 시도해주세요.",
+    "backToTop": "처음으로 돌아가기"
+  },
+  "routeDetail": {
+    "fetchFailed": "경로를 불러오지 못했습니다",
+    "errorOccurred": "오류가 발생했습니다",
+    "notFound": "경로를 찾을 수 없습니다",
+    "back": "뒤로",
+    "backToResults": "검색 결과로 돌아가기",
+    "share": "공유",
+    "copied": "복사됨",
+    "minutes": "분",
+    "transfers": "환승 {{count}}회",
+    "routeDetails": "경로 상세",
+    "transferGuide": "🔄 환승 안내",
+    "exitGuide": "🚪 출구 안내",
+    "transferTo": "{{line}}으로 환승",
+    "walkMinutes": "도보 약 {{count}}분",
+    "arriveAndExit": "도착역에서 하차하세요"
+  },
+  "routeConfidence": {
+    "sectionTitle": "💡 여행자 가이드",
+    "stationWarning": "⚠️ 이 역은 헷갈리기 쉽습니다",
+    "exitRecommendation": "🚪 추천 출구",
+    "copyKorean": "한국어 복사",
+    "copiedKorean": "복사됨",
+    "koreanStationName": "한국어 역명",
+    "showOnMap": "지도에서 보기",
+    "arexCaution": "🚆 공항철도 주의사항",
+    "arexExpressNote": "AREX 직통은 좌석 지정. T-money 사용 불가. 승차권은 공항 파란 카운터에서 구매하세요.",
+    "arexLocalNote": "AREX 일반열차는 T-money로 탑승 가능. 홍대입구역에서 2호선 환승 가능.",
+    "viewStationGuide": "역 가이드 보기 →",
+    "confusingStation": "이 역은 환승·출구가 복잡합니다. 미리 확인해두면 안심입니다."
+  },
+  "timeWarning": {
+    "sectionTitle": "🕐 운행 시간 주의",
+    "lastTrainSoon": "⚠️ 막차가 가까운 시간대입니다. 여유를 두고 이동하세요.",
+    "serviceEnded": "🚫 막차 이후 시간대입니다. 택시를 이용하세요.",
+    "earlyMorning": "🌅 첫차 전 시간대입니다. 첫차는 5:30쯤부터입니다.",
+    "normal": "✅ 정상 운행 중입니다.",
+    "taxiFallback": "택시라는 선택지",
+    "taxiFallbackDescription": "막차 이후나 급할 때는 택시도 편합니다. 목적지 한국어를 준비해두면 전달하기 쉽습니다.",
+    "currentTime": "현재 시각",
+    "lastTrainApprox": "막차 기준: 23:30~0:00",
+    "firstTrainApprox": "첫차 기준: 5:30쯤"
+  },
+  "routeDetailMeta": {
+    "title": "경로 상세 | 서울 교통 내비",
+    "currentLocation": "현재 위치",
+    "origin": "출발지",
+    "destination": "목적지",
+    "arrival": "도착지",
+    "minutes": "{{count}}분",
+    "transfers": "환승 {{count}}회",
+    "defaultSummary": "서울 지하철 경로",
+    "siteSuffix": "서울 교통 내비"
+  },
+  "routesMeta": {
+    "title": "경로 검색 결과 | 서울 교통 내비",
+    "description": "서울 지하철 경로 검색 결과"
+  },
+  "places": {
+    "title": "목적지에서 찾기",
+    "all": "전체",
+    "nearestStation": "가장 가까운 역",
+    "stationExit": "{{station}}역 {{exit}}번 출구",
+    "noStationInfo": "가까운 역 정보 없음",
+    "noPlaces": "해당하는 목적지가 없습니다.",
+    "svgTitle": "가장 가까운 역"
+  },
+  "placesMeta": {
+    "title": "목적지 목록 | 서울 교통 내비",
+    "description": "서울 인기 명소·목적지 목록"
+  },
+  "placeDetail": {
+    "notFoundMeta": "목적지를 찾을 수 없습니다 | 서울 교통 내비",
+    "backIcon": "뒤로",
+    "backToList": "목적지 목록으로 돌아가기",
+    "nearestStation": "가장 가까운 역",
+    "station": "{{name}}역",
+    "exitNumber": "{{exit}}번 출구",
+    "goHere": "여기로 가기",
+    "routeSearch": "경로 검색",
+    "fromOrigin": "{{origin}}에서",
+    "siteSuffix": "서울 교통 내비",
+    "seoulStation": "서울역",
+    "hongdae": "홍대입구",
+    "gangnam": "강남"
+  },
+  "placeNotFound": {
+    "title": "이 목적지를 찾을 수 없습니다",
+    "description": "목적지 URL이 잘못되었거나 삭제되었을 수 있습니다.",
+    "backToList": "목적지 목록으로 돌아가기"
+  },
+  "placesError": {
+    "title": "목적지를 불러오지 못했습니다",
+    "description": "네트워크 상태를 확인하고 다시 시도해주세요.",
+    "retry": "다시 시도",
+    "backToHome": "홈으로 돌아가기"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "찾으시는 페이지가 삭제되었거나 URL이 변경되었을 수 있습니다.",
+    "backToHome": "홈으로 돌아가기"
+  },
+  "error": {
+    "title": "오류가 발생했습니다",
+    "description": "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.",
+    "retry": "다시 시도"
+  },
+  "components": {
+    "stationPlaceholder": "역 이름을 입력하세요",
+    "recommended": "추천 ✨",
+    "minutes": "분",
+    "transfers": "환승 {{count}}회",
+    "viewDetails": "상세 보기",
+    "stationCount": "{{count}}개 역"
+  },
+  "routeTypes": {
+    "easy": "알기 쉬운 경로",
+    "fastest": "최단 경로",
+    "few_transfers": "환승이 적은 경로",
+    "tourist_friendly": "추천 경로"
+  },
+  "placeCategories": {
+    "shopping": "쇼핑",
+    "culture": "문화·역사",
+    "food": "맛집",
+    "landmark": "랜드마크",
+    "entertainment": "엔터테인먼트",
+    "transport": "교통",
+    "nature": "자연",
+    "other": "기타"
+  },
+  "localeSwitcher": {
+    "ja": "日本語",
+    "ko": "한국어",
+    "switchTo_ja": "일본어로 전환",
+    "switchTo_ko": "한국어로 전환"
+  },
+  "tips": {
+    "meta": {
+      "title": "지하철 이용 팁 | 서울 교통 내비",
+      "description": "티머니 카드부터 환승, 캐리어 이동까지 서울 지하철을 이용하는 여행자를 위한 실전 가이드입니다."
+    },
+    "backIcon": "뒤로",
+    "backToHome": "홈으로 돌아가기",
+    "eyebrow": "여행 전에 확인",
+    "title": "서울 지하철 여행 팁",
+    "description": "처음 서울에 와도 헤매지 않도록 교통카드, 혼잡 시간, 환승, 짐 이동, 에티켓을 한곳에 정리했습니다.",
+    "airportGuideDescription": "공항에서 시내로 들어오는 방법까지 보고 싶다면 공항 가이드도 함께 확인해보세요.",
+    "airportGuideLink": "공항 가이드 보기",
+    "tMoney": {
+      "title": "교통카드",
+      "description": "먼저 티머니 카드 한 장만 있으면 지하철과 버스를 훨씬 편하게 이용할 수 있습니다.",
+      "item1": "티머니는 충전식 교통카드로, 지하철·버스·택시에서 사용할 수 있습니다.",
+      "item2": "카드는 각 지하철역의 CU, GS25, 7-Eleven 같은 편의점에서 구매할 수 있습니다.",
+      "item3": "충전은 편의점이나 지하철역 발매기에서 할 수 있습니다.",
+      "item4": "카드 가격은 약 ₩2,500이고 기본요금은 티머니 ₩1,500, 1회권 ₩1,600입니다.",
+      "item5": "편의점 결제에도 사용할 수 있어 현금을 줄이고 싶은 여행자에게 편리합니다."
+    },
+    "riding": {
+      "title": "이용 팁",
+      "description": "시간대만 조금 신경 써도 이동이 훨씬 수월해집니다.",
+      "item1": "평일 7:30~9:00, 18:00~19:30은 출퇴근 시간대라 가능하면 피하는 것이 좋습니다.",
+      "item2": "열차 간격은 혼잡 시간대 2~5분, 비혼잡 시간대 5~10분 정도입니다.",
+      "item3": "첫차는 대부분 5:30쯤, 막차는 대부분 23:30~0:00쯤입니다.",
+      "item4": "늦은 시간에 이동할 때는 역 전광판의 '막차' 안내를 꼭 확인하세요.",
+      "item5": "어느 방향 열차를 타야 할지 헷갈리면 승강장 안내에 적힌 종착역 이름을 보면 쉽습니다."
+    },
+    "transfer": {
+      "title": "환승",
+      "description": "서울 환승 안내는 잘 되어 있지만, 걸어야 하는 거리가 긴 역도 있습니다.",
+      "item1": "버스↔지하철 환승은 30분 이내면 무료 환승으로 처리되는 경우가 있습니다.",
+      "item2": "잠실, 신도림, 동대문역사문화공원 같은 역은 환승 통로가 긴 편입니다.",
+      "item3": "역 안에서는 노란색이나 주황색 환승 표지판을 따라가면 됩니다.",
+      "item4": "바닥의 노선 번호와 노선 색상을 따라가면 길을 찾기 쉽습니다."
+    },
+    "luggage": {
+      "title": "캐리어 이동",
+      "description": "짐이 큰 날은 이동 동선을 조금만 신경 써도 훨씬 편해집니다.",
+      "item1": "모든 역에는 엘리베이터가 있으니 '엘리베이터 / エレベーター' 표지를 찾아보세요.",
+      "item2": "큰 짐이 있다면 7~9시, 18~20시 혼잡 시간대는 피하는 것이 좋습니다.",
+      "item3": "공항에서 큰 짐과 함께 이동할 때는 공항철도 AREX 직통열차가 특히 편리합니다.",
+      "item4": "9호선 급행 열차 일부 칸에는 짐 선반이 있습니다."
+    },
+    "phrases": {
+      "title": "유용한 한국어",
+      "description": "역무원이나 주변 사람에게 짧게 물어볼 수 있는 표현을 알아두면 편합니다.",
+      "item1": {
+        "korean": "이 역은 어디예요?",
+        "meaning": "어느 역인가요?"
+      },
+      "item2": {
+        "korean": "환승은 어디서 해요?",
+        "meaning": "환승은 어디에서 하나요?"
+      },
+      "item3": {
+        "korean": "출구가 어디예요?",
+        "meaning": "출구는 어디인가요?"
+      },
+      "item4": {
+        "korean": "이 열차는 홍대입구에 가요?",
+        "meaning": "이 열차가 홍대입구로 가나요?"
+      },
+      "item5": {
+        "korean": "충전은 어디서 해요?",
+        "meaning": "충전은 어디에서 하나요?"
+      },
+      "item6": {
+        "korean": "공항철도는 어디예요?",
+        "meaning": "공항철도는 어디에 있나요?"
+      }
+    },
+    "etiquette": {
+      "title": "에티켓",
+      "description": "작은 규칙만 알고 있어도 훨씬 편안하게 이용할 수 있습니다.",
+      "item1": "교통약자석은 어르신·임산부·장애인을 위한 자리이니 비어 있어도 배려해주세요.",
+      "item2": "열차 안에서는 음식물 섭취를 삼가는 것이 기본입니다.",
+      "item3": "휴대전화는 진동이나 무음으로 두는 것이 좋습니다.",
+      "item4": "에스컬레이터에서는 오른쪽에 서고, 왼쪽은 걷는 사람을 위해 비워두는 편입니다.",
+      "item5": "문 앞을 막지 말고 승하차 동선을 비워주세요."
+    }
+  },
+  "subwayMap": {
+    "meta": {
+      "title": "노선도 | 서울 교통 내비",
+      "description": "서울 지하철 주요 노선을 일본식 노선도 스타일로 한눈에 볼 수 있는 전체 지도입니다."
+    },
+    "backToHome": "홈으로 돌아가기",
+    "title": "노선도",
+    "description": "2호선 순환선을 중심으로 주요 노선의 연결을 한 번에 파악할 수 있는 서울 지하철 전체도입니다.",
+    "tapStation": "역을 탭하여 상세 보기",
+    "legend": "노선 목록",
+    "transfer": "환승역",
+    "stationCount": "{{count}}개 역",
+    "selected": "선택됨",
+    "availableLines": "이용 가능한 노선",
+    "badge": "서울 노선도"
+  },
+  "airport": {
+    "meta": {
+      "title": "공항→호텔 가이드 | 서울 교통 내비",
+      "description": "인천공항 도착부터 호텔까지 단계별로 안내하는 이동 가이드"
+    },
+    "backToHome": "홈으로 돌아가기",
+    "eyebrow": "공항→호텔 가이드",
+    "title": "공항→호텔 가이드",
+    "subtitle": "터미널과 목적지 지역을 선택하면, 도착부터 호텔까지 이동을 단계별로 안내합니다.",
+    "actions": {
+      "reset": "다시 선택",
+      "copy": "복사하기",
+      "copied": "복사됨",
+      "yes": "큰 짐 있음",
+      "no": "짐이 적음"
+    },
+    "progress": {
+      "step1": "STEP 1",
+      "step1Title": "터미널 선택",
+      "step2": "STEP 2",
+      "step2Title": "목적지 지역",
+      "step3": "STEP 3",
+      "step3Title": "도착 시간·짐",
+      "step4": "STEP 4",
+      "step4Title": "가이드 보기"
+    },
+    "selectors": {
+      "terminal": {
+        "title": "터미널을 선택하세요",
+        "description": "도착하는 터미널을 선택하면 해당 터미널에 맞는 안내를 보여드립니다."
+      },
+      "area": {
+        "title": "목적지 지역을 선택하세요",
+        "description": "호텔이 있는 지역을 선택하면 해당 지역까지의 최적 경로를 안내합니다."
+      },
+      "conditions": {
+        "title": "도착 시간과 짐을 알려주세요",
+        "description": "시간대와 짐 양에 따라 최적의 이동 수단을 추천합니다.",
+        "timeTitle": "도착하는 시간대는?",
+        "luggageTitle": "큰 캐리어가 있나요?",
+        "luggageYes": "캐리어 2개 이상 또는 대형 캐리어",
+        "luggageNo": "백팩이나 소형 캐리어만"
+      },
+      "result": {
+        "eyebrow": "맞춤 가이드",
+        "title": "단계별 가이드",
+        "description": "선택 조건에 맞는 이동 가이드를 보여드립니다.",
+        "stepBadge": "{{step}}/4 완료",
+        "emptyTitle": "왼쪽 항목을 선택하세요",
+        "emptyDescription": "터미널·목적지·시간대·짐을 선택하면 단계별 안내가 여기에 표시됩니다."
+      }
+    },
+    "terminals": {
+      "t1": {
+        "label": "T1",
+        "name": "제1터미널",
+        "walkBadge": "교통센터까지 약 {{minutes}}분",
+        "description": "대한항공, 아시아나항공, 스타얼라이언스 계열 항공사가 취항하는 메인 터미널. 도착 후 B1 교통센터로 이동합니다."
+      },
+      "t2": {
+        "label": "T2",
+        "name": "제2터미널",
+        "walkBadge": "교통센터까지 약 {{minutes}}분",
+        "description": "대한항공 일부 국제선과 스카이팀 계열이 취항. 도착 후 지하 교통센터까지 거리가 다소 있습니다."
+      }
+    },
+    "areas": {
+      "myeongdong": {
+        "nameJa": "明洞",
+        "nameKo": "명동",
+        "summary": "쇼핑과 맛집의 중심지. 외국인 관광객이 가장 많이 찾는 대표적인 관광 지역입니다.",
+        "station": "명동역 (4호선)",
+        "recommended": "AREX → 서울역에서 4호선 환승, 1정거장이면 도착",
+        "exitGuide": "명동역 4번 출구로 나오면 바로 메인 거리. CU·명동성당이 랜드마크입니다.",
+        "transferGuide": "서울역에서 AREX 개찰구를 나와 지하철 4호선 승강장으로 이동. '4호선' 안내판을 따라가세요. 도보 약 6분.",
+        "routeNotes": {
+          "arexExpress": "AREX 직통으로 서울역 → 4호선으로 명동역 (1정거장)",
+          "arexLocal": "AREX 일반열차로 서울역 → 4호선으로 명동역 (1정거장)",
+          "taxi": "공항 택시로 명동까지 직행"
+        }
+      },
+      "hongdae": {
+        "nameJa": "弘大",
+        "nameKo": "홍대",
+        "summary": "젊음의 거리로 카페, 라이브 공연, 스트리트 아트가 풍부. 홍대입구역은 AREX 일반열차로 직접 갈 수 있습니다.",
+        "station": "홍대입구역 (2호선/공항철도)",
+        "recommended": "AREX 일반열차로 홍대입구역 직통. 환승 없이 편하게 갈 수 있습니다.",
+        "exitGuide": "홍대입구역 9번 출구가 번화가 가는 지름길. 출구에서 왼쪽으로 가면 메인 거리입니다.",
+        "routeNotes": {
+          "arexExpress": "AREX 직통으로 서울역 → 2호선으로 홍대입구 (2정거장)",
+          "arexLocal": "AREX 일반열차로 홍대입구역 직통 (환승 없음)",
+          "taxi": "공항 택시로 홍대까지 직행"
+        }
+      },
+      "gangnam": {
+        "nameJa": "江南",
+        "nameKo": "강남",
+        "summary": "비즈니스와 엔터테인먼트의 중심지. 코엑스·가로수길 등 볼거리가 다양합니다. 공항에서 다소 먼 편입니다.",
+        "station": "강남역 (2호선)",
+        "recommended": "AREX 직통 → 서울역에서 1호선 → 신도림에서 2호선 환승",
+        "exitGuide": "강남역 10번 출구로 나오면 강남대로. 지상으로 나오면 바로 호텔 밀집 지역입니다.",
+        "transferGuide": "서울역에서 1호선 환승 → 신도림역에서 2호선(강남 방면)으로. 환승 통로 5~8분 소요.",
+        "routeNotes": {
+          "arexExpress": "AREX 직통→서울역→1호선→신도림→2호선→강남역",
+          "arexLocal": "AREX 일반열차→서울역→1호선→신도림→2호선→강남역",
+          "taxi": "공항 택시로 강남까지 직행 (고속도로 이용)"
+        }
+      },
+      "seoulStation": {
+        "nameJa": "ソウル駅",
+        "nameKo": "서울역",
+        "summary": "KTX와 지하철의 주요 허브. 롯데마트가 가깝고, 다음 날 이동에도 편리한 거점입니다.",
+        "station": "서울역 (1호선/4호선/공항철도)",
+        "recommended": "AREX 직통으로 43분, 가장 단순한 경로. 환승 없음.",
+        "exitGuide": "서울역 1번 출구는 롯데마트 방면, 14번 출구는 남대문시장 방면. 호텔 방향을 확인하세요.",
+        "routeNotes": {
+          "arexExpress": "AREX 직통으로 서울역까지 43분·₩9,500",
+          "arexLocal": "AREX 일반열차로 서울역까지 56분·₩4,750",
+          "taxi": "공항 택시로 서울역까지 직행"
+        }
+      },
+      "dongdaemun": {
+        "nameJa": "東大門",
+        "nameKo": "동대문",
+        "summary": "패션 도매시장과 DDP 디자인플라자로 유명. 심야 쇼핑이 가능한 지역입니다.",
+        "station": "동대문역사문화공원역 (2/4/5호선)",
+        "recommended": "AREX → 서울역에서 4호선 환승, 3정거장이면 도착",
+        "exitGuide": "동대문역사문화공원역 1번 출구는 DDP 방면. 패션 빌딩은 14번 출구가 가깝습니다.",
+        "transferGuide": "서울역에서 4호선 환승 → 동대문역사문화공원역까지 3정거장. '충무로 방면' 안내판을 따라가세요.",
+        "routeNotes": {
+          "arexExpress": "AREX 직통→서울역→4호선→동대문역사문화공원역 (3정거장)",
+          "arexLocal": "AREX 일반열차→서울역→4호선→동대문역사문화공원역 (3정거장)",
+          "taxi": "공항 택시로 동대문까지 직행"
+        }
+      }
+    },
+    "timeOfDay": {
+      "day": {
+        "label": "낮 (6:00~18:00)",
+        "description": "AREX·지하철이 정상 운행. 모든 교통수단을 이용할 수 있습니다."
+      },
+      "evening": {
+        "label": "저녁~밤 (18:00~23:30)",
+        "description": "AREX·지하철 운행 중이지만 퇴근 시간과 겹칠 수 있습니다."
+      },
+      "lateNight": {
+        "label": "심야 (23:30 이후)",
+        "description": "막차 이후라 택시만 이용 가능. 심야 할증(20%)이 적용됩니다."
+      }
+    },
+    "transportModes": {
+      "arexExpress": {
+        "label": "AREX 직통열차"
+      },
+      "arexLocal": {
+        "label": "AREX 일반열차"
+      },
+      "taxi": {
+        "label": "택시"
+      }
+    },
+    "flowSegments": {
+      "stepLabel": "STEP {{count}}",
+      "arrival": {
+        "title": "공항 도착",
+        "description": "{{terminal}}에 도착. 입국 심사로 이동합니다."
+      },
+      "immigration": {
+        "title": "입국 심사·세관",
+        "description": "여권과 입국카드를 준비하세요. 자동 게이트 대상이면 그쪽이 빠릅니다. 혼잡 시 30분 이상 걸릴 수 있습니다."
+      },
+      "baggage": {
+        "title": "수하물 수취",
+        "description": "턴테이블에서 짐을 받습니다. 번호는 탑승권에 기재되어 있습니다. 카트는 무료입니다."
+      },
+      "tmoney": {
+        "title": "T-money 카드 구매",
+        "description": "{{location}}에서 T-money 카드를 구매하세요. ₩2,500 + 충전 금액. 일반열차 이용 시 필요합니다."
+      },
+      "ticket": {
+        "title": "직통열차 승차권 구매",
+        "description": "{{location}}에서 AREX 직통열차 승차권을 구매하세요. ₩9,500 (좌석 지정). T-money 사용 불가."
+      },
+      "platform": {
+        "title": "승강장으로 이동",
+        "description": "{{location}} 안내판을 따라 이동합니다. 에스컬레이터를 타고 지하로 내려가세요."
+      },
+      "transport": {
+        "title": "이동",
+        "taxiTitle": "택시로 이동",
+        "trainTitle": "전철로 이동",
+        "taxiDescription": "{{stand}}에서 택시 탑승. 예상 요금: {{fare}} (톨비 별도). 「{{route}}」",
+        "trainDescription": "{{mode}}에 탑승. {{route}}"
+      },
+      "transfer": {
+        "title": "환승",
+        "description": "{{guide}}",
+        "expressDescription": "서울역에 도착하면 지하철로 환승합니다. 개찰구를 나와 지하철 발매기에서 T-money 카드를 구매하거나 1회권(₩1,600)을 사세요. {{guide}}"
+      },
+      "exit": {
+        "title": "도착역에서 출구로",
+        "description": "{{guide}}"
+      }
+    },
+    "locations": {
+      "t1": {
+        "tmoney": "도착 게이트를 나와 왼쪽으로 이동 → CU 편의점 앞을 지나 B1로 내려감 → 교통센터 발매기/충전기 구역 (약 2분)",
+        "ticketCounter": "B1 교통센터 AREX 직통열차 카운터 (파란 개찰구 바로 앞, 오른쪽)",
+        "platform": "도착 로비에서 '공항철도 AREX' 표지를 따라 B1로 이동 → 교통센터 중앙 통로를 직진 → 파란 AREX 개찰구 (약 8분)",
+        "taxiStand": "1층 도착 로비, 5~8번 출구 쪽 택시 승차장. 국제택시는 6~7번 출구 쪽"
+      },
+      "t2": {
+        "tmoney": "도착 로비에서 B1로 내려간 뒤 긴 통로를 따라가면 교통센터 주변이 나옵니다. CU / GS25 근처 발매기가 가장 쓰기 쉽습니다 (약 3분)",
+        "ticketCounter": "B1 교통센터 연결 통로를 따라가면 AREX 직통열차 카운터 (개찰구 앞)",
+        "platform": "도착 로비 → B1 교통센터로 내려감 → 긴 연결 통로를 계속 직진 → 파란 AREX 개찰구 (약 12분)",
+        "taxiStand": "1층 도착 로비, 3~4번 출구 쪽 택시 승차장"
+      }
+    },
+    "taxi": {
+      "title": "택시라는 선택지",
+      "description": "막차 이후나 짐이 많을 때는 택시도 편합니다. 국제 택시(다국어 지원)도 있습니다.",
+      "standLabel": "택시 승강장",
+      "fareLabel": "예상 요금",
+      "lateNightLabel": "심야 할증",
+      "lateNightNote": "0:00~4:00 20% 할증. 고속도로 요금 ₩8,000~12,000 별도.",
+      "paymentLabel": "결제",
+      "paymentNote": "신용카드·T-money 사용 가능. 현금도 됩니다.",
+      "tollNote": "요금에는 톨비가 별도로 부과됩니다"
+    },
+    "driver": {
+      "badge": "택시 기사에게 보여주기",
+      "title": "기사에게 보여주세요",
+      "description": "목적지를 한국어로 표시합니다. 복사해서 기사에게 보여주면 쉽게 전달됩니다."
+    },
+    "summary": {
+      "recommendedMode": "추천 교통수단",
+      "totalTime": "예상 소요 시간",
+      "totalTimeValue": "약 {{minutes}}분",
+      "taxiFare": "예상 택시 요금",
+      "arrivalStation": "도착역",
+      "selectionTitle": "선택 조건",
+      "selectionDescription": "{{terminal}} → {{areaJa}} ({{areaKo}}), {{time}} 도착, {{luggage}}"
+    },
+    "recommendations": {
+      "lightRail": "짐이 적어 전철이 편합니다. 가성비도 좋습니다.",
+      "dayLuggage": "짐이 많은 낮 시간에는 좌석 지정 AREX 직통이 안심입니다.",
+      "eveningRail": "저녁에는 혼잡할 수 있지만 전철로 무리 없이 이동 가능합니다.",
+      "eveningLuggage": "저녁 혼잡 + 큰 짐일 경우, 택시가 편할 수 있습니다.",
+      "lateNightTaxi": "막차 이후라 택시만 이용 가능. 심야 할증 20%가 적용됩니다.",
+      "t2Luggage": "T2는 승강장이 멀어서 큰 짐이면 AREX 직통이 확실합니다."
+    }
+  }
+}
