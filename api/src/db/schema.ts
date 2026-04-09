@@ -32,8 +32,8 @@ export const exits = sqliteTable("exits", {
   id: text("id").primaryKey(),
   stationId: text("station_id").notNull().references(() => stations.id),
   exitNumber: text("exit_number").notNull(),
-  labelJa: text("label_ja").notNull(),
-  descriptionJa: text("description_ja").notNull(),
+  label: text("label_ja").notNull(),
+  description: text("description_ja").notNull(),
   walkingTimeMin: integer("walking_time_min"),
 });
 
