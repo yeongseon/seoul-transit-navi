@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslation } from "../i18n/client";
 
 export default function ErrorPage({
   error: pageError,
@@ -9,6 +10,8 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     console.error(pageError);
   }, [pageError]);
@@ -19,10 +22,10 @@ export default function ErrorPage({
         <span className="text-5xl">⚠️</span>
         <div className="flex flex-col gap-2">
           <h2 className="text-xl font-bold text-slate-900">
-            エラーが発生しました
+            {t("error.title")}
           </h2>
           <p className="text-sm text-slate-500">
-            予期せぬエラーが発生しました。もう一度お試しください。
+            {t("error.description")}
           </p>
         </div>
         <button
@@ -30,7 +33,7 @@ export default function ErrorPage({
           onClick={() => reset()}
           className="w-full rounded-2xl bg-sky-600 px-6 py-3.5 text-base font-bold text-white transition hover:bg-sky-700 active:bg-sky-800"
         >
-          再試行する
+          {t("error.retry")}
         </button>
       </div>
     </div>

@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { getLocale, getTranslation } from "../i18n/server";
+import { TranslationProvider } from "../i18n/client";
+import jaMessages from "../i18n/locales/ja.json";
+import koMessages from "../i18n/locales/ko.json";
+import type { Locale } from "../i18n/config";
+import { LocaleSwitcher } from "../components/locale-switcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,27 +24,41 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export const metadata: Metadata = {
-  title: "ソウル交通ナビ",
-  description: "ソウルの地下鉄を、日本語でわかりやすく。",
-  openGraph: {
-    title: "ソウル交通ナビ",
-    description: "日本語で探せるソウルの地下鉄ナビゲーション",
-    type: "website",
-  },
+const messagesMap: Record<Locale, Record<string, unknown>> = {
+  ja: jaMessages,
+  ko: koMessages,
 };
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslation();
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+    openGraph: {
+      title: t("meta.title"),
+      description: t("meta.ogDescription"),
+      type: "website",
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = messagesMap[locale];
+
   return (
-    <html lang="ja">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <TranslationProvider locale={locale} messages={messages}>
+          {children}
+          <LocaleSwitcher />
+        </TranslationProvider>
       </body>
     </html>
   );
