@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PLACE_CATEGORY_LABELS } from "../../../../shared/constants/index";
+import { getPlaceCategoryLabels } from "../../../../shared/constants/index";
+import { getTranslation } from "../../i18n/server";
 
-export const metadata: Metadata = {
-  title: "目的地一覧 | ソウル交通ナビ",
-  description: "ソウルの人気スポット・目的地一覧",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslation();
+  return {
+    title: t("placesMeta.title"),
+    description: t("placesMeta.description"),
+  };
+}
 
 interface PlaceListResponse {
   data: Array<{
     id: string;
     slug: string;
     nameJa: string;
-    category: keyof typeof PLACE_CATEGORY_LABELS;
+    nameKo: string;
+    category: string;
     nearestStationId: string;
     nearestExitNumber: string;
     nearestStation?: {
       nameJa: string;
+      nameKo: string;
     };
   }>;
 }
@@ -26,6 +32,9 @@ export default async function PlacesPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const { t, locale } = await getTranslation();
+  const categoryLabels = getPlaceCategoryLabels(locale);
+
   const resolvedParams = await searchParams;
   const currentCategory =
     typeof resolvedParams.category === "string" ? resolvedParams.category : null;
@@ -46,7 +55,7 @@ export default async function PlacesPage({
     <main className="pb-safe min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">
       <div className="mx-auto max-w-2xl">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-neutral-900">目的地から探す</h1>
+          <h1 className="text-2xl font-bold text-neutral-900">{t("places.title")}</h1>
         </div>
 
         <div className="mb-6 flex flex-wrap gap-2">
@@ -58,9 +67,9 @@ export default async function PlacesPage({
                 : "bg-white text-neutral-600 shadow-sm hover:bg-neutral-100"
             }`}
           >
-            すべて
+            {t("places.all")}
           </Link>
-          {Object.entries(PLACE_CATEGORY_LABELS).map(([key, label]) => (
+          {Object.entries(categoryLabels).map(([key, label]) => (
             <Link
               key={key}
               href={`/places?category=${key}`}
@@ -84,10 +93,10 @@ export default async function PlacesPage({
             >
               <div className="mb-3 flex items-start justify-between">
                 <h2 className="text-xl font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">
-                  {place.nameJa}
+                  {locale === "ko" ? place.nameKo : place.nameJa}
                 </h2>
                 <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-600">
-                  {PLACE_CATEGORY_LABELS[place.category]}
+                  {categoryLabels[place.category] || place.category}
                 </span>
               </div>
 
@@ -98,7 +107,7 @@ export default async function PlacesPage({
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <title>最寄り駅</title>
+                  <title>{t("places.svgTitle")}</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -114,17 +123,17 @@ export default async function PlacesPage({
                 </svg>
                 {place.nearestStation ? (
                   <span>
-                    {place.nearestStation.nameJa}駅 {place.nearestExitNumber}番出口
+                    {t("places.stationExit", { station: locale === "ko" ? place.nearestStation.nameKo : place.nearestStation.nameJa, exit: place.nearestExitNumber })}
                   </span>
                 ) : (
-                  <span>最寄り駅情報なし</span>
+                  <span>{t("places.noStationInfo")}</span>
                 )}
               </div>
             </Link>
           ))}
           {places.length === 0 && (
             <div className="col-span-full rounded-2xl bg-white p-8 text-center text-neutral-500">
-              該当する目的地がありません。
+              {t("places.noPlaces")}
             </div>
           )}
         </div>

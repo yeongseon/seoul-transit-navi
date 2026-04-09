@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { useTranslation } from "../../i18n/client";
 
 export default function PlacesError({
   error: pageError,
@@ -10,6 +11,8 @@ export default function PlacesError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     console.error(pageError);
   }, [pageError]);
@@ -20,10 +23,10 @@ export default function PlacesError({
         <span className="text-5xl">📍</span>
         <div className="flex flex-col gap-2">
           <h2 className="text-xl font-bold text-slate-900">
-            目的地の読み込みに失敗しました
+            {t("placesError.title")}
           </h2>
           <p className="text-sm text-slate-500">
-            通信状況を確認して、もう一度お試しください。
+            {t("placesError.description")}
           </p>
         </div>
         <div className="flex w-full flex-col gap-3">
@@ -32,13 +35,13 @@ export default function PlacesError({
             onClick={() => reset()}
             className="w-full rounded-2xl bg-sky-600 px-6 py-3.5 text-base font-bold text-white transition hover:bg-sky-700 active:bg-sky-800"
           >
-            再試行する
+            {t("placesError.retry")}
           </button>
           <Link
             href="/"
             className="w-full rounded-2xl bg-slate-100 px-6 py-3.5 text-base font-bold text-slate-700 transition hover:bg-slate-200 active:bg-slate-300"
           >
-            ホームに戻る
+            {t("placesError.backToHome")}
           </Link>
         </div>
       </div>
