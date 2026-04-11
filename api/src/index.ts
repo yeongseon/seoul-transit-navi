@@ -10,11 +10,24 @@ export type Bindings = {
   DB: D1Database;
   STATION_CACHE: KVNamespace;
   ODSAY_API_KEY?: string;
+  ALLOWED_ORIGINS?: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-app.use("/api/*", cors());
+app.use("/api/*", (c, next) => {
+  const raw = c.env.ALLOWED_ORIGINS?.trim();
+
+  if (raw === "*") {
+    return cors({ origin: "*" })(c, next);
+  }
+
+  const allowedOrigins = raw?.split(",").map((o: string) => o.trim()).filter(Boolean) ?? [];
+
+  return cors({
+    origin: allowedOrigins.length > 0 ? allowedOrigins : "https://localhost",
+  })(c, next);
+});
 
 app.get("/api/health", (c) => {
   return c.json({ status: "ok" });

@@ -2,8 +2,9 @@ import { asc, eq, like, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 
-import { LINES } from "../../../shared/constants/index";
+import { LINES, PLACE_CATEGORY_LABELS } from "../../../shared/constants/index";
 import type { SearchSuggestion } from "../../../shared/types/index";
+import { PLACES } from "../data/places";
 import { stationAliases, stationLines, stations } from "../db/schema";
 import type { Bindings } from "../index";
 import { buildSearchPrefixes } from "../lib/normalize";
@@ -63,7 +64,22 @@ searchRoutes.get("/suggest", async (c) => {
     };
   });
 
-  return c.json({ data });
+  const normalizedQuery = query.trim().toLowerCase();
+  const placeResults: SearchSuggestion[] = PLACES.filter((place) => {
+    const names = [place.nameJa, place.nameKo, place.nameEn].map((name) => name.toLowerCase());
+    return names.some((name) => name.includes(normalizedQuery));
+  })
+    .slice(0, 5)
+    .map((place) => ({
+      id: `place:${place.slug}:${place.nearestStationId}`,
+      type: "place" as const,
+      name: place.nameJa,
+      subtitle: PLACE_CATEGORY_LABELS[place.category as keyof typeof PLACE_CATEGORY_LABELS] ?? place.category,
+    }));
+
+  const combined = [...data.slice(0, 7), ...placeResults.slice(0, 3)].slice(0, 10);
+
+  return c.json({ data: combined });
 });
 
 export default searchRoutes;

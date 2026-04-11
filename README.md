@@ -79,10 +79,11 @@ pnpm test
 ## MVP Scope
 
 - Seoul subway only (~111 stations, lines 1-9)
-- Japanese-first UI (no multi-locale in MVP)
+- Subway + walking routes only (bus routes not yet supported)
+- Japanese-first UI with Korean locale support
 - Route search, comparison, and step-by-step guidance
 - Transfer and exit information
-- Shareable route URLs
+- Shareable route URLs (temporary, 90-day expiry)
 
 ## License
 

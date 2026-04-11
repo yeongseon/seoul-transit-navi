@@ -1,71 +1,25 @@
 import type { Metadata } from "next";
 import { getTranslation } from "../../../i18n/server";
-
-interface StationResponse {
-  data?: {
-    nameJa?: string;
-    nameKo?: string;
-  };
-}
-
-interface RouteMetadataResponse {
-  data?: {
-    startRef?: {
-      type?: string;
-      id?: string;
-    };
-    destinationRef?: {
-      type?: string;
-      id?: string;
-    };
-    durationMin?: number;
-    fareKrw?: number;
-    transferCount?: number;
-    summaryJa?: string;
-    summary?: string;
-  };
-}
-
-function getApiUrl() {
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-}
+import { fetchRoute, fetchStation } from "../../../lib/api";
 
 async function fetchStationName(stationId: string, locale: string): Promise<string> {
   try {
-    const res = await fetch(
-      `${getApiUrl()}/api/stations/${encodeURIComponent(stationId)}`,
-      {
-        next: { revalidate: 86400 },
-      }
-    );
-
-    if (!res.ok) {
-      return stationId;
-    }
-
-    const { data }: StationResponse = await res.json();
+    const data = await fetchStation(stationId, { next: { revalidate: 86400 } });
     if (locale === "ko") {
       return data?.nameKo ?? data?.nameJa ?? stationId;
     }
     return data?.nameJa ?? stationId;
-  } catch {
+  } catch (error) {
+    console.warn("Failed to fetch station name:", error);
     return stationId;
   }
 }
 
 async function fetchRouteData(routeId: string) {
   try {
-    const res = await fetch(`${getApiUrl()}/api/routes/${routeId}`, {
-      next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-      return null;
-    }
-
-    const { data }: RouteMetadataResponse = await res.json();
-    return data ?? null;
-  } catch {
+    return (await fetchRoute(routeId, { next: { revalidate: 3600 } })) ?? null;
+  } catch (error) {
+    console.warn("Failed to fetch route data:", error);
     return null;
   }
 }
@@ -103,7 +57,7 @@ export async function generateMetadata({
   const fare = typeof route.fareKrw === "number" ? `₩${route.fareKrw.toLocaleString()}` : null;
   const transfers =
     typeof route.transferCount === "number" ? t("routeDetailMeta.transfers", { count: route.transferCount }) : null;
-  const summary = route.summary || route.summaryJa || t("routeDetailMeta.defaultSummary");
+  const summary = route.summary || t("routeDetailMeta.defaultSummary");
   const description = [duration, fare, transfers, summary].filter(Boolean).join(" | ");
 
   return {

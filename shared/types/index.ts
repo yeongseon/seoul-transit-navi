@@ -40,14 +40,14 @@ export interface Place {
   nameKo: string;
   nameJa: string;
   nameEn: string;
-  aliases: string[];
+  descriptionJa: string;
+  descriptionKo: string;
   category: PlaceCategory;
   lat: number;
   lng: number;
-  nearestStationIds: string[];
-  recommendedExitIds: string[];
-  introJa: string;
-  accessNoteJa: string;
+  nearestStationId: string;
+  nearestExitNumber: string;
+  imageUrl: string;
 }
 
 export type PlaceCategory =
@@ -83,6 +83,7 @@ export type TransportMode = "subway" | "bus" | "walk" | "airport_rail";
 export interface LocationRef {
   type: "station" | "place" | "coord";
   id?: string;
+  name?: string;
   coord?: { lat: number; lng: number };
 }
 

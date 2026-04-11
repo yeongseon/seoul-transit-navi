@@ -37,7 +37,8 @@ export function AirportFlowCompanion() {
       await navigator.clipboard.writeText(value);
       setCopiedText(value);
       window.setTimeout(() => setCopiedText(null), 1800);
-    } catch {
+    } catch (error) {
+      console.warn("Failed to copy to clipboard:", error);
       setCopiedText(null);
     }
   };

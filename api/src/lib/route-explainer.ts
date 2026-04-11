@@ -14,6 +14,12 @@ function extractStationMatches(value: string): string[] {
 }
 
 function getStationName(step: RouteStep, target: "from" | "to"): string {
+  const ref = target === "from" ? step.fromRef : step.toRef;
+
+  if (ref?.name) {
+    return ref.name.replace(/駅$/, "");
+  }
+
   const matches = extractStationMatches(step.instruction);
 
   if (target === "from" && matches.length > 0) {
@@ -23,8 +29,6 @@ function getStationName(step: RouteStep, target: "from" | "to"): string {
   if (target === "to" && matches.length > 0) {
     return matches[matches.length - 1];
   }
-
-  const ref = target === "from" ? step.fromRef : step.toRef;
 
   if (ref?.id && !ref.id.startsWith("station_")) {
     return ref.id.replace(/駅$/, "");

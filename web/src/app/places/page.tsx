@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPlaceCategoryLabels } from "../../../../shared/constants/index";
 import { getTranslation } from "../../i18n/server";
+import { fetchPlaces } from "../../lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getTranslation();
@@ -9,22 +10,6 @@ export async function generateMetadata(): Promise<Metadata> {
     title: t("placesMeta.title"),
     description: t("placesMeta.description"),
   };
-}
-
-interface PlaceListResponse {
-  data: Array<{
-    id: string;
-    slug: string;
-    nameJa: string;
-    nameKo: string;
-    category: string;
-    nearestStationId: string;
-    nearestExitNumber: string;
-    nearestStation?: {
-      nameJa: string;
-      nameKo: string;
-    };
-  }>;
 }
 
 export default async function PlacesPage({
@@ -38,18 +23,9 @@ export default async function PlacesPage({
   const resolvedParams = await searchParams;
   const currentCategory =
     typeof resolvedParams.category === "string" ? resolvedParams.category : null;
-
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787"}/api/places`);
-  if (currentCategory) {
-    url.searchParams.set("category", currentCategory);
-  }
-
-  const res = await fetch(url.toString(), { next: { revalidate: 3600 } });
-  if (!res.ok) {
-    throw new Error("Failed to fetch places");
-  }
-
-  const { data: places } = (await res.json()) as PlaceListResponse;
+  const places = await fetchPlaces(currentCategory ?? undefined, {
+    next: { revalidate: 3600 },
+  });
 
   return (
     <main className="pb-safe min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">

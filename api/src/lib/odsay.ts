@@ -118,8 +118,8 @@ function createRouteStep(subPath: ODsaySubPath, order: number): RouteStep | null
     order,
     mode: "subway",
     instruction: `${subPath.startName ?? "出発駅"}から${subPath.endName ?? "到着駅"}まで${lineMetadata.lineName}に乗車します`,
-    fromRef: { type: "station" },
-    toRef: { type: "station" },
+    fromRef: { type: "station", name: subPath.startName },
+    toRef: { type: "station", name: subPath.endName },
     lineId: lineMetadata.lineId,
     lineName: lineMetadata.lineName,
     lineColor: lineMetadata.lineColor,
@@ -184,16 +184,25 @@ function transformPath(path: ODsayPath, index: number, minDuration: number, minT
       lastSubwayLineId !== undefined &&
       step.lineId !== lastSubwayLineId
     ) {
-      stepsWithTransfers.push({
-        order: orderCounter++,
-        mode: "transfer",
-        instruction: `${step.lineName ?? "次の路線"}に乗り換え`,
-        lineId: step.lineId,
-        lineName: step.lineName,
-        lineColor: step.lineColor,
-        durationMin: 3,
-        notes: [],
-      });
+      const previousStep = stepsWithTransfers[stepsWithTransfers.length - 1];
+
+      if (previousStep?.mode === "walk") {
+        previousStep.mode = "transfer";
+        previousStep.instruction = `${step.lineName ?? "次の路線"}に乗り換え`;
+        previousStep.lineId = step.lineId;
+        previousStep.lineName = step.lineName;
+        previousStep.lineColor = step.lineColor;
+      } else {
+        stepsWithTransfers.push({
+          order: orderCounter++,
+          mode: "transfer",
+          instruction: `${step.lineName ?? "次の路線"}に乗り換え`,
+          lineId: step.lineId,
+          lineName: step.lineName,
+          lineColor: step.lineColor,
+          notes: [],
+        });
+      }
     }
 
     stepsWithTransfers.push({ ...step, order: orderCounter++ });

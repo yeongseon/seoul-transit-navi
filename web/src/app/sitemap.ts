@@ -1,17 +1,15 @@
 import type { MetadataRoute } from "next";
+import { fetchPlaces } from "../lib/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://seoul-transit-navi.pages.dev";
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-
   let places: { id: string }[] = [];
+
   try {
-    const res = await fetch(`${apiUrl}/api/places`);
-    if (res.ok) {
-      const json = await res.json();
-      places = json.data ?? [];
-    }
-  } catch {
+    const placesResult = await fetchPlaces(undefined, { next: { revalidate: 3600 } });
+    places = placesResult.map((place) => ({ id: place.id }));
+  } catch (error) {
+    console.warn("Failed to fetch places for sitemap:", error);
   }
 
   const staticPages: MetadataRoute.Sitemap = [

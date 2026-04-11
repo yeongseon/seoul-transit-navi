@@ -6,18 +6,17 @@ import { RouteResult } from "../../../../shared/types";
 import { RouteCard } from "../../components/route-card";
 import { useTranslation } from "../../i18n/client";
 import { trackEvent } from "../../lib/analytics";
+import { searchRoutes, fetchStation, ApiError } from "../../lib/api";
 
 async function resolveStationName(stationId: string, locale: string): Promise<string> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-    const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(stationId)}`);
-    if (!res.ok) return stationId;
-    const { data } = await res.json();
+    const data = await fetchStation(stationId);
     if (locale === "ko") {
       return data?.nameKo ?? data?.nameJa ?? stationId;
     }
     return data?.nameJa ?? stationId;
-  } catch {
+  } catch (error) {
+    console.warn("Failed to resolve station name:", error);
     return stationId;
   }
 }
@@ -38,18 +37,26 @@ function RoutesSearchContent() {
   const [toName, setToName] = useState(toNameParam || "");
 
   useEffect(() => {
+    if (fromNameParam) {
+      setFromName(fromNameParam);
+      return;
+    }
     if (from && !from.startsWith("coord_")) {
       resolveStationName(from, locale).then(setFromName);
-    } else if (fromNameParam) {
-      setFromName(fromNameParam);
+    } else {
+      setFromName("");
     }
   }, [from, fromNameParam, locale]);
 
   useEffect(() => {
+    if (toNameParam) {
+      setToName(toNameParam);
+      return;
+    }
     if (to && !to.startsWith("coord_")) {
       resolveStationName(to, locale).then(setToName);
-    } else if (toNameParam) {
-      setToName(toNameParam);
+    } else {
+      setToName("");
     }
   }, [to, toNameParam, locale]);
 
@@ -64,25 +71,16 @@ function RoutesSearchContent() {
     setError(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-      const res = await fetch(`${apiUrl}/api/routes/search`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fromStationId: from, toStationId: to }),
-      });
-
-      if (!res.ok) {
-        throw new Error(t("routes.searchFailed"));
+      const data = await searchRoutes(from, to);
+      setRoutes(data);
+      trackEvent({ type: "route_search", from: from || "", to: to || "" });
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError(t("routes.errorOccurred"));
       }
-
-       const { data } = await res.json();
-       setRoutes(data);
-       trackEvent({ type: "route_search", from: from || "", to: to || "" });
-     } catch (err) {
-       setError(err instanceof Error ? err.message : t("routes.errorOccurred"));
-     } finally {
+    } finally {
       setIsLoading(false);
     }
   }, [from, to, t]);

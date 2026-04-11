@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useDebounce } from "../hooks/use-debounce";
-import { searchSuggest } from "../lib/api";
+import { fetchStation, searchSuggest } from "../lib/api";
 import type { SearchSuggestion } from "../../../shared/types";
 import { useTranslation } from "../i18n/client";
 
@@ -35,6 +35,11 @@ export function StationAutocomplete({
   
   const debouncedQuery = useDebounce(query, 300);
 
+  const getPlaceNearestStationId = useCallback((suggestionId: string) => {
+    const [prefix, , nearestStationId] = suggestionId.split(":");
+    return prefix === "place" && nearestStationId ? nearestStationId : suggestionId;
+  }, []);
+
   useEffect(() => {
     if (value?.name && value.name !== query) {
       setQuery(value.name);
@@ -61,7 +66,8 @@ export function StationAutocomplete({
           setIsOpen(true);
           setSelectedIndex(-1);
         }
-      } catch {
+      } catch (error) {
+        console.warn("Failed to fetch search suggestions:", error);
         if (isMounted) {
           setResults([]);
         }
@@ -98,14 +104,13 @@ export function StationAutocomplete({
   }, []);
 
   const resolveLocaleName = useCallback(async (suggestion: SearchSuggestion): Promise<string> => {
+    if (suggestion.type === "place") return suggestion.name;
     if (locale === "ja") return suggestion.name;
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-      const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(suggestion.id)}`);
-      if (!res.ok) return suggestion.name;
-      const { data } = await res.json();
+      const data = await fetchStation(suggestion.id);
       return data?.nameKo ?? suggestion.name;
-    } catch {
+    } catch (error) {
+      console.warn("Failed to resolve station name for", suggestion.id, error);
       return suggestion.name;
     }
   }, [locale]);
@@ -114,12 +119,13 @@ export function StationAutocomplete({
     setIsOpen(false);
     const thisSelection = ++selectCounterRef.current;
     const displayName = await resolveLocaleName(suggestion);
+    const selectedId = suggestion.type === "place" ? getPlaceNearestStationId(suggestion.id) : suggestion.id;
     if (selectCounterRef.current !== thisSelection) return;
     setQuery(displayName);
     if (onChange) {
-      onChange({ id: suggestion.id, name: displayName });
+      onChange({ id: selectedId, name: displayName });
     }
-  }, [onChange, resolveLocaleName]);
+  }, [getPlaceNearestStationId, onChange, resolveLocaleName]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isComposing) return;
@@ -200,7 +206,7 @@ export function StationAutocomplete({
                 >
                   <div className="flex flex-col">
                     <span className="text-sm font-medium text-slate-900">
-                      {suggestion.name}
+                      {suggestion.type === "place" ? `📍 ${suggestion.name}` : suggestion.name}
                     </span>
                     <span className="text-xs text-slate-500">
                       {suggestion.subtitle}

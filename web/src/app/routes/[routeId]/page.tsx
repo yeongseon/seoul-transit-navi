@@ -8,21 +8,13 @@ import { LINES, LineId } from "../../../../../shared/constants";
 import { RouteStepItem } from "../../../components/route-step";
 import { useTranslation } from "../../../i18n/client";
 import { trackEvent } from "../../../lib/analytics";
+import { fetchRoute, fetchStation, ApiError } from "../../../lib/api";
 import {
   getConfusingStationsInRoute,
   routeHasAREX,
   getServiceStatus,
   STATION_GUIDE_MAP,
 } from "../../../data/route-confidence";
-
-interface StationLookupResponse {
-  data?: {
-    nameJa?: string;
-    nameKo?: string;
-    lat?: number;
-    lng?: number;
-  };
-}
 
 interface StationLookupResult {
   name: string;
@@ -60,25 +52,20 @@ export default function RouteDetailPage({
   const [stationLookup, setStationLookup] = useState<Record<string, StationLookupResult>>({});
 
   useEffect(() => {
-    const fetchRoute = async () => {
+    const loadRoute = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-        const res = await fetch(`${apiUrl}/api/routes/${routeId}`);
-        if (!res.ok) {
-          throw new Error(t("routeDetail.fetchFailed"));
-        }
-        const { data } = await res.json();
+        const data = await fetchRoute(routeId);
         setRoute(data);
         trackEvent({ type: "route_detail_view", routeId });
       } catch (err) {
-        setError(err instanceof Error ? err.message : t("routeDetail.errorOccurred"));
+        setError(err instanceof ApiError ? err.message : t("routeDetail.errorOccurred"));
       } finally {
         setIsLoading(false);
       }
     };
-    fetchRoute();
+    loadRoute();
   }, [routeId, t]);
 
   useEffect(() => {
@@ -111,36 +98,29 @@ export default function RouteDetailPage({
 
     const fetchStationData = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
         const entries = await Promise.all(
           stationIds.map(async (stationId) => {
-            const res = await fetch(`${apiUrl}/api/stations/${encodeURIComponent(stationId)}`);
-            if (!res.ok) {
+            try {
+              const data = await fetchStation(stationId);
               return [
                 stationId,
                 {
-                  name: stationId,
-                  nameKo: stationId,
+                  name: locale === "ko" ? data?.nameKo ?? data?.nameJa ?? stationId : data?.nameJa ?? stationId,
+                  nameKo: data?.nameKo ?? stationId,
+                  lat: data?.lat,
+                  lng: data?.lng,
                 },
               ] as const;
+            } catch (error) {
+              console.warn("Failed to fetch station data:", error);
+              return [stationId, { name: stationId, nameKo: stationId }] as const;
             }
-
-            const { data }: StationLookupResponse = await res.json();
-
-            return [
-              stationId,
-              {
-                name: locale === "ko" ? data?.nameKo ?? data?.nameJa ?? stationId : data?.nameJa ?? stationId,
-                nameKo: data?.nameKo ?? stationId,
-                lat: data?.lat,
-                lng: data?.lng,
-              },
-            ] as const;
           })
         );
 
         setStationLookup(Object.fromEntries(entries));
-      } catch {
+      } catch (error) {
+        console.warn("Failed to fetch station lookup data:", error);
         setStationLookup(
           Object.fromEntries(
             stationIds.map((stationId) => [
@@ -164,7 +144,7 @@ export default function RouteDetailPage({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.warn("Failed to copy:", err);
     }
   };
 
@@ -174,7 +154,7 @@ export default function RouteDetailPage({
       setKoreanCopied(true);
       setTimeout(() => setKoreanCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.warn("Failed to copy:", err);
     }
   };
 

@@ -26,7 +26,7 @@ export default function Home() {
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
   const [locationLoading, setLocationLoading] = useState(false);
 
-  const POPULAR_PLACES = [
+  const POPULAR_DESTINATIONS = [
     { id: "station_myeongdong", label: t("popularPlaces.myeongdong") },
     { id: "station_hongik-univ", label: t("popularPlaces.hongdae") },
     { id: "station_seongsu", label: t("popularPlaces.seongsu") },
@@ -60,6 +60,7 @@ export default function Home() {
         setRecentSearches([]);
       }
     } catch {
+      console.warn("Failed to read recent searches from localStorage");
     }
   }, [locale]);
 
@@ -73,6 +74,7 @@ export default function Home() {
     try {
       localStorage.setItem(`recentSearches_${locale}`, JSON.stringify(updated));
     } catch {
+      console.warn("Failed to save recent searches to localStorage");
     }
   };
 
@@ -234,7 +236,7 @@ export default function Home() {
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-bold text-slate-700">{t("home.popularPlaces")}</h2>
           <div className="flex flex-wrap gap-2">
-            {POPULAR_PLACES.map((place) => (
+            {POPULAR_DESTINATIONS.map((place) => (
               <button
                 key={place.id}
                 type="button"

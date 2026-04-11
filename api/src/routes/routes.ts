@@ -109,7 +109,8 @@ routes.post("/api/routes/search", async (c) => {
 
   try {
     body = (await c.req.json()) as SearchBody;
-  } catch {
+  } catch (err) {
+    console.warn("Invalid JSON body:", err);
     return errorResponse(c, "INVALID_JSON", "リクエスト形式が正しくありません", 400);
   }
 
@@ -152,7 +153,7 @@ routes.post("/api/routes/search", async (c) => {
         };
 
         await c.env.STATION_CACHE.put(`route:${routeId}`, JSON.stringify(sharedRoute), {
-          expirationTtl: 86400,
+          expirationTtl: 7776000,
         });
 
         return sharedRoute;
@@ -165,6 +166,7 @@ routes.post("/api/routes/search", async (c) => {
       return errorResponse(c, error.code, error.message, toErrorStatus(error.status));
     }
 
+    console.warn("Route search failed:", error);
     return errorResponse(c, "ROUTE_SEARCH_FAILED", "経路検索に失敗しました", 502);
   }
 });
