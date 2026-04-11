@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { RouteResult } from "../../../../shared/types";
 import { RouteCard } from "../../components/route-card";
 import { useTranslation } from "../../i18n/client";
-import { trackEvent } from "../../lib/analytics";
 import { searchRoutes, fetchStation, ApiError } from "../../lib/api";
 
 async function resolveStationName(stationId: string, locale: string): Promise<string> {
@@ -37,28 +36,20 @@ function RoutesSearchContent() {
   const [toName, setToName] = useState(toNameParam || "");
 
   useEffect(() => {
-    if (fromNameParam) {
-      setFromName(fromNameParam);
-      return;
-    }
     if (from && !from.startsWith("coord_")) {
       resolveStationName(from, locale).then(setFromName);
-    } else {
+    } else if (!from) {
       setFromName("");
     }
-  }, [from, fromNameParam, locale]);
+  }, [from, locale]);
 
   useEffect(() => {
-    if (toNameParam) {
-      setToName(toNameParam);
-      return;
-    }
     if (to && !to.startsWith("coord_")) {
       resolveStationName(to, locale).then(setToName);
-    } else {
+    } else if (!to) {
       setToName("");
     }
-  }, [to, toNameParam, locale]);
+  }, [to, locale]);
 
   const fetchRoutes = useCallback(async () => {
     if (!from || !to) {
@@ -73,7 +64,6 @@ function RoutesSearchContent() {
     try {
       const data = await searchRoutes(from, to);
       setRoutes(data);
-      trackEvent({ type: "route_search", from: from || "", to: to || "" });
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);

@@ -121,11 +121,12 @@ export function StationAutocomplete({
     const displayName = await resolveLocaleName(suggestion);
     const selectedId = suggestion.type === "place" ? getPlaceNearestStationId(suggestion.id) : suggestion.id;
     if (selectCounterRef.current !== thisSelection) return;
-    setQuery(displayName);
+    const label = suggestion.type === "place" ? `${displayName} (${t("components.nearestStation")})` : displayName;
+    setQuery(label);
     if (onChange) {
-      onChange({ id: selectedId, name: displayName });
+      onChange({ id: selectedId, name: label });
     }
-  }, [getPlaceNearestStationId, onChange, resolveLocaleName]);
+  }, [getPlaceNearestStationId, onChange, resolveLocaleName, t]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isComposing) return;
@@ -152,6 +153,8 @@ export function StationAutocomplete({
     }
   };
 
+  const listboxId = `${id}-listbox`;
+
   return (
     <div className="relative w-full">
       <div className="relative">
@@ -160,6 +163,13 @@ export function StationAutocomplete({
           type="text"
           id={id}
           name={name}
+          role="combobox"
+          aria-expanded={isOpen && results.length > 0}
+          aria-controls={listboxId}
+          aria-haspopup="listbox"
+          aria-owns={listboxId}
+          aria-autocomplete="list"
+          aria-activedescendant={selectedIndex >= 0 ? `${id}-option-${selectedIndex}` : undefined}
           value={query}
           onChange={(e) => {
             selectCounterRef.current++;
@@ -193,29 +203,37 @@ export function StationAutocomplete({
           ref={dropdownRef}
           className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl border border-slate-200 bg-white py-1 shadow-lg ring-1 ring-black/5"
         >
-          <ul className="m-0 p-0 list-none">
+          <div id={listboxId} role="listbox" className="m-0 p-0 list-none">
             {results.map((suggestion, index) => (
-              <li key={suggestion.id}>
-                <button
-                  type="button"
-                  onClick={() => handleSelect(suggestion)}
-                  onMouseEnter={() => setSelectedIndex(index)}
-                  className={`w-full text-left cursor-pointer px-4 py-2 transition ${
-                    index === selectedIndex ? "bg-sky-50" : "hover:bg-slate-50"
-                  }`}
-                >
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-slate-900">
-                      {suggestion.type === "place" ? `📍 ${suggestion.name}` : suggestion.name}
-                    </span>
-                    <span className="text-xs text-slate-500">
-                      {suggestion.subtitle}
-                    </span>
-                  </div>
-                </button>
-              </li>
+              <div
+                key={suggestion.id}
+                id={`${id}-option-${index}`}
+                role="option"
+                aria-selected={index === selectedIndex}
+                tabIndex={-1}
+                onClick={() => handleSelect(suggestion)}
+                onMouseEnter={() => setSelectedIndex(index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelect(suggestion);
+                  }
+                }}
+                className={`w-full text-left cursor-pointer px-4 py-2 transition ${
+                  index === selectedIndex ? "bg-sky-50" : "hover:bg-slate-50"
+                }`}
+              >
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-slate-900">
+                    {suggestion.type === "place" ? `📍 ${suggestion.name}` : suggestion.name}
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    {suggestion.subtitle}
+                  </span>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

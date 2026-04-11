@@ -60,18 +60,22 @@ function buildSearchIndex(stations: CacheStation[]): Map<string, string[]> {
   const matchesByPrefix = new Map<string, Set<string>>();
 
   for (const station of stations) {
-    const characters = Array.from(station.nameJa.trim());
+    const names = [station.nameJa, station.nameKo, station.nameEn.toLowerCase()].filter(Boolean);
 
-    for (let length = 1; length <= Math.min(3, characters.length); length += 1) {
-      const prefix = characters.slice(0, length).join("");
-      const existing = matchesByPrefix.get(prefix);
+    for (const name of names) {
+      const characters = Array.from(name.trim());
 
-      if (existing) {
-        existing.add(station.id);
-        continue;
+      for (let length = 1; length <= Math.min(3, characters.length); length += 1) {
+        const prefix = characters.slice(0, length).join("");
+        const existing = matchesByPrefix.get(prefix);
+
+        if (existing) {
+          existing.add(station.id);
+          continue;
+        }
+
+        matchesByPrefix.set(prefix, new Set<string>([station.id]));
       }
-
-      matchesByPrefix.set(prefix, new Set<string>([station.id]));
     }
   }
 

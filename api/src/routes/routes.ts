@@ -114,8 +114,12 @@ routes.post("/api/routes/search", async (c) => {
     return errorResponse(c, "INVALID_JSON", "リクエスト形式が正しくありません", 400);
   }
 
-  const fromStationId = body.fromStationId?.trim();
-  const toStationId = body.toStationId?.trim();
+  if (body === null || typeof body !== "object" || Array.isArray(body)) {
+    return errorResponse(c, "INVALID_JSON", "リクエスト形式が正しくありません", 400);
+  }
+
+  const fromStationId = typeof body.fromStationId === "string" ? body.fromStationId.trim() : "";
+  const toStationId = typeof body.toStationId === "string" ? body.toStationId.trim() : "";
 
   if (!fromStationId || !toStationId) {
     return errorResponse(c, "INVALID_ROUTE_SEARCH", "出発駅と到着駅を指定してください", 400);
@@ -134,7 +138,10 @@ routes.post("/api/routes/search", async (c) => {
     const provider: RouteProvider = c.env.ODSAY_API_KEY
       ? new ODsayRouteProvider(c.env.ODSAY_API_KEY)
       : new GraphRouteProvider(c.env.DB);
-    const routeResults = await provider.search(fromStation, toStation);
+    const routeResults = await provider.search(
+      { lat: fromStation.lat, lng: fromStation.lng, stationId: fromStation.id },
+      { lat: toStation.lat, lng: toStation.lng, stationId: toStation.id },
+    );
     const lineMap = new Map(Object.entries(LINES));
     const data = await Promise.all(
       routeResults.map(async (route) => {
@@ -184,7 +191,16 @@ routes.get("/api/routes/:routeId", async (c) => {
     return errorResponse(c, "ROUTE_NOT_FOUND", "共有ルートが見つかりません", 404);
   }
 
-  return c.json({ data: JSON.parse(cachedRoute) as RouteResult });
+  let parsedRoute: RouteResult;
+  try {
+    parsedRoute = JSON.parse(cachedRoute) as RouteResult;
+  } catch {
+    console.warn("Corrupted KV cache entry for route:", routeId);
+    await c.env.STATION_CACHE.delete(`route:${routeId}`);
+    return errorResponse(c, "ROUTE_NOT_FOUND", "共有ルートが見つかりません", 404);
+  }
+
+  return c.json({ data: parsedRoute });
 });
 
 export default routes;

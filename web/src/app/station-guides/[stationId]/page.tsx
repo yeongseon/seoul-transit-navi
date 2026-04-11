@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import {
   STATION_GUIDES,
   STATION_GUIDE_IDS,
@@ -52,32 +53,7 @@ export default async function StationGuideDetailPage({ params }: StationGuideDet
   const { stationId } = await params;
 
   if (!isStationGuideId(stationId)) {
-    return (
-      <main className="pb-safe min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">
-        <div className="mx-auto max-w-3xl">
-          <Link
-            href="/station-guides"
-            className="mb-4 inline-flex items-center text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
-          >
-            <svg className="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <title>{t("stationGuides.title")}</title>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            {t("stationGuides.title")}
-          </Link>
-
-          <section className="rounded-3xl bg-white p-6 ring-1 ring-slate-200">
-            <h1 className="text-2xl font-bold text-slate-900">{t("routeDetail.notFound")}</h1>
-            <p className="mt-3 text-sm leading-6 text-slate-600">{t("stationGuides.meta.description")}</p>
-          </section>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   const guide = STATION_GUIDES[stationId];

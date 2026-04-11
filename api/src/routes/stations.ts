@@ -17,6 +17,8 @@ stationRoutes.get("/:stationId", async (c) => {
       nameJa: stations.nameJa,
       nameKo: stations.nameKo,
       nameEn: stations.nameEn,
+      lat: stations.lat,
+      lng: stations.lng,
     })
     .from(stations)
     .where(eq(stations.id, stationId))

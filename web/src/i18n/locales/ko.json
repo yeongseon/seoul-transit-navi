@@ -325,6 +325,7 @@
   },
   "components": {
     "stationPlaceholder": "역 이름을 입력하세요",
+    "nearestStation": "가장 가까운 역",
     "recommended": "추천 ✨",
     "minutes": "분",
     "transfers": "환승 {{count}}회",

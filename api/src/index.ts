@@ -24,8 +24,12 @@ app.use("/api/*", (c, next) => {
 
   const allowedOrigins = raw?.split(",").map((o: string) => o.trim()).filter(Boolean) ?? [];
 
+  if (allowedOrigins.length === 0) {
+    allowedOrigins.push("http://localhost:3000");
+  }
+
   return cors({
-    origin: allowedOrigins.length > 0 ? allowedOrigins : "https://localhost",
+    origin: allowedOrigins,
   })(c, next);
 });
 

@@ -1,3 +1,9 @@
+/**
+ * Route detail page is intentionally client-rendered ("use client") because:
+ * 1. It requires interactive features (clipboard copy, share, Korean copy).
+ * 2. The layout.tsx already handles SSR for metadata/SEO via generateMetadata.
+ * 3. Invalid route IDs are handled gracefully with a user-facing error state.
+ */
 "use client";
 
 import { useEffect, useState, use } from "react";

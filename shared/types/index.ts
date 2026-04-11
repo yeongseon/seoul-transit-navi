@@ -108,18 +108,6 @@ export interface SearchSuggestion {
   subtitle: string;
 }
 
-export interface RouteSearchRequest {
-  start: LocationRef;
-  destination: LocationRef;
-  preferences: {
-    priority: RouteType;
-  };
-}
-
-export interface RouteSearchResponse {
-  routes: RouteResult[];
-}
-
 export interface ApiError {
   error: {
     code: string;

@@ -282,7 +282,7 @@ export async function searchPubTransPathT(apiKey: string, from: Coord, to: Coord
   url.searchParams.set("apiKey", apiKey);
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { signal: AbortSignal.timeout(10_000) });
 
     if (!response.ok) {
       throw new ODsayApiError("ODSAY_REQUEST_FAILED", `ODsay API request failed with status ${response.status}`, 502);

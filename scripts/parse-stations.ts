@@ -180,6 +180,11 @@ export function parseStationsCSV(csvPath: string): ParsedData {
     const sortedLineIds = Array.from(lineIds).sort((left, right) => LINES[left].lineNumber - LINES[right].lineNumber);
     const complexityLevel = sortedLineIds.length >= 3 ? 3 : sortedLineIds.length === 2 ? 2 : 1;
 
+    const coords = STATION_COORDINATES[stationId];
+    if (!coords || coords.lat === 0 || coords.lng === 0) {
+      console.warn(`Missing coordinates for station: ${stationId} (${first.nameKo})`);
+    }
+
     stations.push({
       id: stationId,
       stationCode: first.stationCode,
@@ -188,8 +193,8 @@ export function parseStationsCSV(csvPath: string): ParsedData {
       nameEn: first.nameEn,
       nameCn: first.nameCn,
       nameHanja: first.nameHanja,
-      lat: STATION_COORDINATES[stationId]?.lat ?? 0,
-      lng: STATION_COORDINATES[stationId]?.lng ?? 0,
+      lat: coords?.lat ?? 0,
+      lng: coords?.lng ?? 0,
       complexityLevel,
     });
 

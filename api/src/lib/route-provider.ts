@@ -1,13 +1,17 @@
 import type { RouteResult } from "../../../shared/types/index";
 import { searchPubTransPathT } from "./odsay";
 
-type Coord = {
+export type Coord = {
   lat: number;
   lng: number;
 };
 
+export type RouteSearchInput = Coord & {
+  stationId?: string;
+};
+
 export interface RouteProvider {
-  search(from: Coord, to: Coord): Promise<RouteResult[]>;
+  search(from: RouteSearchInput, to: RouteSearchInput): Promise<RouteResult[]>;
 }
 
 export class ODsayRouteProvider implements RouteProvider {
@@ -17,7 +21,7 @@ export class ODsayRouteProvider implements RouteProvider {
     this.apiKey = apiKey;
   }
 
-  search(from: Coord, to: Coord): Promise<RouteResult[]> {
+  search(from: RouteSearchInput, to: RouteSearchInput): Promise<RouteResult[]> {
     return searchPubTransPathT(this.apiKey, from, to);
   }
 }

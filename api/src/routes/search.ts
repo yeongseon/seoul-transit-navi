@@ -2,7 +2,7 @@ import { asc, eq, like, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 
-import { LINES, PLACE_CATEGORY_LABELS } from "../../../shared/constants/index";
+import { LINES, PLACE_CATEGORY_LABELS, getPlaceCategoryLabels } from "../../../shared/constants/index";
 import type { SearchSuggestion } from "../../../shared/types/index";
 import { PLACES } from "../data/places";
 import { stationAliases, stationLines, stations } from "../db/schema";
@@ -25,6 +25,7 @@ searchRoutes.get("/suggest", async (c) => {
   }
 
   const db = drizzle(c.env.DB);
+  const stationName = lang === "ko" ? stations.nameKo : stations.nameJa;
   const whereClause = or(...prefixes.map((prefix) => like(sql`lower(${stationAliases.alias})`, `${prefix}%`)));
   const exactMatchClause = or(...prefixes.map((prefix) => sql`lower(${stationAliases.alias}) = ${prefix}`));
   const matchedAlias = sql<string>`min(${stationAliases.alias})`;
@@ -34,7 +35,7 @@ searchRoutes.get("/suggest", async (c) => {
   const rows = await db
     .select({
       id: stations.id,
-      name: stations.nameJa,
+      name: stationName,
       matchedAlias: matchedAlias.as("matchedAlias"),
       exactRank: exactRank.as("exactRank"),
       lineIds: lineIds.as("lineIds"),
@@ -43,8 +44,8 @@ searchRoutes.get("/suggest", async (c) => {
     .innerJoin(stations, eq(stationAliases.stationId, stations.id))
     .innerJoin(stationLines, eq(stationLines.stationId, stations.id))
     .where(whereClause)
-    .groupBy(stations.id, stations.nameJa)
-    .orderBy(asc(exactRank), asc(matchedAlias), asc(stations.nameJa))
+    .groupBy(stations.id, stationName)
+    .orderBy(asc(exactRank), asc(matchedAlias), asc(stationName))
     .limit(10);
 
   const data: SearchSuggestion[] = rows.map((row) => {
@@ -53,7 +54,7 @@ searchRoutes.get("/suggest", async (c) => {
         const lineNumberDiff = LINES[left].lineNumber - LINES[right].lineNumber;
         return lineNumberDiff !== 0 ? lineNumberDiff : LINES[left].nameJa.localeCompare(LINES[right].nameJa, "ja");
       })
-      .map((lineId) => LINES[lineId].nameJa)
+      .map((lineId) => lang === "ko" ? LINES[lineId].nameKo : LINES[lineId].nameJa)
       .join(" / ");
 
     return {
@@ -65,6 +66,7 @@ searchRoutes.get("/suggest", async (c) => {
   });
 
   const normalizedQuery = query.trim().toLowerCase();
+  const categoryLabels = lang === "ko" ? getPlaceCategoryLabels("ko") : PLACE_CATEGORY_LABELS;
   const placeResults: SearchSuggestion[] = PLACES.filter((place) => {
     const names = [place.nameJa, place.nameKo, place.nameEn].map((name) => name.toLowerCase());
     return names.some((name) => name.includes(normalizedQuery));
@@ -73,8 +75,8 @@ searchRoutes.get("/suggest", async (c) => {
     .map((place) => ({
       id: `place:${place.slug}:${place.nearestStationId}`,
       type: "place" as const,
-      name: place.nameJa,
-      subtitle: PLACE_CATEGORY_LABELS[place.category as keyof typeof PLACE_CATEGORY_LABELS] ?? place.category,
+      name: lang === "ko" ? place.nameKo : place.nameJa,
+      subtitle: categoryLabels[place.category as keyof typeof PLACE_CATEGORY_LABELS] ?? place.category,
     }));
 
   const combined = [...data.slice(0, 7), ...placeResults.slice(0, 3)].slice(0, 10);

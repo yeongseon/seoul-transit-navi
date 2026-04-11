@@ -1,6 +1,7 @@
 import { LINES, ROUTE_TYPE_LABELS } from "../../../shared/constants/index";
 import type { LocationRef, RouteResult, RouteStep, RouteType, TransportMode } from "../../../shared/types/index";
 import type { RouteProvider } from "./route-provider";
+import type { RouteSearchInput } from "./route-provider";
 
 type Coord = {
   lat: number;
@@ -559,10 +560,25 @@ export class GraphRouteProvider implements RouteProvider {
     this.db = db;
   }
 
-  async search(from: Coord, to: Coord): Promise<RouteResult[]> {
+  async search(from: RouteSearchInput, to: RouteSearchInput): Promise<RouteResult[]> {
     const graphData = await loadGraphData(this.db);
-    const startStation = selectNearestStation(graphData.stations, from);
-    const destinationStation = selectNearestStation(graphData.stations, to);
+
+    let startStation: StationRow | null = null;
+    let destinationStation: StationRow | null = null;
+
+    if (from.stationId) {
+      startStation = graphData.stationsById.get(from.stationId) ?? null;
+    }
+    if (!startStation) {
+      startStation = selectNearestStation(graphData.stations, from);
+    }
+
+    if (to.stationId) {
+      destinationStation = graphData.stationsById.get(to.stationId) ?? null;
+    }
+    if (!destinationStation) {
+      destinationStation = selectNearestStation(graphData.stations, to);
+    }
 
     if (!startStation || !destinationStation) {
       return [];
