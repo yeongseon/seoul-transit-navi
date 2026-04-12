@@ -502,8 +502,8 @@ const ANCHOR_COORDS_BY_KO: Record<string, Point> = {
   "숭실대입구": { x: 62, y: 154 },
   "장승배기": { x: 42, y: 162 },
   "보라매": { x: 26, y: 146 },
-  "신풍": { x: 18, y: 138 },
-  "가산디지털단지": { x: 18, y: 122 },
+  "신풍": { x: 10, y: 138 },
+  "가산디지털단지": { x: 10, y: 122 },
   "석촌": { x: 170, y: 130 },
   "모란": { x: 178, y: 138 },
   "개화": { x: 0, y: 70 },
@@ -736,6 +736,25 @@ export const SUBWAY_MAP_STATIONS: SubwayMapStation[] = Object.entries(STATION_ME
   })
   .sort((left, right) => left.id.localeCompare(right.id));
 
+export const MAJOR_STATION_IDS = new Set([
+  ...SUBWAY_MAP_STATIONS.filter((station) => station.isTransfer).map((station) => station.id),
+  "station_myeongdong",
+  "station_gyeongbokgung",
+  "station_itaewon",
+  "station_gwanghwamun",
+  "station_hyehwa",
+  "station_incheon-airport-t1",
+  "station_jangam",
+  "station_moran",
+  "station_banghwa",
+  "station_gaehwa",
+  "station_eungam",
+  "station_gasan-digital-complex",
+  "station_suseo",
+  "station_mia-sageori",
+  "station_cheonggyesan",
+]);
+
 export const SUBWAY_MAP_STATIONS_BY_ID: Record<string, SubwayMapStation> = Object.fromEntries(
   SUBWAY_MAP_STATIONS.map((station) => [station.id, station]),
 );
@@ -758,3 +777,7 @@ export const SUBWAY_MAP_LINES: SubwayMapLine[] = (Object.entries(LINE_STATION_NA
 export const SUBWAY_MAP_VIEW_BOX = "-36 -6 228 184";
 export const SUBWAY_MAP_CANVAS_SIZE = { width: 1824, height: 1472 };
 export const SUBWAY_MAP_INITIAL_SCROLL = { leftRatio: 0.3, topRatio: 0.16 };
+export const SUBWAY_MAP_CENTER_INSET = {
+  viewBox: "55 5 80 70",
+  label: { ja: "都心拡大図", ko: "도심 확대도" },
+};

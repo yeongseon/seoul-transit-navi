@@ -1,4 +1,13 @@
-export type AreaGuideId = "seongsu" | "jamsil" | "yeouido" | "hannam";
+export type AreaGuideId =
+  | "myeongdong"
+  | "hongdae"
+  | "gangnam"
+  | "gyeongbokgung"
+  | "seoulStation"
+  | "seongsu"
+  | "jamsil"
+  | "yeouido"
+  | "hannam";
 
 export interface AreaGuideStation {
   nameKey: string;
@@ -20,9 +29,128 @@ export interface AreaGuideProfile {
   color: string;
 }
 
-export const AREA_GUIDE_IDS: AreaGuideId[] = ["seongsu", "jamsil", "yeouido", "hannam"];
+export const AREA_GUIDE_IDS: AreaGuideId[] = [
+  "myeongdong",
+  "hongdae",
+  "gangnam",
+  "gyeongbokgung",
+  "seoulStation",
+  "seongsu",
+  "jamsil",
+  "yeouido",
+  "hannam",
+];
 
 export const AREA_GUIDES: Record<AreaGuideId, AreaGuideProfile> = {
+  myeongdong: {
+    id: "myeongdong",
+    nameKey: "areaGuides.myeongdong.name",
+    nameKo: "명동",
+    taglineKey: "areaGuides.myeongdong.tagline",
+    descriptionKey: "areaGuides.myeongdong.description",
+    stations: [
+      { nameKey: "areaGuides.myeongdong.station1", line: "4" },
+      { nameKey: "areaGuides.myeongdong.station2", line: "2" },
+    ],
+    spotKeys: [
+      "areaGuides.myeongdong.spot1",
+      "areaGuides.myeongdong.spot2",
+      "areaGuides.myeongdong.spot3",
+      "areaGuides.myeongdong.spot4",
+    ],
+    exitGuideKey: "areaGuides.myeongdong.exitGuide",
+    walkingTipKey: "areaGuides.myeongdong.walkingTip",
+    dayTripKey: "areaGuides.myeongdong.dayTrip",
+    emoji: "🛍️",
+    color: "pink",
+  },
+  hongdae: {
+    id: "hongdae",
+    nameKey: "areaGuides.hongdae.name",
+    nameKo: "홍대",
+    taglineKey: "areaGuides.hongdae.tagline",
+    descriptionKey: "areaGuides.hongdae.description",
+    stations: [
+      { nameKey: "areaGuides.hongdae.station1", line: "2" },
+      { nameKey: "areaGuides.hongdae.station2", line: "A" },
+    ],
+    spotKeys: [
+      "areaGuides.hongdae.spot1",
+      "areaGuides.hongdae.spot2",
+      "areaGuides.hongdae.spot3",
+      "areaGuides.hongdae.spot4",
+    ],
+    exitGuideKey: "areaGuides.hongdae.exitGuide",
+    walkingTipKey: "areaGuides.hongdae.walkingTip",
+    dayTripKey: "areaGuides.hongdae.dayTrip",
+    emoji: "🎸",
+    color: "violet",
+  },
+  gangnam: {
+    id: "gangnam",
+    nameKey: "areaGuides.gangnam.name",
+    nameKo: "강남",
+    taglineKey: "areaGuides.gangnam.tagline",
+    descriptionKey: "areaGuides.gangnam.description",
+    stations: [
+      { nameKey: "areaGuides.gangnam.station1", line: "2" },
+      { nameKey: "areaGuides.gangnam.station2", line: "SB" },
+    ],
+    spotKeys: [
+      "areaGuides.gangnam.spot1",
+      "areaGuides.gangnam.spot2",
+      "areaGuides.gangnam.spot3",
+      "areaGuides.gangnam.spot4",
+    ],
+    exitGuideKey: "areaGuides.gangnam.exitGuide",
+    walkingTipKey: "areaGuides.gangnam.walkingTip",
+    dayTripKey: "areaGuides.gangnam.dayTrip",
+    emoji: "🏙️",
+    color: "teal",
+  },
+  gyeongbokgung: {
+    id: "gyeongbokgung",
+    nameKey: "areaGuides.gyeongbokgung.name",
+    nameKo: "경복궁",
+    taglineKey: "areaGuides.gyeongbokgung.tagline",
+    descriptionKey: "areaGuides.gyeongbokgung.description",
+    stations: [
+      { nameKey: "areaGuides.gyeongbokgung.station1", line: "3" },
+      { nameKey: "areaGuides.gyeongbokgung.station2", line: "3" },
+    ],
+    spotKeys: [
+      "areaGuides.gyeongbokgung.spot1",
+      "areaGuides.gyeongbokgung.spot2",
+      "areaGuides.gyeongbokgung.spot3",
+      "areaGuides.gyeongbokgung.spot4",
+    ],
+    exitGuideKey: "areaGuides.gyeongbokgung.exitGuide",
+    walkingTipKey: "areaGuides.gyeongbokgung.walkingTip",
+    dayTripKey: "areaGuides.gyeongbokgung.dayTrip",
+    emoji: "🏯",
+    color: "orange",
+  },
+  seoulStation: {
+    id: "seoulStation",
+    nameKey: "areaGuides.seoulStation.name",
+    nameKo: "서울역",
+    taglineKey: "areaGuides.seoulStation.tagline",
+    descriptionKey: "areaGuides.seoulStation.description",
+    stations: [
+      { nameKey: "areaGuides.seoulStation.station1", line: "1" },
+      { nameKey: "areaGuides.seoulStation.station2", line: "4" },
+    ],
+    spotKeys: [
+      "areaGuides.seoulStation.spot1",
+      "areaGuides.seoulStation.spot2",
+      "areaGuides.seoulStation.spot3",
+    ],
+    exitGuideKey: "areaGuides.seoulStation.exitGuide",
+    walkingTipKey: "areaGuides.seoulStation.walkingTip",
+    dayTripKey: "areaGuides.seoulStation.dayTrip",
+    emoji: "🚉",
+    color: "teal",
+  },
   seongsu: {
     id: "seongsu",
     nameKey: "areaGuides.seongsu.name",

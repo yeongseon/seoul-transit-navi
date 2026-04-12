@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState, type ReactNode } from "react";
+import { CONTENT_METADATA } from "../../data/content-metadata";
 import { useTranslation } from "../../i18n/client";
 import {
   AREA_IDS,
@@ -402,6 +403,26 @@ export function AirportFlowCompanion() {
               </div>
             )}
           </section>
+        </section>
+
+        <section className="rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200">
+          <p className="text-xs font-medium text-slate-500">
+            {t("contentMeta.lastVerified", { date: CONTENT_METADATA.airport.lastVerified })}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            {CONTENT_METADATA.airport.sources.map((source) => (
+              <span key={source.name} className="text-xs text-slate-400">
+                {source.url ? (
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+                    {source.name}
+                  </a>
+                ) : (
+                  source.name
+                )}
+              </span>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-400">{t("contentMeta.disclaimer")}</p>
         </section>
       </div>
     </main>
