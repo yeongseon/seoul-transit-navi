@@ -6,6 +6,7 @@ import { TranslationProvider } from "../i18n/client";
 import jaMessages from "../i18n/locales/ja.json";
 import koMessages from "../i18n/locales/ko.json";
 import type { Locale } from "../i18n/config";
+import { EmergencyFooter } from "../components/emergency-footer";
 import { LocaleSwitcher } from "../components/locale-switcher";
 
 const geistSans = Geist({
@@ -56,6 +57,7 @@ export default async function RootLayout({
       >
         <TranslationProvider locale={locale} messages={messages}>
           {children}
+          <EmergencyFooter />
           <LocaleSwitcher />
         </TranslationProvider>
       </body>

@@ -141,6 +141,15 @@ export default async function StationGuideDetailPage({ params }: StationGuideDet
                   <span>🗺️</span>
                   {t("mapLinks.openNaverMap")}
                 </a>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(guide.nameKo)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 ring-1 ring-slate-200 transition-colors hover:bg-slate-100"
+                >
+                  <span>📍</span>
+                  {t("mapLinks.openGoogleMap")}
+                </a>
               </div>
             </section>
           </div>

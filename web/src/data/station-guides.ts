@@ -4,6 +4,12 @@ export type StationGuideId =
   | "dongdaemunHistoryCulture"
   | "jongno3ga"
   | "expressBusTerminal"
+  | "myeongdong"
+  | "gangnam"
+  | "jamsil"
+  | "gyeongbokgung"
+  | "euljiro3ga"
+  | "seongsu"
   | "apgujeongWarning"
   | "euljiroWarning";
 
@@ -26,6 +32,12 @@ export const STATION_GUIDE_IDS: StationGuideId[] = [
   "dongdaemunHistoryCulture",
   "jongno3ga",
   "expressBusTerminal",
+  "myeongdong",
+  "gangnam",
+  "jamsil",
+  "gyeongbokgung",
+  "euljiro3ga",
+  "seongsu",
   "apgujeongWarning",
   "euljiroWarning",
 ];
@@ -93,6 +105,84 @@ export const STATION_GUIDES: Record<StationGuideId, StationGuideProfile> = {
     ],
     tipKeys: ["stationGuides.expressBusTerminal.tip1", "stationGuides.expressBusTerminal.tip2"],
     emoji: "🚌",
+  },
+  myeongdong: {
+    id: "myeongdong",
+    nameKey: "stationGuides.myeongdong.name",
+    nameKo: "명동역",
+    linesKey: "stationGuides.myeongdong.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.myeongdong.confusion1",
+      "stationGuides.myeongdong.confusion2",
+    ],
+    tipKeys: ["stationGuides.myeongdong.tip1", "stationGuides.myeongdong.tip2"],
+    emoji: "🛍️",
+  },
+  gangnam: {
+    id: "gangnam",
+    nameKey: "stationGuides.gangnam.name",
+    nameKo: "강남역",
+    linesKey: "stationGuides.gangnam.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.gangnam.confusion1",
+      "stationGuides.gangnam.confusion2",
+    ],
+    tipKeys: ["stationGuides.gangnam.tip1", "stationGuides.gangnam.tip2"],
+    emoji: "🏙️",
+  },
+  jamsil: {
+    id: "jamsil",
+    nameKey: "stationGuides.jamsil.name",
+    nameKo: "잠실역",
+    linesKey: "stationGuides.jamsil.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.jamsil.confusion1",
+      "stationGuides.jamsil.confusion2",
+    ],
+    tipKeys: ["stationGuides.jamsil.tip1", "stationGuides.jamsil.tip2"],
+    emoji: "🏰",
+  },
+  gyeongbokgung: {
+    id: "gyeongbokgung",
+    nameKey: "stationGuides.gyeongbokgung.name",
+    nameKo: "경복궁역",
+    linesKey: "stationGuides.gyeongbokgung.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.gyeongbokgung.confusion1",
+      "stationGuides.gyeongbokgung.confusion2",
+    ],
+    tipKeys: ["stationGuides.gyeongbokgung.tip1", "stationGuides.gyeongbokgung.tip2"],
+    emoji: "🏯",
+  },
+  euljiro3ga: {
+    id: "euljiro3ga",
+    nameKey: "stationGuides.euljiro3ga.name",
+    nameKo: "을지로3가역",
+    linesKey: "stationGuides.euljiro3ga.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.euljiro3ga.confusion1",
+      "stationGuides.euljiro3ga.confusion2",
+    ],
+    tipKeys: ["stationGuides.euljiro3ga.tip1", "stationGuides.euljiro3ga.tip2"],
+    emoji: "☕",
+  },
+  seongsu: {
+    id: "seongsu",
+    nameKey: "stationGuides.seongsu.name",
+    nameKo: "성수역",
+    linesKey: "stationGuides.seongsu.lines",
+    isWarning: false,
+    confusionKeys: [
+      "stationGuides.seongsu.confusion1",
+      "stationGuides.seongsu.confusion2",
+    ],
+    tipKeys: ["stationGuides.seongsu.tip1", "stationGuides.seongsu.tip2"],
+    emoji: "☕",
   },
   apgujeongWarning: {
     id: "apgujeongWarning",

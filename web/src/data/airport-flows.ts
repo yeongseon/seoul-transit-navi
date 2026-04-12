@@ -1,7 +1,7 @@
 export type Terminal = "t1" | "t2";
 export type AreaId = "myeongdong" | "hongdae" | "gangnam" | "seoulStation" | "dongdaemun";
 export type TimeOfDay = "day" | "evening" | "lateNight";
-export type TransportMode = "arexExpress" | "arexLocal" | "taxi";
+export type TransportMode = "arexExpress" | "arexLocal" | "taxi" | "nightBus";
 export type FlowSegmentId =
   | "arrival"
   | "immigration"
@@ -11,7 +11,8 @@ export type FlowSegmentId =
   | "platform"
   | "transport"
   | "transfer"
-  | "exit";
+  | "exit"
+  | "nightBusStop";
 
 type Translate = (key: string, params?: Record<string, string | number>) => string;
 
@@ -74,6 +75,7 @@ export const FLOW_SEGMENTS: Record<FlowSegmentId, FlowSegmentDefinition> = {
   transport: { id: "transport", icon: "🚆", titleKey: "airport.flowSegments.transport.title" },
   transfer: { id: "transfer", icon: "🔄", titleKey: "airport.flowSegments.transfer.title" },
   exit: { id: "exit", icon: "🚪", titleKey: "airport.flowSegments.exit.title" },
+  nightBusStop: { id: "nightBusStop", icon: "🚌", titleKey: "airport.flowSegments.nightBusStop.title" },
 };
 
 export const TERMINAL_WALKING_MINUTES: Record<Terminal, number> = {
@@ -97,11 +99,13 @@ export const AREA_PROFILES: Record<AreaId, AreaProfile> = {
       arexExpress: "airport.areas.myeongdong.routeNotes.arexExpress",
       arexLocal: "airport.areas.myeongdong.routeNotes.arexLocal",
       taxi: "airport.areas.myeongdong.routeNotes.taxi",
+      nightBus: "airport.areas.myeongdong.routeNotes.nightBus",
     },
     stepMinutes: {
       arexExpress: 58,
       arexLocal: 64,
       taxi: 68,
+      nightBus: 90,
     },
   },
   hongdae: {
@@ -118,11 +122,13 @@ export const AREA_PROFILES: Record<AreaId, AreaProfile> = {
       arexExpress: "airport.areas.hongdae.routeNotes.arexExpress",
       arexLocal: "airport.areas.hongdae.routeNotes.arexLocal",
       taxi: "airport.areas.hongdae.routeNotes.taxi",
+      nightBus: "airport.areas.hongdae.routeNotes.nightBus",
     },
     stepMinutes: {
       arexExpress: 55,
       arexLocal: 46,
       taxi: 62,
+      nightBus: 80,
     },
   },
   gangnam: {
@@ -140,11 +146,13 @@ export const AREA_PROFILES: Record<AreaId, AreaProfile> = {
       arexExpress: "airport.areas.gangnam.routeNotes.arexExpress",
       arexLocal: "airport.areas.gangnam.routeNotes.arexLocal",
       taxi: "airport.areas.gangnam.routeNotes.taxi",
+      nightBus: "airport.areas.gangnam.routeNotes.nightBus",
     },
     stepMinutes: {
       arexExpress: 74,
       arexLocal: 86,
       taxi: 78,
+      nightBus: 85,
     },
   },
   seoulStation: {
@@ -161,11 +169,13 @@ export const AREA_PROFILES: Record<AreaId, AreaProfile> = {
       arexExpress: "airport.areas.seoulStation.routeNotes.arexExpress",
       arexLocal: "airport.areas.seoulStation.routeNotes.arexLocal",
       taxi: "airport.areas.seoulStation.routeNotes.taxi",
+      nightBus: "airport.areas.seoulStation.routeNotes.nightBus",
     },
     stepMinutes: {
       arexExpress: 43,
       arexLocal: 56,
       taxi: 58,
+      nightBus: 90,
     },
   },
   dongdaemun: {
@@ -183,11 +193,13 @@ export const AREA_PROFILES: Record<AreaId, AreaProfile> = {
       arexExpress: "airport.areas.dongdaemun.routeNotes.arexExpress",
       arexLocal: "airport.areas.dongdaemun.routeNotes.arexLocal",
       taxi: "airport.areas.dongdaemun.routeNotes.taxi",
+      nightBus: "airport.areas.dongdaemun.routeNotes.nightBus",
     },
     stepMinutes: {
       arexExpress: 62,
       arexLocal: 70,
       taxi: 72,
+      nightBus: 95,
     },
   },
 };
@@ -250,13 +262,13 @@ export const FLOW_RULES: FlowRule[] = [
     timeOfDay: "lateNight",
     hasLargeLuggage: false,
     preferredModeByArea: {
-      myeongdong: "taxi",
-      hongdae: "taxi",
-      gangnam: "taxi",
-      seoulStation: "taxi",
-      dongdaemun: "taxi",
+      myeongdong: "nightBus",
+      hongdae: "nightBus",
+      gangnam: "nightBus",
+      seoulStation: "nightBus",
+      dongdaemun: "nightBus",
     },
-    recommendationKey: "airport.recommendations.lateNightTaxi",
+    recommendationKey: "airport.recommendations.lateNightBus",
   },
   {
     terminal: "t1",
@@ -328,13 +340,13 @@ export const FLOW_RULES: FlowRule[] = [
     timeOfDay: "lateNight",
     hasLargeLuggage: false,
     preferredModeByArea: {
-      myeongdong: "taxi",
-      hongdae: "taxi",
-      gangnam: "taxi",
-      seoulStation: "taxi",
-      dongdaemun: "taxi",
+      myeongdong: "nightBus",
+      hongdae: "nightBus",
+      gangnam: "nightBus",
+      seoulStation: "nightBus",
+      dongdaemun: "nightBus",
     },
-    recommendationKey: "airport.recommendations.lateNightTaxi",
+    recommendationKey: "airport.recommendations.lateNightBus",
   },
   {
     terminal: "t2",
@@ -383,9 +395,11 @@ export function buildAirportFlow(
 
   const commonSteps: FlowSegmentId[] = mode === "taxi"
     ? ["arrival", "immigration", "baggage", "transport", "exit"]
-    : mode === "arexExpress"
-      ? ["arrival", "immigration", "baggage", "ticket", "platform", "transport"]
-      : ["arrival", "immigration", "baggage", "tmoney", "platform", "transport"];
+    : mode === "nightBus"
+      ? ["arrival", "immigration", "baggage", "nightBusStop", "transport", "exit"]
+      : mode === "arexExpress"
+        ? ["arrival", "immigration", "baggage", "ticket", "platform", "transport"]
+        : ["arrival", "immigration", "baggage", "tmoney", "platform", "transport"];
 
   if (commonSteps.includes("arrival")) {
     steps.push({
@@ -455,17 +469,33 @@ export function buildAirportFlow(
     });
   }
 
+  if (commonSteps.includes("nightBusStop")) {
+    steps.push({
+      id: "nightBusStop",
+      icon: FLOW_SEGMENTS.nightBusStop.icon,
+      title: t(FLOW_SEGMENTS.nightBusStop.titleKey),
+      description: t("airport.flowSegments.nightBusStop.description", {
+        location: t(`airport.locations.${terminal}.nightBusStop`),
+      }),
+      minutes: 5,
+    });
+  }
+
   if (commonSteps.includes("transport")) {
     const transportTitleKey = mode === "taxi"
       ? "airport.flowSegments.transport.taxiTitle"
-      : "airport.flowSegments.transport.trainTitle";
+      : mode === "nightBus"
+        ? "airport.flowSegments.transport.nightBusTitle"
+        : "airport.flowSegments.transport.trainTitle";
     const transportDescriptionKey = mode === "taxi"
       ? "airport.flowSegments.transport.taxiDescription"
-      : "airport.flowSegments.transport.trainDescription";
+      : mode === "nightBus"
+        ? "airport.flowSegments.transport.nightBusDescription"
+        : "airport.flowSegments.transport.trainDescription";
 
     steps.push({
       id: "transport",
-      icon: mode === "taxi" ? "🚕" : FLOW_SEGMENTS.transport.icon,
+      icon: mode === "taxi" ? "🚕" : mode === "nightBus" ? "🚌" : FLOW_SEGMENTS.transport.icon,
       title: t(transportTitleKey),
       description: t(transportDescriptionKey, {
         mode: t(`airport.transportModes.${mode}.label`),

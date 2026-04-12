@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CONTENT_METADATA } from "../../data/content-metadata";
 import { getTranslation } from "../../i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,6 +30,21 @@ export default async function TipsPage() {
         t("tips.tMoney.item3"),
         t("tips.tMoney.item4"),
         t("tips.tMoney.item5"),
+      ],
+    },
+    {
+      key: "climateCard",
+      emoji: "🌏",
+      items: [
+        t("tips.climateCard.comparisonTitle"),
+        t("tips.climateCard.tmoneySummary"),
+        t("tips.climateCard.singleTicketSummary"),
+        t("tips.climateCard.climateCardSummary"),
+        t("tips.climateCard.climateCardPurchase"),
+        t("tips.climateCard.climateCardArexNote"),
+        t("tips.climateCard.recommendation1"),
+        t("tips.climateCard.recommendation2"),
+        t("tips.climateCard.recommendation3"),
       ],
     },
     {
@@ -191,6 +207,26 @@ export default async function TipsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
+        </section>
+
+        <section className="mt-4 rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200">
+          <p className="text-xs font-medium text-slate-500">
+            {t("contentMeta.lastVerified", { date: CONTENT_METADATA.tips.lastVerified })}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            {CONTENT_METADATA.tips.sources.map((source) => (
+              <span key={source.name} className="text-xs text-slate-400">
+                {source.url ? (
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+                    {source.name}
+                  </a>
+                ) : (
+                  source.name
+                )}
+              </span>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-400">{t("contentMeta.disclaimer")}</p>
         </section>
       </div>
     </main>

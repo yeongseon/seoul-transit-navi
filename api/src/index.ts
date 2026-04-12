@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
+import exchangeRateRoutes from "./routes/exchange-rate";
 import placesRoutes from "./routes/places";
 import searchRoutes from "./routes/search";
 import stationRoutes from "./routes/stations";
@@ -37,6 +38,7 @@ app.get("/api/health", (c) => {
   return c.json({ status: "ok" });
 });
 
+app.route("/api/exchange-rate", exchangeRateRoutes);
 app.route("/api/places", placesRoutes);
 app.route("/api/search", searchRoutes);
 app.route("/api/stations", stationRoutes);
