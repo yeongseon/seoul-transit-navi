@@ -1,20 +1,8 @@
 import type { MetadataRoute } from "next";
-import { fetchPlaces } from "../lib/api";
-
-// Force dynamic rendering so fetchPlaces() runs at request time (edge),
-// not during static build where the API may be unreachable.
-export const dynamic = "force-dynamic";
+import { PLACE_IDS } from "../../../shared/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://seoul-transit-navi-web.yeongseon-choe.workers.dev";
-  let places: { id: string }[] = [];
-
-  try {
-    const placesResult = await fetchPlaces(undefined, { next: { revalidate: 3600 } });
-    places = placesResult.map((place) => ({ id: place.id }));
-  } catch (error) {
-    console.warn("Failed to fetch places for sitemap:", error);
-  }
 
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -61,8 +49,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const placePages: MetadataRoute.Sitemap = places.map((place) => ({
-    url: `${baseUrl}/places/${place.id}`,
+  const placePages: MetadataRoute.Sitemap = PLACE_IDS.map((id) => ({
+    url: `${baseUrl}/places/${id}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.6,

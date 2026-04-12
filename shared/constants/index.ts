@@ -154,3 +154,21 @@ const PLACE_CATEGORY_LABELS_KO = {
 export function getPlaceCategoryLabels(locale: "ja" | "ko"): Record<string, string> {
   return locale === "ko" ? { ...PLACE_CATEGORY_LABELS_KO } : { ...PLACE_CATEGORY_LABELS };
 }
+
+export const PLACE_IDS = [
+  "myeongdong",
+  "hongdae",
+  "gyeongbokgung",
+  "bukchon-hanok-village",
+  "n-seoul-tower",
+  "dongdaemun-market",
+  "itaewon",
+  "gangnam",
+  "coex",
+  "yeouido-park",
+  "insadong",
+  "samcheongdong",
+  "apgujeong-rodeo",
+  "jamsil-lotte-world",
+  "war-memorial-of-korea",
+] as const;
