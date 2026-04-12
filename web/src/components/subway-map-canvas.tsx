@@ -8,10 +8,10 @@ type LabelStyle = {
 };
 
 const LABEL_STYLES: Record<SubwayMapStation["labelDirection"], LabelStyle> = {
-  n: { dx: 0, dy: -3.8, textAnchor: "middle" },
-  s: { dx: 0, dy: 5.4, textAnchor: "middle" },
-  e: { dx: 4.2, dy: 0.9, textAnchor: "start" },
-  w: { dx: -4.2, dy: 0.9, textAnchor: "end" },
+  n: { dx: 0, dy: -3.2, textAnchor: "middle" },
+  s: { dx: 0, dy: 3.8, textAnchor: "middle" },
+  e: { dx: 3.0, dy: 0.6, textAnchor: "start" },
+  w: { dx: -3.0, dy: 0.6, textAnchor: "end" },
 };
 
 function getLinePath(line: SubwayMapLine, stationsById: Record<string, SubwayMapStation>): string {
@@ -98,7 +98,7 @@ export function SubwayMapCanvas({
           d={getLinePath(line, stationsById)}
           fill="none"
           stroke={line.color}
-          strokeWidth={3.2}
+          strokeWidth={2.4}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -112,11 +112,10 @@ export function SubwayMapCanvas({
 
         const primaryColor = station.stationNumbers?.[0]?.color || LINES[station.lines[0]]?.color || "#334155";
         const strokeColor = isSelected ? "#0f172a" : station.isTransfer ? "#334155" : primaryColor;
-        const badges = station.stationNumbers || [];
 
         if (station.isTransfer) {
-          const nameWidth = Math.min(40, locale === "ko" ? stationName.length * 2.4 + 4 : stationName.length * 2.8 + 4);
-          const rectHeight = 5;
+          const nameWidth = Math.min(28, locale === "ko" ? stationName.length * 1.7 + 3 : stationName.length * 2.0 + 3);
+          const rectHeight = 3.4;
           const textX = station.x + labelStyle.dx;
           const textY = station.y + labelStyle.dy;
 
@@ -124,52 +123,16 @@ export function SubwayMapCanvas({
           if (labelStyle.textAnchor === "middle") {
             rectX = textX - nameWidth / 2;
           } else if (labelStyle.textAnchor === "start") {
-            rectX = textX - 2;
+            rectX = textX - 1.2;
           } else if (labelStyle.textAnchor === "end") {
-            rectX = textX - nameWidth + 2;
+            rectX = textX - nameWidth + 1.2;
           }
-          const rectY = textY - rectHeight / 2 - 0.2;
-
-          let badgesX = textX;
-          let badgesY = textY;
-          if (station.labelDirection === "n") {
-            badgesY -= 5.5;
-          } else if (station.labelDirection === "s") {
-            badgesY += 5.5;
-          } else if (station.labelDirection === "e") {
-            badgesY -= 5.5;
-            badgesX += nameWidth / 2 - 2;
-          } else if (station.labelDirection === "w") {
-            badgesY -= 5.5;
-            badgesX -= nameWidth / 2 - 2;
-          }
+          const rectY = textY - rectHeight / 2 - 0.1;
 
           return (
             <g key={station.id}>
-              {badges.length > 0 && (
-                <g>
-                  {badges.map((badge, i) => {
-                    const localDx = (i - (badges.length - 1) / 2) * 7.0;
-                    return (
-                      <g key={badge.lineId} transform={`translate(${badgesX + localDx}, ${badgesY})`}>
-                        <circle r={3.2} fill="#ffffff" stroke={badge.color} strokeWidth={1.5} />
-                        <text
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          fontSize="1.8"
-                          fontWeight={700}
-                          fill={badge.color}
-                        >
-                          {badge.code}
-                        </text>
-                      </g>
-                    );
-                  })}
-                </g>
-              )}
-
-              <circle cx={station.x} cy={station.y} r={3.5} fill="#ffffff" stroke="#0f172a" strokeWidth={1.2} />
-              <circle cx={station.x} cy={station.y} r={1.5} fill="#0f172a" />
+              <circle cx={station.x} cy={station.y} r={2.4} fill="#ffffff" stroke="#0f172a" strokeWidth={0.9} />
+              <circle cx={station.x} cy={station.y} r={1.0} fill={isSelected ? "#0f172a" : "#475569"} />
 
               <a
                 href={`#${station.id}`}
@@ -179,14 +142,14 @@ export function SubwayMapCanvas({
                   onSelectStation(station.id);
                 }}
               >
-                <circle cx={station.x} cy={station.y} r={6} fill="transparent" />
-                <rect x={rectX} y={rectY} width={nameWidth} height={rectHeight} rx={2} ry={2} fill="#0f172a" />
+                <circle cx={station.x} cy={station.y} r={4.5} fill="transparent" />
+                <rect x={rectX} y={rectY} width={nameWidth} height={rectHeight} rx={1.5} ry={1.5} fill="#0f172a" />
                 <text
                   x={textX}
                   y={textY}
                   textAnchor={labelStyle.textAnchor}
                   dominantBaseline="central"
-                  fontSize="2.2"
+                  fontSize="1.6"
                   fontWeight={700}
                   fill="#ffffff"
                   className="select-none"
@@ -198,36 +161,15 @@ export function SubwayMapCanvas({
           );
         }
 
-        let badgeDx = labelStyle.dx;
-        let badgeDy = labelStyle.dy;
-        let textDx = labelStyle.dx;
-        let textDy = labelStyle.dy;
-
-        if (station.labelDirection === "n") {
-          badgeDy = -3.8;
-          textDy = -7.5;
-        } else if (station.labelDirection === "s") {
-          badgeDy = 5.0;
-          textDy = 8.5;
-        } else if (station.labelDirection === "e") {
-          badgeDx = 3.5;
-          textDx = 7.5;
-        } else if (station.labelDirection === "w") {
-          badgeDx = -3.5;
-          textDx = -7.5;
-        }
-
-        const badge = badges[0];
-
         return (
           <g key={station.id}>
             <circle
               cx={station.x}
               cy={station.y}
-              r={showStationDetails ? 1.8 : 1.2}
+              r={showStationDetails ? 1.4 : 0.9}
               fill="#ffffff"
               stroke={strokeColor}
-              strokeWidth={showStationDetails ? 0.8 : 0.7}
+              strokeWidth={showStationDetails ? 0.6 : 0.5}
             />
 
             <a
@@ -237,33 +179,18 @@ export function SubwayMapCanvas({
                 event.preventDefault();
                 onSelectStation(station.id);
               }}
-              >
-                <circle cx={station.x} cy={station.y} r={4.8} fill="transparent" />
+            >
+              <circle cx={station.x} cy={station.y} r={3.6} fill="transparent" />
 
               <g style={{ opacity: showStationDetails ? 1 : 0, transition: "opacity 180ms ease" }}>
-                {badge && (
-                  <g transform={`translate(${station.x + badgeDx}, ${station.y + badgeDy})`}>
-                    <circle r={2.5} fill="#ffffff" stroke={badge.color} strokeWidth={1.2} />
-                    <text
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      fontSize="1.4"
-                      fontWeight={700}
-                      fill={badge.color}
-                    >
-                      {badge.code}
-                    </text>
-                  </g>
-                )}
-
                 <text
-                  x={station.x + textDx}
-                  y={station.y + textDy}
+                  x={station.x + labelStyle.dx}
+                  y={station.y + labelStyle.dy}
                   textAnchor={labelStyle.textAnchor}
                   dominantBaseline="central"
-                  fontSize="1.6"
-                  fontWeight={400}
-                  fill="#475569"
+                  fontSize="1.4"
+                  fontWeight={500}
+                  fill="#334155"
                   className="select-none"
                 >
                   {stationName}
