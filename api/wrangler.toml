@@ -5,11 +5,9 @@ compatibility_date = "2024-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "seoul-transit"
-database_id = "placeholder-id"
-preview_database_id = "placeholder-id"
+database_id = "7af4499c-86b1-4994-9e39-8bf3409833d4"
 migrations_dir = "drizzle"
 
 [[kv_namespaces]]
 binding = "STATION_CACHE"
-id = "placeholder-id"
-preview_id = "placeholder-id"
+id = "3e29588036b04fc7bdf1132a5c389dbc"
