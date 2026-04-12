@@ -74,7 +74,7 @@ export default async function PlaceDetailPage({
         "latitude": place.lat,
         "longitude": place.lng
       },
-      "url": `https://seoul-transit-navi.pages.dev/places/${place.id}`
+      "url": `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://seoul-transit-navi-web.yeongseon-choe.workers.dev"}/places/${place.id}`
     };
 
     return (

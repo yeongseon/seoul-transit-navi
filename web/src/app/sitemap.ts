@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
 import { fetchPlaces } from "../lib/api";
 
+// Force dynamic rendering so fetchPlaces() runs at request time (edge),
+// not during static build where the API may be unreachable.
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://seoul-transit-navi.pages.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://seoul-transit-navi-web.yeongseon-choe.workers.dev";
   let places: { id: string }[] = [];
 
   try {
