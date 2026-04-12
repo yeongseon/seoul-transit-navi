@@ -67,7 +67,9 @@ export function generateRouteExplanation(steps: RouteStep[], lines: Map<string, 
     const durationMin = step.durationMin ?? 0;
 
     if (step.mode === "transfer") {
-      return `${lineName}に乗り換えます（徒歩約${durationMin}分）`;
+      const walkSuffix = durationMin > 0 ? `（徒歩約${durationMin}分）` : "";
+
+      return `${lineName}に乗り換えます${walkSuffix}`;
     }
 
     if (step.mode === "walk") {

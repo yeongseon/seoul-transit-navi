@@ -110,7 +110,7 @@ routes.post("/api/routes/search", async (c) => {
   try {
     body = (await c.req.json()) as SearchBody;
   } catch (err) {
-    console.warn("Invalid JSON body:", err);
+    console.warn("invalid_json_body", { error: String(err) });
     return errorResponse(c, "INVALID_JSON", "リクエスト形式が正しくありません", 400);
   }
 
@@ -173,7 +173,7 @@ routes.post("/api/routes/search", async (c) => {
       return errorResponse(c, error.code, error.message, toErrorStatus(error.status));
     }
 
-    console.warn("Route search failed:", error);
+    console.warn("route_search_failed", { fromStationId, toStationId, error: String(error) });
     return errorResponse(c, "ROUTE_SEARCH_FAILED", "経路検索に失敗しました", 502);
   }
 });
@@ -195,7 +195,7 @@ routes.get("/api/routes/:routeId", async (c) => {
   try {
     parsedRoute = JSON.parse(cachedRoute) as RouteResult;
   } catch {
-    console.warn("Corrupted KV cache entry for route:", routeId);
+    console.warn("corrupted_kv_cache", { routeId, error: "JSON.parse_failed" });
     await c.env.STATION_CACHE.delete(`route:${routeId}`);
     return errorResponse(c, "ROUTE_NOT_FOUND", "共有ルートが見つかりません", 404);
   }

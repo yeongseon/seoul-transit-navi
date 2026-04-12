@@ -2,6 +2,19 @@
 
 > **MVP Scope Notice**: 현재 MVP는 **지하철 전용**으로 구현되었습니다. 버스, 공항철도, 출구 상세 안내 등은 향후 확장 예정입니다. 아래 문서는 전체 제품 비전을 포함하며, MVP에서 구현된 범위는 지하철 1~9호선 (111개 역)의 경로 검색, 일본어 역명 검색, 관광지 안내입니다.
 
+## Current MVP Implementation
+- Seoul subway lines 1-9 (~111 stations)
+- Japanese/Korean bilingual UI
+- Route search via ODsay API + graph fallback
+- 15 curated tourist destinations
+- Station search with multilingual aliases
+- Shareable route URLs (90-day TTL)
+- Airport-to-hotel guide
+- Area guides (4 districts)
+- Station guides (confusing stations)
+- Transit tips page
+- Subway map visualization
+
 ## 1. 프로젝트 개요
 
 ### 1.1 서비스명
@@ -114,6 +127,9 @@
 10. 일본어 중심 UI (한국어 로케일 지원 포함)
 
 ### 6.2 MVP 제외 기능
+
+> **Status: Future** — Not yet implemented in MVP.
+
 1. 사용자 로그인
 2. 결제 기능
 3. 커뮤니티 리뷰
@@ -227,6 +243,8 @@
 
 ## 7.5 출구 정보
 
+> **Status: Future** — 출구별 상세 안내(도보 시간, 주의사항)는 미구현. 현재는 최인접 역의 출구 번호만 제공합니다.
+
 ### 요구사항
 - 목적지 기준 추천 출구 제공
 - 출구에서 목적지까지 도보 시간 제공
@@ -304,6 +322,9 @@
 7. Error / Empty State
 
 ### 향후 화면
+
+> **Status: Future** — Not yet implemented in MVP.
+
 8. Bookmark
 9. Recent Trips
 10. Install App Guide (PWA)
@@ -635,6 +656,8 @@
 
 ## 20. PWA / 앱 확장 전략
 
+> **Status: Future** — Not yet implemented in MVP.
+
 ### 20.1 초기
 - 모바일 웹
 - 홈 화면 추가 유도
@@ -753,6 +776,8 @@ seoul-traffic-navi/
 ---
 
 ## 25. 분석 및 지표
+
+> **Status: Future** — Not yet implemented in MVP.
 
 ### 25.1 핵심 KPI
 - 검색 시작 수
