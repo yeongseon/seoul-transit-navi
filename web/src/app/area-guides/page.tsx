@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getAreaGuideText } from "../../data/guide-content-helper";
 import { AREA_GUIDE_IDS, AREA_GUIDES } from "../../data/area-guides";
 import { getTranslation } from "../../i18n/server";
 
@@ -25,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AreaGuidesPage() {
-  const { t } = await getTranslation();
+  const { t, locale } = await getTranslation();
 
   return (
     <main className="pb-safe min-h-screen bg-neutral-50 p-4 pb-20 pt-8 sm:p-8">
@@ -52,7 +53,12 @@ export default async function AreaGuidesPage() {
         <div className="grid grid-cols-2 gap-4">
           {AREA_GUIDE_IDS.map((areaId) => {
             const guide = AREA_GUIDES[areaId];
+            const content = getAreaGuideText(areaId, locale);
             const accentClass = AREA_CARD_ACCENTS[guide.color as keyof typeof AREA_CARD_ACCENTS];
+
+            if (!content) {
+              return null;
+            }
 
             return (
               <section
@@ -62,8 +68,8 @@ export default async function AreaGuidesPage() {
                 <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-2xl ring-1 ring-slate-200 ${accentClass}`}>
                   <span aria-hidden="true">{guide.emoji}</span>
                 </div>
-                <h2 className="mt-4 text-lg font-bold text-slate-900 sm:text-xl">{t(guide.nameKey)}</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{t(guide.taglineKey)}</p>
+                <h2 className="mt-4 text-lg font-bold text-slate-900 sm:text-xl">{content.name}</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{content.tagline}</p>
                 <Link
                   href={`/area-guides/${guide.id}`}
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition-colors hover:text-slate-700"

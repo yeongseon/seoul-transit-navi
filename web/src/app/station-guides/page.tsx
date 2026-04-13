@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getStationGuideText } from "../../data/guide-content-helper";
 import { STATION_GUIDES, STATION_GUIDE_IDS } from "../../data/station-guides";
 import { getTranslation } from "../../i18n/server";
 
@@ -18,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function StationGuidesPage() {
-  const { t } = await getTranslation();
+  const { t, locale } = await getTranslation();
   const stationGuides = STATION_GUIDE_IDS.map((id) => STATION_GUIDES[id]);
 
   return (
@@ -50,7 +51,13 @@ export default async function StationGuidesPage() {
 
         <div className="space-y-4">
           {stationGuides.map((guide) => {
-            const name = t(guide.nameKey);
+            const content = getStationGuideText(guide.id, locale);
+
+            if (!content) {
+              return null;
+            }
+
+            const name = content.name;
 
             if (guide.isWarning) {
               return (
@@ -78,8 +85,8 @@ export default async function StationGuidesPage() {
                       </svg>
                     </Link>
                   </div>
-                  <p className="mt-4 text-sm leading-6 text-amber-950">{guide.warningKey ? t(guide.warningKey) : ""}</p>
-                  <p className="mt-2 text-sm leading-6 text-amber-800">{guide.detailKey ? t(guide.detailKey) : ""}</p>
+                  <p className="mt-4 text-sm leading-6 text-amber-950">{content.warning ?? ""}</p>
+                  <p className="mt-2 text-sm leading-6 text-amber-800">{content.detail ?? ""}</p>
                 </section>
               );
             }
@@ -94,10 +101,10 @@ export default async function StationGuidesPage() {
                     <div className="mt-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
                       <span>{t("stationGuides.lines")}</span>
                       <span className="mx-2 text-slate-300">•</span>
-                      <span>{t(guide.linesKey)}</span>
+                      <span>{content.lines}</span>
                     </div>
                     <p className="mt-4 text-sm leading-6 text-slate-600">
-                      {guide.confusionKeys?.[0] ? t(guide.confusionKeys[0]) : ""}
+                      {content.confusionPoints[0] ?? ""}
                     </p>
                   </div>
 

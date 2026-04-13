@@ -20,12 +20,24 @@ export const CONTENT_METADATA: Record<string, ContentMetadata> = {
       { name: "ソウル市深夜バス案内" },
     ],
   },
+  faq: {
+    lastVerified: "2025-06-28",
+    sources: [
+      { name: "ソウル交通公社", url: "https://www.seoulmetro.co.kr" },
+      { name: "T-money公式サイト", url: "https://www.t-money.co.kr" },
+      { name: "ソウル市観光財団", url: "https://korean.visitseoul.net" },
+    ],
+  },
+  subwayMap: {
+    lastVerified: "2025-06-28",
+    sources: [{ name: "ソウル交通公社 (Seoul Metro)", url: "https://www.seoulmetro.co.kr" }],
+  },
   stationGuides: {
     lastVerified: "2025-06-28",
-    sources: [{ name: "ソウル交通公社 (Seoul Metro)" }],
+    sources: [{ name: "ソウル交通公社 (Seoul Metro)", url: "https://www.seoulmetro.co.kr" }],
   },
   areaGuides: {
     lastVerified: "2025-06-28",
-    sources: [{ name: "ソウル観光財団 (Visit Seoul)" }],
+    sources: [{ name: "ソウル観光財団 (Visit Seoul)", url: "https://korean.visitseoul.net" }],
   },
 };
