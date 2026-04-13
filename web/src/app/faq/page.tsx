@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CONTENT_METADATA } from "../../data/content-metadata";
 import { getTranslation } from "../../i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -84,7 +85,7 @@ export default async function FAQPage() {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <title>toggle</title>
+                  <title>{t("faq.toggleIcon")}</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -99,6 +100,26 @@ export default async function FAQPage() {
             </details>
           ))}
         </div>
+
+        <section className="mt-4 rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200">
+          <p className="text-xs font-medium text-slate-500">
+            {t("contentMeta.lastVerified", { date: CONTENT_METADATA.faq.lastVerified })}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            {CONTENT_METADATA.faq.sources.map((source) => (
+              <span key={source.name} className="text-xs text-slate-400">
+                {source.url ? (
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+                    {source.name}
+                  </a>
+                ) : (
+                  source.name
+                )}
+              </span>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-400">{t("contentMeta.disclaimer")}</p>
+        </section>
       </div>
     </main>
   );
